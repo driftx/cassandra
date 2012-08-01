@@ -17,6 +17,8 @@
  */
 package org.apache.cassandra.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -29,6 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
+import static com.google.common.base.Charsets.ISO_8859_1;
 import com.google.common.collect.*;
 import org.apache.log4j.Level;
 import org.apache.commons.lang.StringUtils;
@@ -107,6 +110,8 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
 
     public VersionedValue.VersionedValueFactory valueFactory = new VersionedValue.VersionedValueFactory(getPartitioner());
 
+    public TokenSerializer tokenSerializer = new TokenSerializer(getPartitioner());
+
     public static final StorageService instance = new StorageService();
 
     public static IPartitioner getPartitioner()
@@ -174,8 +179,8 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
             logger.debug("Setting tokens to {}", tokens);
         SystemTable.updateTokens(tokens);
         tokenMetadata.updateNormalTokens(tokens, FBUtilities.getBroadcastAddress());
-        Gossiper.instance.addLocalApplicationState(ApplicationState.STATUS,
-                                                   valueFactory.normal(getLocalTokens(), SystemTable.getLocalHostId()));
+        Gossiper.instance.addLocalApplicationState(ApplicationState.TOKENS, valueFactory.tokens(getLocalTokens()));
+        Gossiper.instance.addLocalApplicationState(ApplicationState.STATUS, valueFactory.normal(getLocalTokens()));
         setMode(Mode.NORMAL, false);
     }
 
@@ -496,6 +501,7 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
         Gossiper.instance.start(SystemTable.incrementAndGetGeneration()); // needed for node-ring gathering.
         // gossip network proto version
         Gossiper.instance.addLocalApplicationState(ApplicationState.NET_VERSION, valueFactory.networkVersion());
+        Gossiper.instance.addLocalApplicationState(ApplicationState.HOST_ID, valueFactory.hostId(SystemTable.getLocalHostId()));
         // gossip schema version when gossiper is running
         Schema.instance.updateVersionAndAnnounce();
         // add rpc listening info
@@ -805,7 +811,8 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
         {
             // if not an existing token then bootstrap
             Gossiper.instance.addLocalApplicationState(ApplicationState.STATUS,
-                                                       valueFactory.bootstrapping(tokens, SystemTable.getLocalHostId()));
+                                                       valueFactory.bootstrapping(tokens));
+            Gossiper.instance.addLocalApplicationState(ApplicationState.TOKENS, valueFactory.tokens(tokens));
             setMode(Mode.JOINING, "sleeping " + RING_DELAY + " ms for pending range setup", true);
             try
             {
@@ -1106,18 +1113,38 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
     }
 
     /**
-     * Checks MS for the version, provided MS _really_ knows it (has directly communicated with the node) otherwise falls back to checking the gossipped version (learned about this node indirectly)
-     * If both fail, the node is too old to use hostid-style status serialization
+     * Checks if the host uses HOST_ID style indentification
      * @param endpoint
      * @return boolean whether or not to use hostid
      */
     private boolean usesHostId(InetAddress endpoint)
     {
-        if (MessagingService.instance().knowsVersion(endpoint) && MessagingService.instance().getVersion(endpoint) >= MessagingService.VERSION_12)
-            return true;
-        else  if (Gossiper.instance.getEndpointStateForEndpoint(endpoint).getApplicationState(ApplicationState.NET_VERSION) != null && Integer.valueOf(Gossiper.instance.getEndpointStateForEndpoint(endpoint).getApplicationState(ApplicationState.NET_VERSION).value) >= MessagingService.VERSION_12)
-                return true;
-        return false;
+        return Gossiper.instance.getEndpointStateForEndpoint(endpoint).getApplicationState(ApplicationState.HOST_ID) != null;
+    }
+
+    private byte[] getApplicationStateValue(InetAddress endpoint, ApplicationState appstate)
+    {
+        String vvalue = Gossiper.instance.getEndpointStateForEndpoint(endpoint).getApplicationState(appstate).value;
+        return vvalue.getBytes(ISO_8859_1);
+    }
+
+    private UUID getHostId(InetAddress endpoint)
+    {
+        return UUID.fromString(new String(getApplicationStateValue(endpoint, ApplicationState.HOST_ID)));
+    }
+
+    private Collection<Token> getTokensFor(InetAddress endpoint)
+    {
+        if (!usesHostId(endpoint))
+            throw new RuntimeException("Host {} does not use new-style tokens!");
+        try
+        {
+            return tokenSerializer.deserialize(new DataInputStream(new ByteArrayInputStream(getApplicationStateValue(endpoint, ApplicationState.TOKENS))));
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -1132,18 +1159,12 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
 
         // Parse versioned values according to end-point version:
         //   versions  < 1.2 .....: STATUS,TOKEN
-        //   versions >= 1.2 .....: STATUS,HOST_ID,TOKEN,TOKEN,...
-        int tokenPos;
+        //   versions >= 1.2 .....: use TOKENS app state
+        Collection<Token> tokens;
         if (usesHostId(endpoint))
-        {
-            assert pieces.length >= 3;
-            tokenPos = 2;
-        }
-            else tokenPos = 1;
-
-        Collection<Token> tokens = new ArrayList<Token>();
-        for (int i = tokenPos; i < pieces.length; ++i)
-            tokens.add(getPartitioner().getTokenFactory().fromString(pieces[i]));
+            tokens = getTokensFor(endpoint);
+        else
+            tokens = Arrays.asList(getPartitioner().getTokenFactory().fromString(pieces[1]));
 
         if (logger.isDebugEnabled())
             logger.debug("Node " + endpoint + " state bootstrapping, token " + tokens);
@@ -1167,7 +1188,7 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
         calculatePendingRanges();
 
         if (usesHostId(endpoint))
-            tokenMetadata.updateHostId(UUID.fromString(pieces[1]), endpoint);
+            tokenMetadata.updateHostId(getHostId(endpoint), endpoint);
     }
 
     /**
@@ -1183,20 +1204,14 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
 
         // Parse versioned values according to end-point version:
         //   versions  < 1.2 .....: STATUS,TOKEN
-        //   versions >= 1.2 .....: STATUS,HOST_ID,TOKEN,TOKEN,...
-        int tokensPos;
-        if (usesHostId(endpoint))
-        {
-            assert pieces.length >= 3;
-            tokensPos = 2;
-        }
-        else
-            tokensPos = 1;
-        logger.debug("Using token position {} for {}", tokensPos, endpoint);
+        //   versions >= 1.2 .....: uses HOST_ID/TOKENS app states
 
-        Collection<Token> tokens = new ArrayList<Token>();
-        for (int i = tokensPos; i < pieces.length; ++i)
-            tokens.add(getPartitioner().getTokenFactory().fromString(pieces[i]));
+        Collection<Token> tokens;
+
+        if (usesHostId(endpoint))
+            tokens = getTokensFor(endpoint);
+        else
+            tokens = Arrays.asList(getPartitioner().getTokenFactory().fromString(pieces[1]));
 
         if (logger.isDebugEnabled())
             logger.debug("Node " + endpoint + " state normal, token " + tokens);
@@ -1206,7 +1221,7 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
 
         // Order Matters, TM.updateHostID() should be called before TM.updateNormalToken(), (see CASSANDRA-4300).
         if (usesHostId(endpoint))
-            tokenMetadata.updateHostId(UUID.fromString(pieces[1]), endpoint);
+            tokenMetadata.updateHostId(getHostId(endpoint), endpoint);
 
         Set<Token> tokensToUpdateInMetadata = new HashSet<Token>();
         Set<Token> tokensToUpdateInSystemTable = new HashSet<Token>();
@@ -1278,9 +1293,11 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
     private void handleStateLeaving(InetAddress endpoint, String[] pieces)
     {
         assert pieces.length >= 2;
-        Collection<Token> tokens = new ArrayList<Token>();
-        for (int i = 1; i < pieces.length; ++i)
-            tokens.add(getPartitioner().getTokenFactory().fromString(pieces[i]));
+        Collection<Token> tokens;
+        if (usesHostId(endpoint))
+            tokens = getTokensFor(endpoint);
+        else
+            tokens =  Arrays.asList(getPartitioner().getTokenFactory().fromString(pieces[1]));
 
         if (logger.isDebugEnabled())
             logger.debug("Node " + endpoint + " state leaving, tokens " + tokens);
@@ -1314,16 +1331,12 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
     private void handleStateLeft(InetAddress endpoint, String[] pieces)
     {
         assert pieces.length >= 2;
-        Collection<Token> tokens = null;
+        Collection<Token> tokens;
         Integer version = MessagingService.instance().getVersion(endpoint);
-        if (version < MessagingService.VERSION_12)
+        if (!usesHostId(endpoint))
             tokens = Arrays.asList(getPartitioner().getTokenFactory().fromString(pieces[1]));
         else
-        {
-            tokens = new ArrayList<Token>(pieces.length - 2);
-            for (int i = 2; i < pieces.length; ++i)
-                tokens.add(getPartitioner().getTokenFactory().fromString(pieces[i]));
-        }
+            tokens = getTokensFor(endpoint);
 
         if (logger.isDebugEnabled())
             logger.debug("Node " + endpoint + " state left, tokens " + tokens);

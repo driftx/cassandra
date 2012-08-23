@@ -110,7 +110,7 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
 
     public VersionedValue.VersionedValueFactory valueFactory = new VersionedValue.VersionedValueFactory(getPartitioner());
 
-    public TokenSerializer tokenSerializer = new TokenSerializer(getPartitioner());
+    public TokenSerializer tokenSerializer = new TokenSerializer();
 
     public static final StorageService instance = new StorageService();
 
@@ -1139,7 +1139,7 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
             throw new RuntimeException("Host {} does not use new-style tokens!");
         try
         {
-            return tokenSerializer.deserialize(new DataInputStream(new ByteArrayInputStream(getApplicationStateValue(endpoint, ApplicationState.TOKENS))));
+            return tokenSerializer.deserialize(getPartitioner(), new DataInputStream(new ByteArrayInputStream(getApplicationStateValue(endpoint, ApplicationState.TOKENS))));
         }
         catch (IOException e)
         {

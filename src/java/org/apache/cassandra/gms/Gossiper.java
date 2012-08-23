@@ -1073,7 +1073,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
     /**
      * This should *only* be used for testing purposes.
      */
-    public void initializeNodeUnsafe(InetAddress addr, int generationNbr) {
+    public void initializeNodeUnsafe(InetAddress addr, UUID uuid, int generationNbr) {
         /* initialize the heartbeat state for this localEndpoint */
         EndpointState localState = endpointStateMap.get(addr);
         if ( localState == null )
@@ -1085,6 +1085,16 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
         }
         // always add the version state
         localState.addApplicationState(ApplicationState.NET_VERSION, StorageService.instance.valueFactory.networkVersion());
+        localState.addApplicationState(ApplicationState.HOST_ID, StorageService.instance.valueFactory.hostId(uuid));
+    }
+
+    /**
+     * This should *only* be used for testing purposes
+     */
+    public void injectApplicationState(InetAddress endpoint, ApplicationState state, VersionedValue value)
+    {
+        EndpointState localState = endpointStateMap.get(endpoint);
+        localState.addApplicationState(state, value);
     }
 
     public long getEndpointDowntime(String address) throws UnknownHostException

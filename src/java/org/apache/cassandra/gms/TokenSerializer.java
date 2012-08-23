@@ -30,18 +30,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 
-public class TokenSerializer implements ISerializer<Collection<Token>>
+public class TokenSerializer
 {
-
     private static final Logger logger = LoggerFactory.getLogger(TokenSerializer.class);
-    private final IPartitioner partitioner;
 
-    public TokenSerializer(IPartitioner partitioner)
-    {
-        this.partitioner = partitioner;
-    }
-
-    public void serialize(Collection<Token> tokens, DataOutput dos) throws IOException
+    public void serialize(IPartitioner partitioner, Collection<Token> tokens, DataOutput dos) throws IOException
     {
         for (Token<?> token : tokens)
         {
@@ -52,7 +45,7 @@ public class TokenSerializer implements ISerializer<Collection<Token>>
         dos.writeInt(0);
     }
 
-    public Collection<Token> deserialize(DataInput dis) throws IOException
+    public Collection<Token> deserialize(IPartitioner partitioner, DataInput dis) throws IOException
     {
         Collection<Token> tokens = new ArrayList<Token>();
         while (true)

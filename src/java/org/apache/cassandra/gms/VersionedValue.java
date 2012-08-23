@@ -169,7 +169,7 @@ public class VersionedValue implements Comparable<VersionedValue>
             DataOutputStream dos = new DataOutputStream(bos);
             try
             {
-                new TokenSerializer(partitioner).serialize(tokens, dos);
+                new TokenSerializer().serialize(partitioner, tokens, dos);
             }
             catch (IOException e)
             {

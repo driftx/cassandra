@@ -26,6 +26,7 @@ import java.util.concurrent.*;
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
+import org.apache.cassandra.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1046,6 +1047,22 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
         assert epState != null;
         epState.addApplicationState(state, value);
         doNotifications(FBUtilities.getBroadcastAddress(), state, value);
+    }
+
+    /**
+     * Add multiple ApplicationState/VersionedValue pairs atomically
+     * @param statepairs
+     */
+    public synchronized void addLocalApplicationStates(List<Pair<ApplicationState, VersionedValue>> statepairs)
+    {
+       for (Pair<ApplicationState, VersionedValue> pair : statepairs)
+       {
+            EndpointState epState = endpointStateMap.get(FBUtilities.getBroadcastAddress());
+            assert epState != null;
+            epState.addApplicationState(pair.left, pair.right);
+       }
+        for (Pair<ApplicationState, VersionedValue> pair : statepairs)
+            doNotifications(FBUtilities.getBroadcastAddress(), pair.left, pair.right);
     }
 
     public void stop()

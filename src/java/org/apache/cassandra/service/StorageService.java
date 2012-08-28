@@ -179,8 +179,10 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
             logger.debug("Setting tokens to {}", tokens);
         SystemTable.updateTokens(tokens);
         tokenMetadata.updateNormalTokens(tokens, FBUtilities.getBroadcastAddress());
-        Gossiper.instance.addLocalApplicationState(ApplicationState.TOKENS, valueFactory.tokens(getLocalTokens()));
-        Gossiper.instance.addLocalApplicationState(ApplicationState.STATUS, valueFactory.normal(getLocalTokens()));
+        ArrayList<Pair<ApplicationState, VersionedValue>> states = new ArrayList<Pair<ApplicationState, VersionedValue>>();
+        states.add(new Pair<ApplicationState, VersionedValue>(ApplicationState.TOKENS, valueFactory.tokens(getLocalTokens())));
+        states.add(new Pair<ApplicationState, VersionedValue>(ApplicationState.STATUS, valueFactory.normal(getLocalTokens())));
+        Gossiper.instance.addLocalApplicationStates(states);
         setMode(Mode.NORMAL, false);
     }
 
@@ -810,9 +812,10 @@ public class StorageService implements IEndpointStateChangeSubscriber, StorageSe
         if (0 == DatabaseDescriptor.getReplaceTokens().size())
         {
             // if not an existing token then bootstrap
-            Gossiper.instance.addLocalApplicationState(ApplicationState.STATUS,
-                                                       valueFactory.bootstrapping(tokens));
-            Gossiper.instance.addLocalApplicationState(ApplicationState.TOKENS, valueFactory.tokens(tokens));
+            ArrayList<Pair<ApplicationState, VersionedValue>> states = new ArrayList<Pair<ApplicationState, VersionedValue>>();
+            states.add(new Pair<ApplicationState, VersionedValue>(ApplicationState.TOKENS, valueFactory.tokens(tokens)));
+            states.add(new Pair<ApplicationState, VersionedValue>(ApplicationState.STATUS, valueFactory.bootstrapping(tokens)));
+            Gossiper.instance.addLocalApplicationStates(states);
             setMode(Mode.JOINING, "sleeping " + RING_DELAY + " ms for pending range setup", true);
             try
             {

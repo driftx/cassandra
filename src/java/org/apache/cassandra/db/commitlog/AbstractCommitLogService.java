@@ -33,6 +33,7 @@ public abstract class AbstractCommitLogService
 
     private final Thread thread;
     private volatile boolean shutdown = false;
+    private volatile boolean forceSync = false;
 
     // all Allocations written before this time will be synced
     protected volatile long lastSyncedAt = System.currentTimeMillis();
@@ -43,8 +44,7 @@ public abstract class AbstractCommitLogService
 
     // signal that writers can wait on to be notified of a completed sync
     protected final WaitQueue syncComplete = new WaitQueue();
-    private final Semaphore haveWork = new Semaphore(1);
-
+ 
     private static final Logger logger = LoggerFactory.getLogger(AbstractCommitLogService.class);
 
     /**
@@ -113,10 +113,14 @@ public abstract class AbstractCommitLogService
 
                         try
                         {
-                            haveWork.tryAcquire(sleep, TimeUnit.MILLISECONDS);
+                            synchronized(this) {
+                                if(!forceSync) {
+                                    wait(sleep);
+                                    forceSync = false;
+                                 }
+                            }
                         }
-                        catch (InterruptedException e)
-                        {
+                        catch (InterruptedException e) {
                             throw new AssertionError();
                         }
                     }
@@ -128,10 +132,14 @@ public abstract class AbstractCommitLogService
                         // sleep for full poll-interval after an error, so we don't spam the log file
                         try
                         {
-                            haveWork.tryAcquire(pollIntervalMillis, TimeUnit.MILLISECONDS);
+                            synchronized(this) {
+                                if(!forceSync) {
+                                    wait(pollIntervalMillis);
+                                    forceSync = false;
+                                }
+                            }
                         }
-                        catch (InterruptedException e)
-                        {
+                        catch (InterruptedException e) {
                             throw new AssertionError();
                         }
                     }
@@ -160,14 +168,17 @@ public abstract class AbstractCommitLogService
     public WaitQueue.Signal requestExtraSync()
     {
         WaitQueue.Signal signal = syncComplete.register();
-        haveWork.release(1);
+        synchronized(this) {
+            forceSync = true;
+            notify();
+        }
         return signal;
     }
 
     public void shutdown()
     {
         shutdown = true;
-        haveWork.release(1);
+        notify();
     }
 
     public void awaitTermination() throws InterruptedException

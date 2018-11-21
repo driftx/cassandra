@@ -496,7 +496,10 @@ public final class MessagingService implements MessagingServiceMBean
     public void convict(InetAddress ep)
     {
         logger.trace("Resetting pool for {}", ep);
-        getConnectionPool(ep).reset();
+        // if pool is already destroyed, no need to recreate.
+        OutboundTcpConnectionPool pool = getConnectionPool(ep, false);
+        if (pool != null)
+            pool.reset();
     }
 
     public void listen()
@@ -622,8 +625,13 @@ public final class MessagingService implements MessagingServiceMBean
 
     public OutboundTcpConnectionPool getConnectionPool(InetAddress to)
     {
+        return getConnectionPool(to, true);
+    }
+
+    public OutboundTcpConnectionPool getConnectionPool(InetAddress to, boolean createIfNotExists)
+    {
         OutboundTcpConnectionPool cp = connectionManagers.get(to);
-        if (cp == null)
+        if (cp == null && createIfNotExists)
         {
             cp = new OutboundTcpConnectionPool(to);
             OutboundTcpConnectionPool existingPool = connectionManagers.putIfAbsent(to, cp);

@@ -25,6 +25,8 @@ import org.slf4j.LoggerFactory;
 import org.apache.cassandra.locator.IEndpointSnitch;
 import org.apache.cassandra.utils.FBUtilities;
 
+import javax.net.ssl.SSLSocketFactory;
+
 public abstract class EncryptionOptions
 {
     private static final Logger logger = LoggerFactory.getLogger(EncryptionOptions.class);
@@ -33,11 +35,7 @@ public abstract class EncryptionOptions
     public String keystore_password = "cassandra";
     public String truststore = "conf/.truststore";
     public String truststore_password = "cassandra";
-    public String[] cipher_suites = {
-        "TLS_RSA_WITH_AES_128_CBC_SHA", "TLS_RSA_WITH_AES_256_CBC_SHA",
-        "TLS_DHE_RSA_WITH_AES_128_CBC_SHA", "TLS_DHE_RSA_WITH_AES_256_CBC_SHA",
-        "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA", "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA" 
-    };
+    public String[] cipher_suites = ((SSLSocketFactory)SSLSocketFactory.getDefault()).getDefaultCipherSuites();
     public String protocol = "TLS";
     public String algorithm = "SunX509";
     public String store_type = "JKS";

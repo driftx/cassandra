@@ -47,10 +47,13 @@ for jar in "$CASSANDRA_HOME"/lib/*.jar; do
     CLASSPATH="$CLASSPATH:$jar"
 done
 
+CLASSPATH="$CLASSPATH:$EXTRA_CLASSPATH"
+
 # JSR223 - collect all JSR223 engines' jars
 for jsr223jar in "$CASSANDRA_HOME"/lib/jsr223/*/*.jar; do
     CLASSPATH="$CLASSPATH:$jsr223jar"
 done
+
 # JSR223/JRuby - set ruby lib directory
 if [ -d "$CASSANDRA_HOME"/lib/jsr223/jruby/ruby ] ; then
     export JVM_OPTS="$JVM_OPTS -Djruby.lib=$CASSANDRA_HOME/lib/jsr223/jruby"

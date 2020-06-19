@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -53,22 +54,27 @@ import com.codahale.metrics.Timer;
 import org.apache.cassandra.concurrent.JMXEnabledThreadPoolExecutor;
 import org.apache.cassandra.concurrent.NamedThreadFactory;
 import org.apache.cassandra.config.DatabaseDescriptor;
+import org.apache.cassandra.metrics.RepairMetrics;
+import org.apache.cassandra.db.SnapshotCommand;
+import org.apache.cassandra.gms.FailureDetector;
+import org.apache.cassandra.net.Message;
+import org.apache.cassandra.net.MessagingService;
+import org.apache.cassandra.net.Verb;
+import org.apache.cassandra.repair.consistent.SyncStatSummary;
+import org.apache.cassandra.db.Keyspace;
 import org.apache.cassandra.cql3.QueryOptions;
 import org.apache.cassandra.cql3.QueryProcessor;
 import org.apache.cassandra.cql3.UntypedResultSet;
 import org.apache.cassandra.cql3.statements.SelectStatement;
 import org.apache.cassandra.db.ColumnFamilyStore;
 import org.apache.cassandra.db.ConsistencyLevel;
-import org.apache.cassandra.db.Keyspace;
 import org.apache.cassandra.dht.Range;
 import org.apache.cassandra.dht.Token;
-import org.apache.cassandra.gms.FailureDetector;
 import org.apache.cassandra.locator.EndpointsForRange;
 import org.apache.cassandra.locator.InetAddressAndPort;
 import org.apache.cassandra.locator.Replica;
 import org.apache.cassandra.metrics.StorageMetrics;
 import org.apache.cassandra.repair.consistent.CoordinatorSession;
-import org.apache.cassandra.repair.consistent.SyncStatSummary;
 import org.apache.cassandra.repair.messages.RepairOption;
 import org.apache.cassandra.schema.SchemaConstants;
 import org.apache.cassandra.service.ActiveRepairService;
@@ -76,12 +82,14 @@ import org.apache.cassandra.service.ActiveRepairService.ParentRepairStatus;
 import org.apache.cassandra.service.ClientState;
 import org.apache.cassandra.service.QueryState;
 import org.apache.cassandra.service.StorageService;
+import org.apache.cassandra.service.reads.repair.RepairedDataVerifier;
 import org.apache.cassandra.streaming.PreviewKind;
 import org.apache.cassandra.tracing.TraceKeyspace;
 import org.apache.cassandra.tracing.TraceState;
 import org.apache.cassandra.tracing.Tracing;
 import org.apache.cassandra.transport.messages.ResultMessage;
 import org.apache.cassandra.utils.ByteBufferUtil;
+import org.apache.cassandra.utils.DiagnosticSnapshotService;
 import org.apache.cassandra.utils.FBUtilities;
 import org.apache.cassandra.utils.UUIDGen;
 import org.apache.cassandra.utils.WrappedRunnable;
@@ -204,7 +212,7 @@ public class RepairRunnable implements Runnable, ProgressEventNotifier
         }
 
         fireProgressEvent(new ProgressEvent(ProgressEventType.COMPLETE, progressCounter.get(), totalProgress, msg));
-        logger.info(msg);
+        logger.info(options.getPreviewKind().logPrefix(parentSession) + msg);
 
         ActiveRepairService.instance.removeParentRepairSession(parentSession);
         TraceState localState = traceState;
@@ -269,7 +277,7 @@ public class RepairRunnable implements Runnable, ProgressEventNotifier
         progressCounter.incrementAndGet();
 
         if (Iterables.isEmpty(validColumnFamilies))
-            throw new SkipRepairException(String.format("Empty keyspace, skipping repair: %s", keyspace));
+            throw new SkipRepairException(String.format("%s Empty keyspace, skipping repair: %s", parentSession, keyspace));
         return Lists.newArrayList(validColumnFamilies);
     }
 
@@ -527,6 +535,9 @@ public class RepairRunnable implements Runnable, ProgressEventNotifier
                     else
                     {
                         message = (previewKind == PreviewKind.REPAIRED ? "Repaired data is inconsistent\n" : "Preview complete\n") + summary.toString();
+                        RepairMetrics.previewFailures.inc();
+                        if (previewKind == PreviewKind.REPAIRED)
+                            maybeSnapshotReplicas(parentSession, keyspace, results);
                     }
                     notification(message);
 
@@ -550,6 +561,62 @@ public class RepairRunnable implements Runnable, ProgressEventNotifier
                 executor.shutdownNow();
             }
         }, MoreExecutors.directExecutor());
+    }
+
+    private void maybeSnapshotReplicas(UUID parentSession, String keyspace, List<RepairSessionResult> results)
+    {
+        if (!DatabaseDescriptor.snapshotOnRepairedDataMismatch())
+            return;
+
+        try
+        {
+            Set<String> mismatchingTables = new HashSet<>();
+            Set<InetAddressAndPort> nodes = new HashSet<>();
+            for (RepairSessionResult sessionResult : results)
+            {
+                for (RepairResult repairResult : emptyIfNull(sessionResult.repairJobResults))
+                {
+                    for (SyncStat stat : emptyIfNull(repairResult.stats))
+                    {
+                        if (stat.numberOfDifferences > 0)
+                            mismatchingTables.add(repairResult.desc.columnFamily);
+                        // snapshot all replicas, even if they don't have any differences
+                        nodes.add(stat.nodes.coordinator);
+                        nodes.add(stat.nodes.peer);
+                    }
+                }
+            }
+
+            String snapshotName = DiagnosticSnapshotService.getSnapshotName(DiagnosticSnapshotService.REPAIRED_DATA_MISMATCH_SNAPSHOT_PREFIX);
+            for (String table : mismatchingTables)
+            {
+                // we can just check snapshot existence locally since the repair coordinator is always a replica (unlike in the read case)
+                if (!Keyspace.open(keyspace).getColumnFamilyStore(table).snapshotExists(snapshotName))
+                {
+                    logger.info("{} Snapshotting {}.{} for preview repair mismatch with tag {} on instances {}",
+                                options.getPreviewKind().logPrefix(parentSession),
+                                keyspace, table, snapshotName, nodes);
+                    DiagnosticSnapshotService.repairedDataMismatch(Keyspace.open(keyspace).getColumnFamilyStore(table).metadata(), nodes);
+                }
+                else
+                {
+                    logger.info("{} Not snapshotting {}.{} - snapshot {} exists",
+                                options.getPreviewKind().logPrefix(parentSession),
+                                keyspace, table, snapshotName);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("{} Failed snapshotting replicas", options.getPreviewKind().logPrefix(parentSession), e);
+        }
+    }
+
+    private static <T> Iterable<T> emptyIfNull(Iterable<T> iter)
+    {
+        if (iter == null)
+            return Collections.emptyList();
+        return iter;
     }
 
     private ListenableFuture<List<RepairSessionResult>> submitRepairSessions(UUID parentSession,

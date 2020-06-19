@@ -91,7 +91,7 @@ public class Memtable implements Comparable<Memtable>
     private final AtomicLong liveDataSize = new AtomicLong(0);
     private final AtomicLong currentOperations = new AtomicLong(0);
 
-    // the write barrier for directing writes to this memtable during a switch
+    // the write barrier for directing writes to this memtable or the next during a switch
     private volatile OpOrder.Barrier writeBarrier;
     // the precise upper bound of CommitLogPosition owned by this memtable
     private volatile AtomicReference<CommitLogPosition> commitLogUpperBound;
@@ -449,8 +449,7 @@ public class Memtable implements Comparable<Memtable>
 
         private void writeSortedContents()
         {
-            if (logger.isDebugEnabled())
-                logger.debug("Writing {}, flushed range = ({}, {}]", Memtable.this.toString(), from, to);
+            logger.info("Writing {}, flushed range = ({}, {}]", Memtable.this.toString(), from, to);
 
             boolean trackContention = logger.isTraceEnabled();
             int heavilyContendedRowCount = 0;
@@ -466,7 +465,7 @@ public class Memtable implements Comparable<Memtable>
                 if (isBatchLogTable && !partition.partitionLevelDeletion().isLive() && partition.hasRows())
                     continue;
 
-                if (trackContention && partition.usePessimisticLocking())
+                if (trackContention && partition.useLock())
                     heavilyContendedRowCount++;
 
                 if (!partition.isEmpty())
@@ -479,11 +478,10 @@ public class Memtable implements Comparable<Memtable>
             }
 
             long bytesFlushed = writer.getFilePointer();
-            if (logger.isDebugEnabled())
-                logger.debug("Completed flushing {} ({}) for commitlog position {}",
-                             writer.getFilename(),
-                             FBUtilities.prettyPrintMemory(bytesFlushed),
-                             commitLogUpperBound);
+            logger.info("Completed flushing {} ({}) for commitlog position {}",
+                         writer.getFilename(),
+                         FBUtilities.prettyPrintMemory(bytesFlushed),
+                         commitLogUpperBound);
             // Update the metrics
             cfs.metric.bytesFlushed.inc(bytesFlushed);
 

@@ -34,7 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.cassandra.audit.AuditLogOptions;
-import org.apache.cassandra.audit.FullQueryLoggerOptions;
+import org.apache.cassandra.fql.FullQueryLoggerOptions;
 import org.apache.cassandra.db.ConsistencyLevel;
 
 /**
@@ -216,7 +216,6 @@ public class Config
     public volatile int compaction_large_partition_warning_threshold_mb = 100;
     public int min_free_space_per_drive_in_mb = 50;
 
-    public volatile int concurrent_validations = Integer.MAX_VALUE;
     public volatile int concurrent_materialized_view_builders = 1;
 
     /**
@@ -245,6 +244,7 @@ public class Config
     public int commitlog_sync_period_in_ms;
     public int commitlog_segment_size_in_mb = 32;
     public ParameterizedClass commitlog_compression;
+    public FlushCompression flush_compression = FlushCompression.fast;
     public int commitlog_max_compression_buffers_in_pool = 3;
     public Integer periodic_commitlog_sync_lag_block_in_ms;
     public TransparentDataEncryptionOptions transparent_data_encryption_options = new TransparentDataEncryptionOptions();
@@ -314,7 +314,8 @@ public class Config
      */
     public Boolean file_cache_round_up;
 
-    public boolean buffer_pool_use_heap_if_exhausted = true;
+    @Deprecated
+    public boolean buffer_pool_use_heap_if_exhausted;
 
     public DiskOptimizationStrategy disk_optimization_strategy = DiskOptimizationStrategy.ssd;
 
@@ -414,6 +415,7 @@ public class Config
     public volatile boolean back_pressure_enabled = false;
     public volatile ParameterizedClass back_pressure_strategy;
 
+    public volatile int concurrent_validations;
     public RepairCommandPoolFullStrategy repair_command_pool_full_strategy = RepairCommandPoolFullStrategy.queue;
     public int repair_command_pool_size = concurrent_validations;
 
@@ -469,6 +471,28 @@ public class Config
      * and has no other effect on the collection or processing of the repaired data.
      */
     public volatile boolean report_unconfirmed_repaired_data_mismatches = false;
+    /*
+     * If true, when a repaired data mismatch is detected at read time or during a preview repair,
+     * a snapshot request will be issued to each particpating replica. These are limited at the replica level
+     * so that only a single snapshot per-table per-day can be taken via this method.
+     */
+    public volatile boolean snapshot_on_repaired_data_mismatch = false;
+
+    /**
+     * number of seconds to set nowInSec into the future when performing validation previews against repaired data
+     * this (attempts) to prevent a race where validations on different machines are started on different sides of
+     * a tombstone being compacted away
+     */
+    public volatile int validation_preview_purge_head_start_in_sec = 60 * 60;
+
+    /**
+     * The intial capacity for creating RangeTombstoneList.
+     */
+    public volatile int initial_range_tombstone_list_allocation_size = 1;
+    /**
+     * The growth factor to enlarge a RangeTombstoneList.
+     */
+    public volatile double range_tombstone_list_growth_factor = 1.5;
 
     /**
      * @deprecated migrate to {@link DatabaseDescriptor#isClientInitialized()}
@@ -478,6 +502,24 @@ public class Config
     {
         return isClientMode;
     }
+
+    /**
+     * If true, when rows with duplicate clustering keys are detected during a read or compaction
+     * a snapshot will be taken. In the read case, each a snapshot request will be issued to each
+     * replica involved in the query, for compaction the snapshot will be created locally.
+     * These are limited at the replica level so that only a single snapshot per-day can be taken
+     * via this method.
+     *
+     * This requires check_for_duplicate_rows_during_reads and/or check_for_duplicate_rows_during_compaction
+     * below to be enabled
+     */
+    public volatile boolean snapshot_on_duplicate_row_detection = false;
+    /**
+     * If these are enabled duplicate keys will get logged, and if snapshot_on_duplicate_row_detection
+     * is enabled, the table will get snapshotted for offline investigation
+     */
+    public volatile boolean check_for_duplicate_rows_during_reads = true;
+    public volatile boolean check_for_duplicate_rows_during_compaction = true;
 
     /**
      * Client mode means that the process is a pure client, that uses C* code base but does
@@ -507,6 +549,14 @@ public class Config
         batch,
         group
     }
+
+    public enum FlushCompression
+    {
+        none,
+        fast,
+        table
+    }
+
     public enum InternodeCompression
     {
         all, none, dc

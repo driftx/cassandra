@@ -110,6 +110,9 @@ New features
       specifying replication_factor: 3 translates to three replicas in every
       datacenter. This auto-expansion will _only add_ datacenters for safety.
       See CASSANDRA-14303 for more details.
+    - Added Python 3 support so cqlsh and cqlshlib is now compatible with Python 2.7 and Python 3.6.
+      Added --python option to cqlsh so users can specify the path to their chosen Python interpreter.
+      See CASSANDRA-10190 for details.
 
 Upgrading
 ---------
@@ -245,6 +248,16 @@ Upgrading
       passed will now need to conform to java.time.format.DateTimeFormatter.
       Most notably, days and months must be two digits, and years exceeding
       four digits need to be prefixed with a plus or minus sign.
+    - cqlsh now returns a non-zero code in case of errors. This is a backward incompatible change so it may
+      break existing scripts that rely on the current behavior. See CASSANDRA-15623 for more details.
+
+
+Deprecation
+-----------
+
+    - The JMX MBean org.apache.cassandra.db:type=BlacklistedDirectories has been
+      deprecated in favor of org.apache.cassandra.db:type=DisallowedDirectories
+      and will be removed in a subsequent major version.
 
 
 Materialized Views
@@ -257,6 +270,32 @@ Materialized Views
     - CREATE MATERIALIZED VIEW syntax has become stricter. Partition key columns are no longer implicitly considered
       to be NOT NULL, and no base primary key columns get automatically included in view definition. You have to
       specify them explicitly now.
+
+3.11.6
+======
+
+Upgrading
+---------
+    - Sstables for tables using with a frozen UDT written by C* 3.0 appear as corrupted.
+
+      Background: The serialization-header in the -Statistics.db sstable component contains the type information
+      of the table columns. C* 3.0 write incorrect type information for frozen UDTs by omitting the
+      "frozen" information. Non-frozen UDTs were introduced by CASSANDRA-7423 in C* 3.6. Since then, the missing
+      "frozen" information leads to deserialization issues that result in CorruptSSTableExceptions, potentially other
+      exceptions as well.
+
+      As a mitigation, the sstable serialization-headers are rewritten to contain the missing "frozen" information for
+      UDTs once, when an upgrade from C* 3.0 is detected. This migration does not touch snapshots or backups.
+
+      The sstablescrub tool now performs a check of the sstable serialization-header against the schema. A mismatch of
+      the types in the serialization-header and the schema will cause sstablescrub to error out and stop by default.
+      See the new `-e` option. `-e off` disables the new validation code. `-e fix` or `-e fix-only`, e.g.
+      `sstablescrub -e fix keyspace table`, will validate the serialization-header, rewrite the non-frozen UDTs
+      in the serialzation-header to frozen UDTs, if that matches the schema, and continue with scrub.
+      See `sstablescrub -h`.
+      (CASSANDRA-15035)
+	- repair_session_max_tree_depth setting has been added to cassandra.yaml to allow operators to reduce
+	  merkle tree size if repair is creating too much heap pressure. See CASSANDRA-14096 for details.
 
 3.11.5
 ======

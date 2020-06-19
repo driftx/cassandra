@@ -240,12 +240,21 @@ def formatter_for(typname):
     return registrator
 
 
-@formatter_for('bytearray')
+class BlobType(object):
+    def __init__(self, val):
+        self.val = val
+
+    def __str__(self):
+        return str(self.val)
+
+
+@formatter_for('BlobType')
 def format_value_blob(val, colormap, **_):
     bval = ensure_text('0x') + ensure_text(binascii.hexlify(val))
     return colorme(bval, colormap, 'blob')
 
 
+formatter_for('bytearray')(format_value_blob)
 formatter_for('buffer')(format_value_blob)
 formatter_for('blob')(format_value_blob)
 

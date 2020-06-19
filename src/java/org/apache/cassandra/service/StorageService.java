@@ -21,6 +21,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.*;
@@ -46,7 +47,10 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.*;
 import com.google.common.util.concurrent.*;
 
+import org.apache.cassandra.config.ParameterizedClass;
 import org.apache.cassandra.dht.RangeStreamer.FetchReplica;
+import org.apache.cassandra.fql.FullQueryLogger;
+import org.apache.cassandra.fql.FullQueryLoggerOptions;
 import org.apache.cassandra.locator.ReplicaCollection.Builder.Conflict;
 import org.apache.commons.lang3.StringUtils;
 
@@ -1252,7 +1256,7 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
                             throw new IllegalArgumentException("Unknown host specified " + stringHost, ex);
                         }
                     }
-                    streamer.addSourceFilter(new RangeStreamer.WhitelistedSourcesFilter(sources));
+                    streamer.addSourceFilter(new RangeStreamer.AllowedSourcesFilter(sources));
                 }
 
                 streamer.addRanges(keyspace, streamRanges.build());
@@ -1436,6 +1440,23 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         CompactionManager.instance.setConcurrentCompactors(value);
     }
 
+    public void bypassConcurrentValidatorsLimit()
+    {
+        logger.info("Enabling the ability to set concurrent validations to an unlimited value");
+        DatabaseDescriptor.allowUnlimitedConcurrentValidations = true ;
+    }
+
+    public void enforceConcurrentValidatorsLimit()
+    {
+        logger.info("Disabling the ability to set concurrent validations to an unlimited value");
+        DatabaseDescriptor.allowUnlimitedConcurrentValidations = false ;
+    }
+
+    public boolean isConcurrentValidatorsLimitEnforced()
+    {
+        return DatabaseDescriptor.allowUnlimitedConcurrentValidations;
+    }
+
     public int getConcurrentValidators()
     {
         return DatabaseDescriptor.getConcurrentValidations();
@@ -1443,8 +1464,24 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
 
     public void setConcurrentValidators(int value)
     {
+        int concurrentCompactors = DatabaseDescriptor.getConcurrentCompactors();
+        if (value > concurrentCompactors && !DatabaseDescriptor.allowUnlimitedConcurrentValidations)
+            throw new IllegalArgumentException(
+            String.format("Cannot set concurrent_validations greater than concurrent_compactors (%d)",
+                          concurrentCompactors));
+
+        if (value <= 0)
+        {
+            logger.info("Using default value of concurrent_compactors ({}) for concurrent_validations", concurrentCompactors);
+            value = concurrentCompactors;
+        }
+        else
+        {
+            logger.info("Setting concurrent_validations to {}", value);
+        }
+
         DatabaseDescriptor.setConcurrentValidations(value);
-        CompactionManager.instance.setConcurrentValidations(DatabaseDescriptor.getConcurrentValidations());
+        CompactionManager.instance.setConcurrentValidations();
     }
 
     public int getConcurrentViewBuilders()
@@ -1600,20 +1637,30 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
                 @Override
                 public void onSuccess(StreamState streamState)
                 {
-                    bootstrapFinished();
-                    if(isSurveyMode)
+                    try
                     {
-                        logger.info("Startup complete, but write survey mode is active, not becoming an active ring member. Use JMX (StorageService->joinRing()) to finalize ring joining.");
+                        bootstrapFinished();
+                        if (isSurveyMode)
+                        {
+                            logger.info("Startup complete, but write survey mode is active, not becoming an active ring member. Use JMX (StorageService->joinRing()) to finalize ring joining.");
+                        }
+                        else
+                        {
+                            isSurveyMode = false;
+                            progressSupport.progress("bootstrap", ProgressEvent.createNotification("Joining ring..."));
+                            finishJoiningRing(true, bootstrapTokens);
+                        }
+                        progressSupport.progress("bootstrap", new ProgressEvent(ProgressEventType.COMPLETE, 1, 1, "Resume bootstrap complete"));
+                        if (!isNativeTransportRunning())
+                            daemon.initializeNativeTransport();
+                        daemon.start();
+                        logger.info("Resume complete");
                     }
-                    else
+                    catch(Exception e)
                     {
-                        isSurveyMode = false;
-                        progressSupport.progress("bootstrap", ProgressEvent.createNotification("Joining ring..."));
-                        finishJoiningRing(true, bootstrapTokens);
+                        onFailure(e);
+                        throw e;
                     }
-                    progressSupport.progress("bootstrap", new ProgressEvent(ProgressEventType.COMPLETE, 1, 1, "Resume bootstrap complete"));
-                    daemon.start();
-                    logger.info("Resume complete");
                 }
 
                 @Override
@@ -3667,24 +3714,7 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
 
     public void cleanupSizeEstimates()
     {
-        SetMultimap<String, String> sizeEstimates = SystemKeyspace.getTablesWithSizeEstimates();
-
-        for (Entry<String, Collection<String>> tablesByKeyspace : sizeEstimates.asMap().entrySet())
-        {
-            String keyspace = tablesByKeyspace.getKey();
-            if (!Schema.instance.getKeyspaces().contains(keyspace))
-            {
-                SystemKeyspace.clearSizeEstimates(keyspace);
-            }
-            else
-            {
-                for (String table : tablesByKeyspace.getValue())
-                {
-                    if (Schema.instance.getTableMetadataRef(keyspace, table) == null)
-                        SystemKeyspace.clearSizeEstimates(keyspace, table);
-                }
-            }
-        }
+        SystemKeyspace.clearAllEstimates();
     }
 
     /**
@@ -3746,7 +3776,7 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
             return Pair.create(0, Futures.immediateFuture(null));
 
         int cmd = nextRepairCommand.incrementAndGet();
-        return Pair.create(cmd, ActiveRepairService.repairCommandExecutor.submit(createRepairTask(cmd, keyspace, option, listeners)));
+        return Pair.create(cmd, ActiveRepairService.repairCommandExecutor().submit(createRepairTask(cmd, keyspace, option, listeners)));
     }
 
     /**
@@ -3909,6 +3939,32 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         return localDCPrimaryRanges;
     }
 
+    public Collection<Range<Token>> getLocalPrimaryRange()
+    {
+        return getLocalPrimaryRangeForEndpoint(FBUtilities.getBroadcastAddressAndPort());
+    }
+
+    public Collection<Range<Token>> getLocalPrimaryRangeForEndpoint(InetAddressAndPort referenceEndpoint)
+    {
+        IEndpointSnitch snitch = DatabaseDescriptor.getEndpointSnitch();
+        TokenMetadata tokenMetadata = this.tokenMetadata.cloneOnlyTokenMap();
+        String dc = snitch.getDatacenter(referenceEndpoint);
+        Set<Token> tokens = new HashSet<>(tokenMetadata.getTokens(referenceEndpoint));
+
+        // filter tokens to the single DC
+        List<Token> filteredTokens = Lists.newArrayList();
+        for (Token token : tokenMetadata.sortedTokens())
+        {
+            InetAddressAndPort endpoint = tokenMetadata.getEndpoint(token);
+            if (dc.equals(snitch.getDatacenter(endpoint)))
+                filteredTokens.add(token);
+        }
+
+        return getAllRanges(filteredTokens).stream()
+                                           .filter(t -> tokens.contains(t.right))
+                                           .collect(Collectors.toList());
+    }
+
     /**
      * Get all ranges that span the ring given a set
      * of tokens. All ranges are in sorted order of
@@ -3971,16 +4027,6 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
     {
         EndpointsForToken replicas = getNaturalReplicasForToken(keyspaceName, key);
         return Replicas.stringify(replicas, true);
-    }
-
-    public List<String> getReplicas(String keyspaceName, String cf, String key)
-    {
-        List<String> res = new ArrayList<>();
-        for (Replica replica : getNaturalReplicasForToken(keyspaceName, cf, key))
-        {
-            res.add(replica.toString());
-        }
-        return res;
     }
 
     public EndpointsForToken getNaturalReplicasForToken(String keyspaceName, String cf, String key)
@@ -5386,6 +5432,41 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         logger.info("Updated batch_size_warn_threshold_in_kb to {}", threshold);
     }
 
+    public int getInitialRangeTombstoneListAllocationSize()
+    {
+        return DatabaseDescriptor.getInitialRangeTombstoneListAllocationSize();
+    }
+
+    public void setInitialRangeTombstoneListAllocationSize(int size)
+    {
+        if (size < 0 || size > 1024)
+        {
+            throw new IllegalStateException("Not updating initial_range_tombstone_allocation_size as it must be in the range [0, 1024] inclusive");
+        }
+        int originalSize = DatabaseDescriptor.getInitialRangeTombstoneListAllocationSize();
+        DatabaseDescriptor.setInitialRangeTombstoneListAllocationSize(size);
+        logger.info("Updated initial_range_tombstone_allocation_size from {} to {}", originalSize, size);
+    }
+
+    public double getRangeTombstoneResizeListGrowthFactor()
+    {
+        return DatabaseDescriptor.getRangeTombstoneListGrowthFactor();
+    }
+
+    public void setRangeTombstoneListResizeGrowthFactor(double growthFactor) throws IllegalStateException
+    {
+        if (growthFactor < 1.2 || growthFactor > 5)
+        {
+            throw new IllegalStateException("Not updating range_tombstone_resize_factor as growth factor must be in the range [1.2, 5.0] inclusive");
+        }
+        else
+        {
+            double originalGrowthFactor = DatabaseDescriptor.getRangeTombstoneListGrowthFactor();
+            DatabaseDescriptor.setRangeTombstoneListGrowthFactor(growthFactor);
+            logger.info("Updated range_tombstone_resize_factor from {} to {}", originalGrowthFactor, growthFactor);
+        }
+    }
+
     public void setHintedHandoffThrottleInKB(int throttleInKB)
     {
         DatabaseDescriptor.setHintedHandoffThrottleInKB(throttleInKB);
@@ -5400,21 +5481,27 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
     }
     public void disableAuditLog()
     {
-        AuditLogManager.getInstance().disableAuditLog();
+        AuditLogManager.instance.disableAuditLog();
         logger.info("Auditlog is disabled");
     }
 
     public void enableAuditLog(String loggerName, String includedKeyspaces, String excludedKeyspaces, String includedCategories, String excludedCategories,
                                String includedUsers, String excludedUsers) throws ConfigurationException, IllegalStateException
     {
-        loggerName = loggerName != null ? loggerName : DatabaseDescriptor.getAuditLoggingOptions().logger;
+        enableAuditLog(loggerName, Collections.emptyMap(), includedKeyspaces, excludedKeyspaces, includedCategories, excludedCategories, includedUsers, excludedUsers);
+    }
+
+    public void enableAuditLog(String loggerName, Map<String, String> parameters, String includedKeyspaces, String excludedKeyspaces, String includedCategories, String excludedCategories,
+                               String includedUsers, String excludedUsers) throws ConfigurationException, IllegalStateException
+    {
+        loggerName = loggerName != null ? loggerName : DatabaseDescriptor.getAuditLoggingOptions().logger.class_name;
 
         Preconditions.checkNotNull(loggerName, "cassandra.yaml did not have logger in audit_logging_option and not set as parameter");
         Preconditions.checkState(FBUtilities.isAuditLoggerClassExists(loggerName), "Unable to find AuditLogger class: "+loggerName);
 
         AuditLogOptions auditLogOptions = new AuditLogOptions();
         auditLogOptions.enabled = true;
-        auditLogOptions.logger = loggerName;
+        auditLogOptions.logger = new ParameterizedClass(loggerName, parameters);
         auditLogOptions.included_keyspaces = includedKeyspaces != null ? includedKeyspaces : DatabaseDescriptor.getAuditLoggingOptions().included_keyspaces;
         auditLogOptions.excluded_keyspaces = excludedKeyspaces != null ? excludedKeyspaces : DatabaseDescriptor.getAuditLoggingOptions().excluded_keyspaces;
         auditLogOptions.included_categories = includedCategories != null ? includedCategories : DatabaseDescriptor.getAuditLoggingOptions().included_categories;
@@ -5422,11 +5509,11 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         auditLogOptions.included_users = includedUsers != null ? includedUsers : DatabaseDescriptor.getAuditLoggingOptions().included_users;
         auditLogOptions.excluded_users = excludedUsers != null ? excludedUsers : DatabaseDescriptor.getAuditLoggingOptions().excluded_users;
 
-        AuditLogManager.getInstance().enableAuditLog(auditLogOptions);
+        AuditLogManager.instance.enable(auditLogOptions);
 
         logger.info("AuditLog is enabled with logger: [{}], included_keyspaces: [{}], excluded_keyspaces: [{}], " +
                     "included_categories: [{}], excluded_categories: [{}], included_users: [{}], "
-                    + "excluded_users: [{}], archive_command: [{}]", loggerName, auditLogOptions.included_keyspaces, auditLogOptions.excluded_keyspaces,
+                    + "excluded_users: [{}], archive_command: [{}]", auditLogOptions.logger, auditLogOptions.included_keyspaces, auditLogOptions.excluded_keyspaces,
                     auditLogOptions.included_categories, auditLogOptions.excluded_categories, auditLogOptions.included_users, auditLogOptions.excluded_users,
                     auditLogOptions.archive_command);
 
@@ -5434,7 +5521,7 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
 
     public boolean isAuditLogEnabled()
     {
-        return AuditLogManager.getInstance().isAuditingEnabled();
+        return AuditLogManager.instance.isEnabled();
     }
 
     public String getCorruptedTombstoneStrategy()
@@ -5479,5 +5566,33 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         {
             Runtime.getRuntime().removeShutdownHook(drainOnShutdown);
         }
+    }
+
+    @Override
+    public void enableFullQueryLogger(String path, String rollCycle, Boolean blocking, int maxQueueWeight, long maxLogSize, String archiveCommand, int maxArchiveRetries)
+    {
+        FullQueryLoggerOptions fqlOptions = DatabaseDescriptor.getFullQueryLogOptions();
+        path = path != null ? path : fqlOptions.log_dir;
+        rollCycle = rollCycle != null ? rollCycle : fqlOptions.roll_cycle;
+        blocking = blocking != null ? blocking : fqlOptions.block;
+        maxQueueWeight = maxQueueWeight != Integer.MIN_VALUE ? maxQueueWeight : fqlOptions.max_queue_weight;
+        maxLogSize = maxLogSize != Long.MIN_VALUE ? maxLogSize : fqlOptions.max_log_size;
+        archiveCommand = archiveCommand != null ? archiveCommand : fqlOptions.archive_command;
+        maxArchiveRetries = maxArchiveRetries != Integer.MIN_VALUE ? maxArchiveRetries : fqlOptions.max_archive_retries;
+
+        Preconditions.checkNotNull(path, "cassandra.yaml did not set log_dir and not set as parameter");
+        FullQueryLogger.instance.enable(Paths.get(path), rollCycle, blocking, maxQueueWeight, maxLogSize, archiveCommand, maxArchiveRetries);
+    }
+
+    @Override
+    public void resetFullQueryLogger()
+    {
+        FullQueryLogger.instance.reset(DatabaseDescriptor.getFullQueryLogOptions().log_dir);
+    }
+
+    @Override
+    public void stopFullQueryLogger()
+    {
+        FullQueryLogger.instance.stop();
     }
 }

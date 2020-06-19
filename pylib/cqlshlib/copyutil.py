@@ -60,7 +60,7 @@ from cqlshlib.util import profile_on, profile_off
 
 from cqlshlib.cql3handling import CqlRuleSet
 from cqlshlib.displaying import NO_COLOR_MAP
-from cqlshlib.formatting import format_value_default, CqlType, DateTimeFormat, EMPTY, get_formatter
+from cqlshlib.formatting import format_value_default, CqlType, DateTimeFormat, EMPTY, get_formatter, BlobType
 from cqlshlib.sslhandling import ssl_settings
 
 PROFILE_ON = False
@@ -146,7 +146,7 @@ class SendingChannel(object):
                     msg = self.pending_messages.get()
                     self.pipe.send(msg)
                 except Exception as e:
-                    printmsg('%s: %s' % (e.__class__.__name__, e.message))
+                    printmsg('%s: %s' % (e.__class__.__name__, e.message if hasattr(e, 'message') else str(e)))
 
         feeding_thread = threading.Thread(target=feed)
         feeding_thread.setDaemon(True)
@@ -1342,7 +1342,7 @@ class FeedingProcess(mp.Process):
         try:
             reader.start()
         except IOError as exc:
-            self.outmsg.send(ImportTaskError(exc.__class__.__name__, exc.message))
+            self.outmsg.send(ImportTaskError(exc.__class__.__name__, exc.message if hasattr(exc, 'message') else str(exc)))
 
         channels = self.worker_channels
         max_pending_chunks = self.max_pending_chunks
@@ -1371,7 +1371,7 @@ class FeedingProcess(mp.Process):
                     if rows:
                         sent += self.send_chunk(ch, rows)
                 except Exception as exc:
-                    self.outmsg.send(ImportTaskError(exc.__class__.__name__, exc.message))
+                    self.outmsg.send(ImportTaskError(exc.__class__.__name__, exc.message if hasattr(exc, 'message') else str(exc)))
 
                 if reader.exhausted:
                     break
@@ -1933,7 +1933,10 @@ class ImportConversion(object):
             return converters.get(t.typename, convert_unknown)(v, ct=t)
 
         def convert_blob(v, **_):
-            return bytearray.fromhex(v[2:])
+            if sys.version_info.major >= 3:
+                return bytes.fromhex(v[2:])
+            else:
+                return BlobType(v[2:].decode("hex"))
 
         def convert_text(v, **_):
             return ensure_str(v)
@@ -2629,7 +2632,7 @@ class ImportProcess(ChildProcess):
                 pk = get_row_partition_key_values(row)
                 rows_by_ring_pos[get_ring_pos(ring, pk_to_token_value(pk))].append(row)
             except Exception as e:
-                errors[e.message].append(row)
+                errors[e.message if hasattr(e, 'message') else str(e)].append(row)
 
         if errors:
             for msg, rows in errors.items():

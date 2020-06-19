@@ -66,12 +66,15 @@ import org.apache.cassandra.io.util.DataOutputBuffer;
 import org.apache.cassandra.io.util.DataOutputBufferFixed;
 import org.apache.cassandra.io.util.FileUtils;
 import org.apache.cassandra.locator.InetAddressAndPort;
-import org.apache.cassandra.net.AsyncOneResponse;
-
 
 
 public class FBUtilities
 {
+    static
+    {
+        preventIllegalAccessWarnings();
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(FBUtilities.class);
 
     private static final ObjectMapper jsonMapper = new ObjectMapper(new JsonFactory());
@@ -145,7 +148,15 @@ public class FBUtilities
     {
         if (localInetAddressAndPort == null)
         {
-            localInetAddressAndPort = InetAddressAndPort.getByAddress(getJustLocalAddress());
+            if(DatabaseDescriptor.getRawConfig() == null)
+            {
+                localInetAddressAndPort = InetAddressAndPort.getByAddress(getJustLocalAddress());
+            }
+            else
+            {
+                localInetAddressAndPort = InetAddressAndPort.getByAddressOverrideDefaults(getJustLocalAddress(),
+                                                                                          DatabaseDescriptor.getStoragePort());
+            }
         }
         return localInetAddressAndPort;
     }
@@ -172,7 +183,15 @@ public class FBUtilities
     {
         if (broadcastInetAddressAndPort == null)
         {
-            broadcastInetAddressAndPort = InetAddressAndPort.getByAddress(getJustBroadcastAddress());
+            if(DatabaseDescriptor.getRawConfig() == null)
+            {
+                broadcastInetAddressAndPort = InetAddressAndPort.getByAddress(getJustBroadcastAddress());
+            }
+            else
+            {
+                broadcastInetAddressAndPort = InetAddressAndPort.getByAddressOverrideDefaults(getJustBroadcastAddress(),
+                                                                                              DatabaseDescriptor.getStoragePort());
+            }
         }
         return broadcastInetAddressAndPort;
     }
@@ -215,8 +234,15 @@ public class FBUtilities
     public static InetAddressAndPort getBroadcastNativeAddressAndPort()
     {
         if (broadcastNativeAddressAndPort == null)
-            broadcastNativeAddressAndPort = InetAddressAndPort.getByAddressOverrideDefaults(getJustBroadcastNativeAddress(),
-                                                                                             DatabaseDescriptor.getNativeTransportPort());
+            if(DatabaseDescriptor.getRawConfig() == null)
+            {
+                broadcastNativeAddressAndPort = InetAddressAndPort.getByAddress(getJustBroadcastNativeAddress());
+            }
+            else
+            {
+                broadcastNativeAddressAndPort = InetAddressAndPort.getByAddressOverrideDefaults(getJustBroadcastNativeAddress(),
+                                                                                                DatabaseDescriptor.getNativeTransportPort());
+            }
         return broadcastNativeAddressAndPort;
     }
 
@@ -486,6 +512,81 @@ public class FBUtilities
             Uninterruptibles.sleepUninterruptibly(delay, TimeUnit.MILLISECONDS);
         }
     }
+
+    /**
+     * Returns a new {@link Future} wrapping the given list of futures and returning a list of their results.
+     */
+    public static Future<List> allOf(Collection<Future> futures)
+    {
+        if (futures.isEmpty())
+            return CompletableFuture.completedFuture(null);
+
+        return new Future<List>()
+        {
+            @Override
+            @SuppressWarnings("unchecked")
+            public List get() throws InterruptedException, ExecutionException
+            {
+                List result = new ArrayList<>(futures.size());
+                for (Future current : futures)
+                {
+                    result.add(current.get());
+                }
+                return result;
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public List get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException
+            {
+                List result = new ArrayList<>(futures.size());
+                long deadline = System.nanoTime() + TimeUnit.NANOSECONDS.convert(timeout, unit);
+                for (Future current : futures)
+                {
+                    long remaining = deadline - System.nanoTime();
+                    if (remaining <= 0)
+                        throw new TimeoutException();
+
+                    result.add(current.get(remaining, TimeUnit.NANOSECONDS));
+                }
+                return result;
+            }
+
+            @Override
+            public boolean cancel(boolean mayInterruptIfRunning)
+            {
+                for (Future current : futures)
+                {
+                    if (!current.cancel(mayInterruptIfRunning))
+                        return false;
+                }
+                return true;
+            }
+
+            @Override
+            public boolean isCancelled()
+            {
+                for (Future current : futures)
+                {
+                    if (!current.isCancelled())
+                        return false;
+                }
+                return true;
+            }
+
+            @Override
+            public boolean isDone()
+            {
+                for (Future current : futures)
+                {
+                    if (!current.isDone())
+                        return false;
+                }
+                return true;
+            }
+        };
+    }
+
     /**
      * Create a new instance of a partitioner defined in an SSTable Descriptor
      * @param desc Descriptor of an sstable
@@ -554,11 +655,20 @@ public class FBUtilities
         return FBUtilities.construct(className, "network authorizer");
     }
     
-    public static IAuditLogger newAuditLogger(String className) throws ConfigurationException
+    public static IAuditLogger newAuditLogger(String className, Map<String, String> parameters) throws ConfigurationException
     {
         if (!className.contains("."))
             className = "org.apache.cassandra.audit." + className;
-        return FBUtilities.construct(className, "Audit logger");
+
+        try
+        {
+            Class<?> auditLoggerClass = Class.forName(className);
+            return (IAuditLogger) auditLoggerClass.getConstructor(Map.class).newInstance(parameters);
+        }
+        catch (Exception ex)
+        {
+            throw new ConfigurationException("Unable to create instance of IAuditLogger.", ex);
+        }
     }
 
     public static boolean isAuditLoggerClassExists(String className)

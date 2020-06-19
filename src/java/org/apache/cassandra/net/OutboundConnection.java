@@ -795,7 +795,7 @@ public class OutboundConnection
                             out = new DataOutputBufferFixed(sending.buffer);
                         }
 
-                        Tracing.instance.traceOutgoingMessage(next, settings.connectTo);
+                        Tracing.instance.traceOutgoingMessage(next, messageSize, settings.connectTo);
                         Message.serializer.serialize(next, out, messagingVersion);
 
                         if (sending.length() != sendingBytes + messageSize)
@@ -963,7 +963,7 @@ public class OutboundConnection
                 if (messageSize > DatabaseDescriptor.getInternodeMaxMessageSizeInBytes())
                     throw new Message.OversizedMessageException(messageSize);
 
-                Tracing.instance.traceOutgoingMessage(send, established.settings.connectTo);
+                Tracing.instance.traceOutgoingMessage(send, messageSize, established.settings.connectTo);
                 Message.serializer.serialize(send, out, established.messagingVersion);
 
                 if (out.position() != messageSize)
@@ -1175,6 +1175,22 @@ public class OutboundConnection
             private void attempt(Promise<Result<MessagingSuccess>> result)
             {
                 ++connectionAttempts;
+
+                /*
+                 * Re-evaluate messagingVersion before re-attempting the connection in case
+                 * endpointToVersion were updated. This happens if the outbound connection
+                 * is made before the endpointToVersion table is initially constructed or out
+                 * of date (e.g. if outbound connections are established for gossip
+                 * as a result of an inbound connection) and can result in the wrong outbound
+                 * port being selected if configured with enable_legacy_ssl_storage_port=true.
+                 */
+                int knownMessagingVersion = messagingVersion();
+                if (knownMessagingVersion != messagingVersion)
+                {
+                    logger.trace("Endpoint version changed from {} to {} since connection initialized, updating.",
+                                 messagingVersion, knownMessagingVersion);
+                    messagingVersion = knownMessagingVersion;
+                }
 
                 settings = template;
                 if (messagingVersion > settings.acceptVersions.max)
@@ -1561,8 +1577,8 @@ public class OutboundConnection
         Established established = state.established();
         Channel channel = established.channel;
         OutboundConnectionSettings settings = established.settings;
-        return SocketFactory.channelId(settings.from, (InetSocketAddress) channel.remoteAddress(),
-                                       settings.to, (InetSocketAddress) channel.localAddress(),
+        return SocketFactory.channelId(settings.from, (InetSocketAddress) channel.localAddress(),
+                                       settings.to, (InetSocketAddress) channel.remoteAddress(),
                                        type, channel.id().asShortText());
     }
 

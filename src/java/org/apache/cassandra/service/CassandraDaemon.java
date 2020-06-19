@@ -44,6 +44,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.cassandra.audit.AuditLogManager;
 import org.apache.cassandra.concurrent.ScheduledExecutors;
 import org.apache.cassandra.db.virtual.SystemViewsKeyspace;
 import org.apache.cassandra.db.virtual.VirtualKeyspaceRegistry;
@@ -409,6 +410,8 @@ public class CassandraDaemon
             }
         }
 
+        AuditLogManager.instance.initialize();
+
         // schedule periodic background compaction task submission. this is simply a backstop against compactions stalling
         // due to scheduling errors or race conditions
         ScheduledExecutors.optionalTasks.scheduleWithFixedDelay(ColumnFamilyStore.getBackgroundCompactionTaskSubmitter(), 5, 1, TimeUnit.MINUTES);
@@ -435,7 +438,8 @@ public class CassandraDaemon
     public void initializeNativeTransport()
     {
         // Native transport
-        nativeTransportService = new NativeTransportService();
+        if (nativeTransportService == null)
+            nativeTransportService = new NativeTransportService();
     }
 
     @VisibleForTesting

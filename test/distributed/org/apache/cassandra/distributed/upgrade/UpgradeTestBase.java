@@ -23,24 +23,41 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
+
+import org.junit.After;
+import org.junit.BeforeClass;
 
 import org.apache.cassandra.distributed.UpgradeableCluster;
 import org.apache.cassandra.distributed.api.ICluster;
-import org.apache.cassandra.distributed.api.IInstance;
+import org.apache.cassandra.distributed.api.IInstanceConfig;
 import org.apache.cassandra.distributed.impl.Instance;
-
-import org.apache.cassandra.distributed.shared.Builder;
 import org.apache.cassandra.distributed.shared.DistributedTestBase;
 import org.apache.cassandra.distributed.shared.Versions;
-import static org.apache.cassandra.distributed.shared.Versions.Version;
+
 import static org.apache.cassandra.distributed.shared.Versions.Major;
+import static org.apache.cassandra.distributed.shared.Versions.Version;
 import static org.apache.cassandra.distributed.shared.Versions.find;
 
 public class UpgradeTestBase extends DistributedTestBase
 {
-    public <I extends IInstance, C extends ICluster> Builder<I, C> builder()
+    @After
+    public void afterEach()
     {
-        return (Builder<I, C>) UpgradeableCluster.build();
+        System.runFinalization();
+        System.gc();
+    }
+
+    @BeforeClass
+    public static void beforeClass() throws Throwable
+    {
+        ICluster.setup();
+    }
+
+
+    public UpgradeableCluster.Builder builder()
+    {
+        return UpgradeableCluster.build();
     }
 
     public static interface RunOnCluster
@@ -74,6 +91,7 @@ public class UpgradeTestBase extends DistributedTestBase
         private RunOnClusterAndNode runAfterNodeUpgrade;
         private RunOnCluster runAfterClusterUpgrade;
         private final Set<Integer> nodesToUpgrade = new HashSet<>();
+        private Consumer<IInstanceConfig> configConsumer;
 
         public TestCase()
         {
@@ -124,6 +142,12 @@ public class UpgradeTestBase extends DistributedTestBase
             return this;
         }
 
+        public TestCase withConfig(Consumer<IInstanceConfig> config)
+        {
+            this.configConsumer = config;
+            return this;
+        }
+
         public void run() throws Throwable
         {
             if (setup == null)
@@ -142,7 +166,7 @@ public class UpgradeTestBase extends DistributedTestBase
 
             for (TestVersions upgrade : this.upgrade)
             {
-                try (UpgradeableCluster cluster = init(UpgradeableCluster.create(nodeCount, upgrade.initial)))
+                try (UpgradeableCluster cluster = init(UpgradeableCluster.create(nodeCount, upgrade.initial, configConsumer)))
                 {
                     setup.run(cluster);
 

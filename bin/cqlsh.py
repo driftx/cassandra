@@ -96,7 +96,8 @@ else:
 # >>> webbrowser._tryorder
 # >>> webbrowser._browser
 #
-if len(webbrowser._tryorder) == 0:
+# webbrowser._tryorder is None in python3.7+
+if webbrowser._tryorder is None or len(webbrowser._tryorder) == 0:
     CASSANDRA_CQL_HTML = CASSANDRA_CQL_HTML_FALLBACK
 elif webbrowser._tryorder[0] == 'xdg-open' and os.environ.get('XDG_DATA_DIRS', '') == '':
     # only on Linux (some OS with xdg-open)
@@ -414,7 +415,7 @@ def insert_driver_hooks():
 
 class Shell(cmd.Cmd):
     custom_prompt = os.getenv('CQLSH_PROMPT', '')
-    if custom_prompt is not '':
+    if custom_prompt != '':
         custom_prompt += "\n"
     default_prompt = custom_prompt + "cqlsh> "
     continue_prompt = "   ... "
@@ -537,6 +538,10 @@ class Shell(cmd.Cmd):
         self.statement_error = False
         self.single_statement = single_statement
         self.is_subshell = is_subshell
+
+    @property
+    def batch_mode(self):
+        return not self.tty
 
     @property
     def is_using_utf8(self):
@@ -855,9 +860,9 @@ class Shell(cmd.Cmd):
     def get_input_line(self, prompt=''):
         if self.tty:
             self.lastcmd = input(prompt)
-            line = self.lastcmd + '\n'
+            line = ensure_text(self.lastcmd) + '\n'
         else:
-            self.lastcmd = self.stdin.readline()
+            self.lastcmd = ensure_text(self.stdin.readline())
             line = self.lastcmd
             if not len(line):
                 raise EOFError
@@ -906,7 +911,7 @@ class Shell(cmd.Cmd):
         Returns true if the statement is complete and was handled (meaning it
         can be reset).
         """
-
+        statementtext = ensure_text(statementtext)
         try:
             statements, endtoken_escaped = cqlruleset.cql_split_statements(statementtext)
         except pylexotron.LexingError as e:
@@ -1002,7 +1007,7 @@ class Shell(cmd.Cmd):
         self.tracing_enabled = tracing_was_enabled
 
     def perform_statement(self, statement):
-        statement = ensure_str(statement)
+        statement = ensure_text(statement)
 
         stmt = SimpleStatement(statement, consistency_level=self.consistency_level, serial_consistency_level=self.serial_consistency_level, fetch_size=self.page_size if self.use_paging else None)
         success, future = self.perform_simple_statement(stmt)
@@ -2234,7 +2239,7 @@ def should_use_color():
 
 
 def read_options(cmdlineargs, environment):
-    configs = configparser.SafeConfigParser()
+    configs = configparser.SafeConfigParser() if sys.version_info < (3, 2) else configparser.ConfigParser()
     configs.read(CONFIG_FILE)
 
     rawconfigs = configparser.RawConfigParser()
@@ -2466,8 +2471,7 @@ def main(options, hostname, port):
     shell.cmdloop()
     save_history()
 
-    batch_mode = options.file or options.execute
-    if batch_mode and shell.statement_error:
+    if shell.batch_mode and shell.statement_error:
         sys.exit(2)
 
 

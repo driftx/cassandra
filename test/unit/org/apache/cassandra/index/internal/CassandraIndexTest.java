@@ -18,6 +18,7 @@
 
 package org.apache.cassandra.index.internal;
 
+import java.nio.ByteBuffer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -69,6 +70,33 @@ public class CassandraIndexTest extends CQLTester
                         .updateExpression("SET v=2")
                         .postUpdateQueryExpression("v=2")
                         .run();
+    }
+
+    @Test
+    public void testIndexOnPartitionKeyWithPartitionWithoutRows() throws Throwable
+    {
+        createTable("CREATE TABLE %s (pk1 int, pk2 int, c int, s int static, v int, PRIMARY KEY((pk1, pk2), c))");
+        createIndex("CREATE INDEX ON %s (pk2)");
+
+        execute("INSERT INTO %s (pk1, pk2, c, s, v) VALUES (?, ?, ?, ?, ?)", 1, 1, 1, 9, 1);
+        execute("INSERT INTO %s (pk1, pk2, c, s, v) VALUES (?, ?, ?, ?, ?)", 1, 1, 2, 9, 2);
+        execute("INSERT INTO %s (pk1, pk2, c, s, v) VALUES (?, ?, ?, ?, ?)", 3, 1, 1, 9, 1);
+        execute("INSERT INTO %s (pk1, pk2, c, s, v) VALUES (?, ?, ?, ?, ?)", 4, 1, 1, 9, 1);
+        flush();
+
+        assertRowsIgnoringOrder(execute("SELECT * FROM %s WHERE pk2 = ?", 1),
+                                row(1, 1, 1, 9, 1),
+                                row(1, 1, 2, 9, 2),
+                                row(3, 1, 1, 9, 1),
+                                row(4, 1, 1, 9, 1));
+
+        execute("DELETE FROM %s WHERE pk1 = ? AND pk2 = ? AND c = ?", 3, 1, 1);
+
+        assertRowsIgnoringOrder(execute("SELECT * FROM %s WHERE pk2 = ?", 1),
+                                row(1, 1, 1, 9, 1),
+                                row(1, 1, 2, 9, 2),
+                                row(3, 1, null, 9, null),
+                                row(4, 1, 1, 9, 1));
     }
 
     @Test
@@ -348,6 +376,31 @@ public class CassandraIndexTest extends CQLTester
 
         assertEmpty(execute("SELECT * FROM %s WHERE s = ? AND token(k) < token(?)", "s0", "k0"));
         assertEmpty(execute("SELECT * FROM %s WHERE s = ? AND token(k) < token(?)", "s1", "k1"));
+
+        row1 = row("s0");
+        row2 = row("s0");
+        row3 = row("s1");
+        row4 = row("s1");
+
+        assertRows(execute("SELECT s FROM %s WHERE s = ?", "s0"), row1, row2);
+        assertRows(execute("SELECT s FROM %s WHERE s = ?", "s1"), row3, row4);
+
+        assertRows(execute("SELECT s FROM %s WHERE s = ? AND token(k) >= token(?)", "s0", "k0"), row1, row2);
+        assertRows(execute("SELECT s FROM %s WHERE s = ? AND token(k) >= token(?)", "s1", "k1"), row3, row4);
+
+        assertEmpty(execute("SELECT s FROM %s WHERE s = ? AND token(k) < token(?)", "s0", "k0"));
+        assertEmpty(execute("SELECT s FROM %s WHERE s = ? AND token(k) < token(?)", "s1", "k1"));
+
+        dropIndex(String.format("DROP INDEX %s.sc_index", keyspace()));
+
+        assertRows(execute("SELECT s FROM %s WHERE s = ? ALLOW FILTERING", "s0"), row1, row2);
+        assertRows(execute("SELECT s FROM %s WHERE s = ? ALLOW FILTERING", "s1"), row3, row4);
+
+        assertRows(execute("SELECT s FROM %s WHERE s = ? AND token(k) >= token(?) ALLOW FILTERING", "s0", "k0"), row1, row2);
+        assertRows(execute("SELECT s FROM %s WHERE s = ? AND token(k) >= token(?) ALLOW FILTERING", "s1", "k1"), row3, row4);
+
+        assertEmpty(execute("SELECT s FROM %s WHERE s = ? AND token(k) < token(?) ALLOW FILTERING", "s0", "k0"));
+        assertEmpty(execute("SELECT s FROM %s WHERE s = ? AND token(k) < token(?) ALLOW FILTERING", "s1", "k1"));
     }
 
     @Test

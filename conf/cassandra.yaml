@@ -1,7 +1,7 @@
 # Cassandra storage config YAML
 
 # NOTE:
-#   See http://wiki.apache.org/cassandra/StorageConfiguration for
+#   See https://cassandra.apache.org/doc/latest/configuration/ for
 #   full explanations of configuration directives
 # /NOTE
 
@@ -20,8 +20,6 @@ cluster_name: 'Test Cluster'
 # Specifying initial_token will override this setting on the node's initial start,
 # on subsequent starts, this setting will apply even if initial token is set.
 #
-# If you already have a cluster with 1 token per node, and wish to migrate to 
-# multiple tokens per node, see http://wiki.apache.org/cassandra/Operations
 num_tokens: 256
 
 # Triggers automatic allocation of num_tokens tokens for this node. The allocation
@@ -47,7 +45,6 @@ num_tokens: 256
 # that do not have vnodes enabled.
 # initial_token:
 
-# See http://wiki.apache.org/cassandra/HintedHandoff
 # May either be "true" or "false" to enable globally
 hinted_handoff_enabled: true
 
@@ -424,6 +421,21 @@ commitlog_segment_size_in_mb: 32
 #   - class_name: LZ4Compressor
 #     parameters:
 #         -
+
+# Compression to apply to SSTables as they flush for compressed tables.
+# Note that tables without compression enabled do not respect this flag.
+#
+# As high ratio compressors like LZ4HC, Zstd, and Deflate can potentially
+# block flushes for too long, the default is to flush with a known fast
+# compressor in those cases. Options are:
+#
+# none : Flush without compressing blocks but while still doing checksums.
+# fast : Flush with a fast compressor. If the table is already using a
+#        fast compressor that compressor is used.
+# table: Always flush with the same compressor that the table uses. This
+#        was the pre 4.0 behavior.
+#
+# flush_compression: fast
 
 # any class that implements the SeedProvider interface and has a
 # constructor that takes a Map<String, String> of parameters will do.
@@ -802,8 +814,13 @@ column_index_cache_size_in_kb: 2
 # to the number of cores.
 #concurrent_compactors: 1
 
-# Number of simultaneous repair validations to allow. Default is unbounded
-# Values less than one are interpreted as unbounded (the default)
+# Number of simultaneous repair validations to allow. If not set or set to
+# a value less than 1, it defaults to the value of concurrent_compactors.
+# To set a value greeater than concurrent_compactors at startup, the system
+# property cassandra.allow_unlimited_concurrent_validations must be set to
+# true. To dynamically resize to a value > concurrent_compactors on a running
+# node, first call the bypassConcurrentValidatorsLimit method on the
+# org.apache.cassandra.db:type=StorageService mbean
 # concurrent_validations: 0
 
 # Number of simultaneous materialized view builder tasks to allow.
@@ -1269,7 +1286,8 @@ back_pressure_strategy:
 # on audit_logging for full details about the various configuration options.
 audit_logging_options:
     enabled: false
-    logger: BinAuditLogger
+    logger:
+      - class_name: BinAuditLogger
     # audit_logs_dir:
     # included_keyspaces:
     # excluded_keyspaces: system, system_schema, system_virtual_schema

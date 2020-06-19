@@ -51,6 +51,7 @@ import org.apache.cassandra.utils.concurrent.Ref;
 import static com.google.common.collect.ImmutableList.of;
 import static org.apache.cassandra.utils.ExecutorUtils.*;
 import static org.apache.cassandra.utils.FBUtilities.prettyPrintMemory;
+import static org.apache.cassandra.utils.memory.MemoryUtil.isExactlyDirect;
 
 /**
  * A pool of ByteBuffers that can be recycled.
@@ -73,13 +74,7 @@ public class BufferPool
     @VisibleForTesting
     public static long MEMORY_USAGE_THRESHOLD = DatabaseDescriptor.getFileCacheSizeInMB() * 1024L * 1024L;
 
-    @VisibleForTesting
-    public static boolean ALLOCATE_ON_HEAP_WHEN_EXAHUSTED = DatabaseDescriptor.getBufferPoolUseHeapIfExhausted();
-
     private static Debug debug;
-
-    @VisibleForTesting
-    public static boolean DISABLED = Boolean.parseBoolean(System.getProperty("cassandra.test.disable_buffer_pool", "false"));
 
     private static final Logger logger = LoggerFactory.getLogger(BufferPool.class);
     private static final NoSpamLogger noSpamLogger = NoSpamLogger.getLogger(logger, 15L, TimeUnit.MINUTES);
@@ -103,36 +98,26 @@ public class BufferPool
         }
     };
 
-    public static ByteBuffer get(int size)
-    {
-        if (DISABLED)
-            return allocate(size, ALLOCATE_ON_HEAP_WHEN_EXAHUSTED);
-        else
-            return localPool.get().get(size, false, ALLOCATE_ON_HEAP_WHEN_EXAHUSTED);
-    }
-
     public static ByteBuffer get(int size, BufferType bufferType)
     {
-        boolean onHeap = bufferType == BufferType.ON_HEAP;
-        if (DISABLED || onHeap)
-            return allocate(size, onHeap);
+        if (bufferType == BufferType.ON_HEAP)
+            return allocate(size, bufferType);
         else
-            return localPool.get().get(size, false, onHeap);
+            return localPool.get().get(size);
     }
 
     public static ByteBuffer getAtLeast(int size, BufferType bufferType)
     {
-        boolean onHeap = bufferType == BufferType.ON_HEAP;
-        if (DISABLED || onHeap)
-            return allocate(size, onHeap);
+        if (bufferType == BufferType.ON_HEAP)
+            return allocate(size, bufferType);
         else
-            return localPool.get().get(size, true, onHeap);
+            return localPool.get().getAtLeast(size);
     }
 
     /** Unlike the get methods, this will return null if the pool is exhausted */
     public static ByteBuffer tryGet(int size)
     {
-        return localPool.get().tryGet(size, true);
+        return localPool.get().tryGet(size, false);
     }
 
     public static ByteBuffer tryGetAtLeast(int size)
@@ -140,23 +125,22 @@ public class BufferPool
         return localPool.get().tryGet(size, true);
     }
 
-    private static ByteBuffer allocate(int size, boolean onHeap)
+    private static ByteBuffer allocate(int size, BufferType bufferType)
     {
-        return onHeap
+        return bufferType == BufferType.ON_HEAP
                ? ByteBuffer.allocate(size)
                : ByteBuffer.allocateDirect(size);
     }
 
     public static void put(ByteBuffer buffer)
     {
-        if (!(DISABLED || buffer.hasArray()))
+        if (isExactlyDirect(buffer))
             localPool.get().put(buffer);
     }
 
     public static void putUnusedPortion(ByteBuffer buffer)
     {
-
-        if (!(DISABLED || buffer.hasArray()))
+        if (isExactlyDirect(buffer))
         {
             LocalPool pool = localPool.get();
             if (buffer.limit() > 0)
@@ -210,12 +194,8 @@ public class BufferPool
             assert Integer.bitCount(MACRO_CHUNK_SIZE) == 1; // must be a power of 2
             assert MACRO_CHUNK_SIZE % NORMAL_CHUNK_SIZE == 0; // must be a multiple
 
-            if (DISABLED)
-                logger.info("Global buffer pool is disabled, allocating {}", ALLOCATE_ON_HEAP_WHEN_EXAHUSTED ? "on heap" : "off heap");
-            else
-                logger.info("Global buffer pool is enabled, when pool is exhausted (max is {}) it will allocate {}",
-                            prettyPrintMemory(MEMORY_USAGE_THRESHOLD),
-                            ALLOCATE_ON_HEAP_WHEN_EXAHUSTED ? "on heap" : "off heap");
+            logger.info("Global buffer pool limit is {}",
+                            prettyPrintMemory(MEMORY_USAGE_THRESHOLD));
         }
 
         private final Queue<Chunk> macroChunks = new ConcurrentLinkedQueue<>();
@@ -249,9 +229,12 @@ public class BufferPool
                 long cur = memoryUsage.get();
                 if (cur + MACRO_CHUNK_SIZE > MEMORY_USAGE_THRESHOLD)
                 {
-                    noSpamLogger.info("Maximum memory usage reached ({}), cannot allocate chunk of {}",
-                                      prettyPrintMemory(MEMORY_USAGE_THRESHOLD),
-                                      prettyPrintMemory(MACRO_CHUNK_SIZE));
+                    if (MEMORY_USAGE_THRESHOLD > 0)
+                    {
+                        noSpamLogger.info("Maximum memory usage reached ({}), cannot allocate chunk of {}",
+                                          prettyPrintMemory(MEMORY_USAGE_THRESHOLD),
+                                          prettyPrintMemory(MACRO_CHUNK_SIZE));
+                    }
                     return null;
                 }
                 if (memoryUsage.compareAndSet(cur, cur + MACRO_CHUNK_SIZE))
@@ -455,65 +438,81 @@ public class BufferPool
 
         private <T> void removeIf(BiPredicate<Chunk, T> predicate, T value)
         {
-            switch (count)
+            // do not release matching chunks before we move null chunks to the back of the queue;
+            // because, with current buffer release from another thread, "chunk#release()" may eventually come back to
+            // "removeIf" causing NPE as null chunks are not at the back of the queue.
+            Chunk toRelease0 = null, toRelease1 = null, toRelease2 = null;
+
+            try
             {
-                case 3:
-                    if (predicate.test(chunk2, value))
-                    {
-                        --count;
-                        Chunk chunk = chunk2;
-                        chunk2 = null;
-                        chunk.release();
-                    }
-                case 2:
-                    if (predicate.test(chunk1, value))
-                    {
-                        --count;
-                        Chunk chunk = chunk1;
-                        chunk1 = null;
-                        chunk.release();
-                    }
-                case 1:
-                    if (predicate.test(chunk0, value))
-                    {
-                        --count;
-                        Chunk chunk = chunk0;
-                        chunk0 = null;
-                        chunk.release();
-                    }
-                    break;
-                case 0:
-                    return;
+                switch (count)
+                {
+                    case 3:
+                        if (predicate.test(chunk2, value))
+                        {
+                            --count;
+                            toRelease2 = chunk2;
+                            chunk2 = null;
+                        }
+                    case 2:
+                        if (predicate.test(chunk1, value))
+                        {
+                            --count;
+                            toRelease1 = chunk1;
+                            chunk1 = null;
+                        }
+                    case 1:
+                        if (predicate.test(chunk0, value))
+                        {
+                            --count;
+                            toRelease0 = chunk0;
+                            chunk0 = null;
+                        }
+                        break;
+                    case 0:
+                        return;
+                }
+                switch (count)
+                {
+                    case 2:
+                        // Find the only null item, and shift non-null so that null is at chunk2
+                        if (chunk0 == null)
+                        {
+                            chunk0 = chunk1;
+                            chunk1 = chunk2;
+                            chunk2 = null;
+                        }
+                        else if (chunk1 == null)
+                        {
+                            chunk1 = chunk2;
+                            chunk2 = null;
+                        }
+                        break;
+                    case 1:
+                        // Find the only non-null item, and shift it to chunk0
+                        if (chunk1 != null)
+                        {
+                            chunk0 = chunk1;
+                            chunk1 = null;
+                        }
+                        else if (chunk2 != null)
+                        {
+                            chunk0 = chunk2;
+                            chunk2 = null;
+                        }
+                        break;
+                }
             }
-            switch (count)
+            finally
             {
-                case 2:
-                    // Find the only null item, and shift non-null so that null is at chunk2
-                    if (chunk0 == null)
-                    {
-                        chunk0 = chunk1;
-                        chunk1 = chunk2;
-                        chunk2 = null;
-                    }
-                    else if (chunk1 == null)
-                    {
-                        chunk1 = chunk2;
-                        chunk2 = null;
-                    }
-                    break;
-                case 1:
-                    // Find the only non-null item, and shift it to chunk0
-                    if (chunk1 != null)
-                    {
-                        chunk0 = chunk1;
-                        chunk1 = null;
-                    }
-                    else if (chunk2 != null)
-                    {
-                        chunk0 = chunk2;
-                        chunk2 = null;
-                    }
-                    break;
+                if (toRelease0 != null)
+                    toRelease0.release();
+
+                if (toRelease1 != null)
+                    toRelease1.release();
+
+                if (toRelease2 != null)
+                    toRelease2.release();
             }
         }
 
@@ -633,25 +632,15 @@ public class BufferPool
 
         public ByteBuffer get(int size)
         {
-            return get(size, ALLOCATE_ON_HEAP_WHEN_EXAHUSTED);
-        }
-
-        public ByteBuffer get(int size, boolean allocateOnHeapWhenExhausted)
-        {
-            return get(size, false, allocateOnHeapWhenExhausted);
+            return get(size, false);
         }
 
         public ByteBuffer getAtLeast(int size)
         {
-            return getAtLeast(size, ALLOCATE_ON_HEAP_WHEN_EXAHUSTED);
+            return get(size, true);
         }
 
-        public ByteBuffer getAtLeast(int size, boolean allocateOnHeapWhenExhausted)
-        {
-            return get(size, true, allocateOnHeapWhenExhausted);
-        }
-
-        private ByteBuffer get(int size, boolean sizeIsLowerBound, boolean allocateOnHeapWhenExhausted)
+        private ByteBuffer get(int size, boolean sizeIsLowerBound)
         {
             ByteBuffer ret = tryGet(size, sizeIsLowerBound);
             if (ret != null)
@@ -671,12 +660,12 @@ public class BufferPool
             }
 
             metrics.misses.mark();
-            return allocate(size, allocateOnHeapWhenExhausted);
+            return allocate(size, BufferType.OFF_HEAP);
         }
 
         public ByteBuffer tryGet(int size)
         {
-            return tryGet(size, ALLOCATE_ON_HEAP_WHEN_EXAHUSTED);
+            return tryGet(size, false);
         }
 
         public ByteBuffer tryGetAtLeast(int size)
@@ -890,7 +879,7 @@ public class BufferPool
 
         Chunk(Recycler recycler, ByteBuffer slab)
         {
-            assert !slab.hasArray();
+            assert MemoryUtil.isExactlyDirect(slab);
             this.recycler = recycler;
             this.slab = slab;
             this.baseAddress = MemoryUtil.getAddress(slab);

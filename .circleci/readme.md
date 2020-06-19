@@ -6,6 +6,9 @@ between them by copying the correct file to config.yml and committing the result
 
 `cp .circleci/config.yml.HIGHRES .circleci/config.yml`
 
+config.yml.LOWRES is the default config.
+MIDRES and HIGHRES are custom configs for those who have access to premium CircleCI resources.
+
 Make sure you never edit the config.yml manually.
 
 ## Updating the config master
@@ -28,5 +31,5 @@ HIGHRES files, read below for details how to do it manually;
    the patch file based on the diff (don't commit it though).
 1. generate the HIGHRES file:
    `circleci config process config-2_1.yml.HIGHRES > config.yml.HIGHRES`
-1. and remove the temporary patched highres `config-2_1.yml.HIGHRES`
+1. and remove the temporary patched HIGHRES file: `rm config-2_1.yml.HIGHRES`
 

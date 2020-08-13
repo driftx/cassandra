@@ -48,7 +48,6 @@ public class TimestampSerializer implements TypeSerializer<Date>
                                          {
                                          "yyyy-MM-dd'T'HH:mm[:ss]",
                                          "yyyy-MM-dd HH:mm[:ss]"
-
                                          };
         final String[] offsetFormats = new String[]
                                          {
@@ -124,7 +123,7 @@ public class TimestampSerializer implements TypeSerializer<Date>
     {
         protected SimpleDateFormat initialValue()
         {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSX");
             sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
             return sdf;
         }

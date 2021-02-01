@@ -3127,6 +3127,7 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
                 RangesAtEndpoint full = fetchReplicas.stream()
                                                              .filter(f -> f.remote.isFull())
                                                              .map(f -> f.local)
+                                                             .distinct()
                                                              .collect(RangesAtEndpoint.collector(myAddress));
                 RangesAtEndpoint transientReplicas = fetchReplicas.stream()
                                                                   .filter(f -> f.remote.isTransient())

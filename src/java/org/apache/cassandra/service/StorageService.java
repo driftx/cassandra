@@ -3235,8 +3235,14 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
 
     public void onJoin(InetAddressAndPort endpoint, EndpointState epState)
     {
-        for (Map.Entry<ApplicationState, VersionedValue> entry : epState.states())
+        Set<Map.Entry<ApplicationState, VersionedValue>> states = epState.states();
+        boolean hasStatusAndPort = states.stream()
+                                         .anyMatch(entry -> entry.getKey() == ApplicationState.STATUS_WITH_PORT);
+        for (Map.Entry<ApplicationState, VersionedValue> entry : states)
         {
+            if (hasStatusAndPort && entry.getKey() == ApplicationState.STATUS) // avoid double-processing this endpoint for things like move/remove
+                continue;
+
             onChange(endpoint, entry.getKey(), entry.getValue());
         }
         MigrationCoordinator.instance.reportEndpointVersion(endpoint, epState);

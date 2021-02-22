@@ -230,9 +230,6 @@ public class Util
             ss.onChange(ep,
                         ApplicationState.STATUS_WITH_PORT,
                         new VersionedValue.VersionedValueFactory(partitioner).normal(Collections.singleton(endpointTokens.get(i))));
-            ss.onChange(ep,
-                        ApplicationState.STATUS,
-                        new VersionedValue.VersionedValueFactory(partitioner).normal(Collections.singleton(endpointTokens.get(i))));
             hosts.add(ep);
         }
 

@@ -1,4 +1,17 @@
 4.0-beta5
+ * Fix node unable to join when RF > N in multi-DC with added warning (CASSANDRA-16296)
+ * Add an option to nodetool tablestats to check sstable location correctness (CASSANDRA-16344) 
+ * Unable to ALTER KEYSPACE while decommissioned/assassinated nodes are in gossip (CASSANDRA-16422)
+ * Metrics backward compatibility restored after CASSANDRA-15066 (CASSANDRA-16083)
+ * Reduce new reserved keywords introduced since 3.0 (CASSANDRA-16439)
+ * Improve system tables handling in case of disk failures (CASSANDRA-14793)
+ * Add access and datacenters to unreserved keywords (CASSANDRA-16398)
+ * Fix nodetool ring, status output when DNS resolution or port printing are in use (CASSANDRA-16283)
+ * Upgrade Jacoco to 0.8.6 (for Java 11 support) (CASSANDRA-16365)
+ * Move excessive repair debug loggings to trace level (CASSANDRA-16406)
+ * Restore validation of each message's protocol version (CASSANDRA-16374)
+ * Upgrade netty and chronicle-queue dependencies to get Auditing and native library loading working on arm64 architectures (CASSANDRA-16384,CASSANDRA-16392)
+ * Release StreamingTombstoneHistogramBuilder spool when switching writers (CASSANDRA-14834)
  * Correct memtable on-heap size calculations to match actual use (CASSANDRA-16318)
  * Fix client notifications in CQL protocol v5 (CASSANDRA-16353)
  * Too defensive check when picking sstables for preview repair (CASSANDRA-16284)
@@ -8,12 +21,17 @@
  * Restore sasi dependencies jflex, snowball-stemmer, and concurrent-trees, in the cassandra-all pom (CASSANDRA-16303)
  * Fix DecimalDeserializer#toString OOM (CASSANDRA-14925)
 Merged from 3.11:
+ * Fix digest computation for queries with fetched but non queried columns (CASSANDRA-15962)
+ * Reduce amount of allocations during batch statement execution (CASSANDRA-16201)
  * Update jflex-1.6.0.jar to match upstream (CASSANDRA-16393)
 Merged from 3.0:
+ * Avoid pushing schema mutations when setting up distributed system keyspaces locally (CASSANDRA-16387)
  * Prevent unbounded number of pending flushing tasks (CASSANDRA-16261)
  * Improve empty hint file handling during startup (CASSANDRA-16162)
  * Fix skipping on pre-3.0 created compact storage sstables due to missing primary key liveness (CASSANDRA-16226)
- * Allow empty string in collections with COPY FROM in cqlsh (CASSANDRA-16372
+ * Allow empty string in collections with COPY FROM in cqlsh (CASSANDRA-16372)
+Merged from 2.2:
+ * Make TokenMetadata's ring version increments atomic (CASSANDRA-16286)
 
 4.0-beta4
  * DROP COMPACT STORAGE should invalidate prepared statements still using CompactTableMetadata (CASSANDRA-16361)

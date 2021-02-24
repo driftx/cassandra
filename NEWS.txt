@@ -38,6 +38,14 @@ using the provided 'sstableupgrade' tool.
 
 New features
 ------------
+    - The data of the system keyspaces using a local strategy (at the exception of the system.batches,
+      system.paxos, system.compaction_history, system.prepared_statements and system.repair tables)
+      is now stored by default in the first data directory, instead of being distributed among all
+      the data directories. This approach will allow the server to tolerate the failure of the other disks.
+      To ensure that a disk failure will not bring a node down, it is possible to use the system_data_file_directory
+      yaml property to store the local system keyspaces data on a directory that provides redundancy.
+      On node startup the local system keyspaces data will be automatically migrated if needed to the
+      correct location.
     - Nodes will now bootstrap all intra-cluster connections at startup by default and wait
       10 seconds for the all but one node in the local data center to be connected and marked
       UP in gossip. This prevents nodes from coordinating requests and failing because they
@@ -116,6 +124,16 @@ New features
 
 Upgrading
 ---------
+    - As part of the Internode Messaging improvement work in CASSANDRA-15066, matching response verbs for every request
+      verb were introduced and verbs were renamed. DroppedMessageMetrics pre-4.0 are now available with _REQ suffix. As
+      part of CASSANDRA-16083, we added DroppedMessageMetrics backward compatibility layer which exposes the metrics with
+      their old names too. Only the value for verbs READ and RANGE_SLICE will differ from the same metrics in 3.11 as it
+      does not include anymore the responses dropped, only the requests. After being deprecated in 3.11 PAGED_RANGE was
+      fully removed in 4.0. ConditionNotMet metric has been moved under scope CASClientWriteRequestMetrtic but as part of
+      CASSANDRA-16083, backward compatibility layer was added so it can be still exposed under the old 3.11 scope.
+    - Native protocol v5 is promoted from beta in this release. The wire format has changed
+      significantly and users should take care to ensure client drivers are upgraded to a version
+      with support for the final v5 format, if currently connecting over v5-beta. (CASSANDRA-15299)
     - Cassandra removed support for the OldNetworkTopologyStrategy. Before upgrading you will need to change the 
       replication strategy for the keyspaces using this strategy to the NetworkTopologyStrategy. (CASSANDRA-13990)
     - Sstables for tables using with a frozen UDT written by C* 3.0 appear as corrupted.

@@ -59,7 +59,6 @@ import org.apache.cassandra.cql3.QueryProcessor;
 import org.apache.cassandra.db.ColumnFamilyStore;
 import org.apache.cassandra.db.Keyspace;
 import org.apache.cassandra.db.Memtable;
-import org.apache.cassandra.db.ReadResponse;
 import org.apache.cassandra.db.SystemKeyspace;
 import org.apache.cassandra.db.SystemKeyspaceMigrator40;
 import org.apache.cassandra.db.commitlog.CommitLog;
@@ -98,7 +97,6 @@ import org.apache.cassandra.metrics.CassandraMetricsRegistry;
 import org.apache.cassandra.net.Message;
 import org.apache.cassandra.net.MessagingService;
 import org.apache.cassandra.net.NoPayload;
-import org.apache.cassandra.net.Verb;
 import org.apache.cassandra.schema.MigrationManager;
 import org.apache.cassandra.schema.Schema;
 import org.apache.cassandra.schema.SchemaConstants;
@@ -139,6 +137,7 @@ import static org.apache.cassandra.distributed.impl.DistributedTestSnitch.toCass
 public class Instance extends IsolatedExecutor implements IInvokableInstance
 {
     public final IInstanceConfig config;
+    private volatile boolean initialized = false;
     private final long startedAt = System.nanoTime();
 
     // should never be invoked directly, so that it is instantiated on other class loader;
@@ -425,6 +424,7 @@ public class Instance extends IsolatedExecutor implements IInvokableInstance
                 DatabaseDescriptor.daemonInitialization();
                 FileUtils.setFSErrorHandler(new DefaultFSErrorHandler());
                 DatabaseDescriptor.createAllDirectories();
+                CassandraDaemon.getInstanceForTesting().migrateSystemDataIfNeeded();
                 CommitLog.instance.start();
 
                 CassandraDaemon.getInstanceForTesting().runStartupChecks();
@@ -465,8 +465,6 @@ public class Instance extends IsolatedExecutor implements IInvokableInstance
 
                 // Re-populate token metadata after commit log recover (new peers might be loaded onto system keyspace #10293)
                 StorageService.instance.populateTokenMetadata();
-
-                Verb.REQUEST_RSP.unsafeSetSerializer(() -> ReadResponse.serializer);
 
                 if (config.has(NETWORK))
                 {
@@ -533,6 +531,8 @@ public class Instance extends IsolatedExecutor implements IInvokableInstance
                 throw new RuntimeException(t);
             }
         }).run();
+
+        initialized = true;
     }
 
 
@@ -697,6 +697,9 @@ public class Instance extends IsolatedExecutor implements IInvokableInstance
     @Override
     public int liveMemberCount()
     {
+        if (!initialized || isShutdown())
+            return 0;
+
         return sync(() -> {
             if (!DatabaseDescriptor.isDaemonInitialized() || !Gossiper.instance.isEnabled())
                 return 0;

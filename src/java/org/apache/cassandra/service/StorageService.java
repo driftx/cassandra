@@ -1078,12 +1078,6 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         }
     }
 
-    @VisibleForTesting
-    public void ensureTraceKeyspace()
-    {
-        evolveSystemKeyspace(TraceKeyspace.metadata(), TraceKeyspace.GENERATION).ifPresent(MigrationManager::announce);
-    }
-
     public static boolean isReplacingSameAddress()
     {
         InetAddressAndPort replaceAddress = DatabaseDescriptor.getReplaceAddress();
@@ -1167,7 +1161,10 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         if (!authSetupCalled.getAndSet(true))
         {
             if (setUpSchema)
-                evolveSystemKeyspace(AuthKeyspace.metadata(), AuthKeyspace.GENERATION).ifPresent(MigrationManager::announce);
+            {
+                Optional<Mutation> mutation = evolveSystemKeyspace(AuthKeyspace.metadata(), AuthKeyspace.GENERATION);
+                mutation.ifPresent(value -> FBUtilities.waitOnFuture(MigrationManager.announceWithoutPush(Collections.singleton(value))));
+            }
 
             DatabaseDescriptor.getRoleManager().setup();
             DatabaseDescriptor.getAuthenticator().setup();
@@ -1193,7 +1190,7 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         evolveSystemKeyspace(             AuthKeyspace.metadata(),              AuthKeyspace.GENERATION).ifPresent(changes::add);
 
         if (!changes.isEmpty())
-            MigrationManager.announce(changes);
+            FBUtilities.waitOnFuture(MigrationManager.announceWithoutPush(changes));
     }
 
     public boolean isJoined()
@@ -3467,12 +3464,30 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         return stringify(Gossiper.instance.getUnreachableMembers(), true);
     }
 
+    @Override
     public String[] getAllDataFileLocations()
     {
-        String[] locations = DatabaseDescriptor.getAllDataFileLocations();
-        for (int i = 0; i < locations.length; i++)
-            locations[i] = FileUtils.getCanonicalPath(locations[i]);
+        return getCanonicalPaths(DatabaseDescriptor.getAllDataFileLocations());
+    }
+
+    private String[] getCanonicalPaths(String[] paths)
+    {
+        String[] locations = new String[paths.length];
+        for (int i = 0; i < paths.length; i++)
+            locations[i] = FileUtils.getCanonicalPath(paths[i]);
         return locations;
+    }
+
+    @Override
+    public String[] getLocalSystemKeyspacesDataFileLocations()
+    {
+        return getCanonicalPaths(DatabaseDescriptor.getLocalSystemKeyspacesDataFileLocations());
+    }
+
+    @Override
+    public String[] getNonLocalSystemKeyspacesDataFileLocations()
+    {
+        return getCanonicalPaths(DatabaseDescriptor.getNonLocalSystemKeyspacesDataFileLocations());
     }
 
     public String getCommitLogLocation()
@@ -5131,7 +5146,7 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
 
             Keyspace keyspaceInstance = Schema.instance.getKeyspaceInstance(keyspace);
             if (keyspaceInstance == null)
-                throw new IllegalArgumentException("The node does not have " + keyspace + " yet, probably still bootstrapping");
+                throw new IllegalStateException("The node does not have " + keyspace + " yet, probably still bootstrapping. Effective ownership information is meaningless.");
             strategy = keyspaceInstance.getReplicationStrategy();
         }
 
@@ -5177,7 +5192,7 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
     {
         LinkedHashMap<InetAddressAndPort, Float> result = getEffectiveOwnership(keyspace);
         LinkedHashMap<String, Float> asStrings = new LinkedHashMap<>();
-        result.entrySet().stream().forEachOrdered(entry -> asStrings.put(entry.getKey().toString(), entry.getValue()));
+        result.entrySet().stream().forEachOrdered(entry -> asStrings.put(entry.getKey().getHostAddressAndPort(), entry.getValue()));
         return asStrings;
     }
 

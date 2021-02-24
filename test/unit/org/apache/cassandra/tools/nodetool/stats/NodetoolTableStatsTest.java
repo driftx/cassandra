@@ -18,7 +18,6 @@
 
 package org.apache.cassandra.tools.nodetool.stats;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,7 +26,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +33,6 @@ import org.junit.runner.RunWith;
 import org.apache.cassandra.OrderedJUnit4ClassRunner;
 import org.apache.cassandra.cql3.CQLTester;
 import org.apache.cassandra.service.StorageService;
-import org.apache.cassandra.tools.NodeProbe;
 import org.apache.cassandra.tools.ToolRunner;
 import org.apache.cassandra.tools.ToolRunner.ToolResult;
 import org.assertj.core.api.Assertions;
@@ -49,20 +46,11 @@ import static org.junit.Assert.assertTrue;
 @RunWith(OrderedJUnit4ClassRunner.class)
 public class NodetoolTableStatsTest extends CQLTester
 {
-    private static NodeProbe probe;
-
     @BeforeClass
     public static void setup() throws Exception
     {
         StorageService.instance.initServer();
         startJMXServer();
-        probe = new NodeProbe(jmxHost, jmxPort);
-    }
-
-    @AfterClass
-    public static void teardown() throws IOException
-    {
-        probe.close();
     }
 
     @Test
@@ -74,16 +62,16 @@ public class NodetoolTableStatsTest extends CQLTester
                         "        nodetool tablestats - Print statistics on tables\n" + 
                         "\n" + 
                         "SYNOPSIS\n" + 
-                        "        nodetool [(-h <host> | --host <host>)] [(-p <port> | --port <port>)]\n" + 
-                        "                [(-pp | --print-port)] [(-pw <password> | --password <password>)]\n" + 
-                        "                [(-pwf <passwordFilePath> | --password-file <passwordFilePath>)]\n" + 
-                        "                [(-u <username> | --username <username>)] tablestats\n" + 
-                        "                [(-F <format> | --format <format>)] [(-H | --human-readable)] [-i]\n" + 
-                        "                [(-s <sort_key> | --sort <sort_key>)] [(-t <top> | --top <top>)] [--]\n" + 
-                        "                [<keyspace.table>...]\n" + 
+                        "        nodetool [(-h <host> | --host <host>)] [(-p <port> | --port <port>)]\n" +
+                        "                [(-pp | --print-port)] [(-pw <password> | --password <password>)]\n" +
+                        "                [(-pwf <passwordFilePath> | --password-file <passwordFilePath>)]\n" +
+                        "                [(-u <username> | --username <username>)] tablestats\n" +
+                        "                [(-F <format> | --format <format>)] [(-H | --human-readable)] [-i]\n" +
+                        "                [(-l | --sstable-location-check)] [(-s <sort_key> | --sort <sort_key>)]\n" +
+                        "                [(-t <top> | --top <top>)] [--] [<keyspace.table>...]\n" +
                         "\n" + 
-                        "OPTIONS\n" + 
-                        "        -F <format>, --format <format>\n" + 
+                        "OPTIONS\n" +
+                        "        -F <format>, --format <format>\n" +
                         "            Output format (json, yaml)\n" + 
                         "\n" + 
                         "        -h <host>, --host <host>\n" + 
@@ -93,7 +81,10 @@ public class NodetoolTableStatsTest extends CQLTester
                         "            Display bytes in human readable form, i.e. KiB, MiB, GiB, TiB\n" + 
                         "\n" + 
                         "        -i\n" + 
-                        "            Ignore the list of tables and display the remaining tables\n" + 
+                        "            Ignore the list of tables and display the remaining tables\n" +
+                        "\n" +
+                        "        -l, --sstable-location-check\n" +
+                        "            Check whether or not the SSTables are in the correct location.\n" +
                         "\n" + 
                         "        -p <port>, --port <port>\n" + 
                         "            Remote jmx agent port number\n" + 
@@ -179,7 +170,7 @@ public class NodetoolTableStatsTest extends CQLTester
     {
         Arrays.asList("-H", "--human-readable").forEach(arg -> {
             ToolResult tool = ToolRunner.invokeNodetool("tablestats", arg);
-            assertThat("Arg: [" + arg + "]", tool.getStdout(), CoreMatchers.containsString(" KiB"));
+            assertThat(argFormat(arg), tool.getStdout(), CoreMatchers.containsString(" KiB"));
             assertTrue(String.format("Expected empty stderr for option [%s] but found: %s",
                                      arg,
                                      tool.getCleanedStderr()),
@@ -208,11 +199,11 @@ public class NodetoolTableStatsTest extends CQLTester
             while (m.find())
                 sorted.add(m.group(1));
 
-            assertNotEquals("Arg: [" + arg + "]", orig, sorted);
+            assertNotEquals(argFormat(arg), orig, sorted);
             Collections.sort(orig);
             Collections.sort(sorted);
-            assertEquals("Arg: [" + arg + "]", orig, sorted);
-            assertTrue("Arg: [" + arg + "]", tool.getCleanedStderr().isEmpty());
+            assertEquals(argFormat(arg), orig, sorted);
+            assertTrue(argFormat(arg), tool.getCleanedStderr().isEmpty());
             assertEquals(0, tool.getExitCode());
         });
 
@@ -227,14 +218,35 @@ public class NodetoolTableStatsTest extends CQLTester
     {
         Arrays.asList("-t", "--top").forEach(arg -> {
             ToolResult tool = ToolRunner.invokeNodetool("tablestats", "-s", "table_name", arg, "1");
-            assertEquals("Arg: [" + arg + "]", StringUtils.countMatches(tool.getStdout(), "Table:"), 1);
-            assertTrue("Arg: [" + arg + "]", tool.getCleanedStderr().isEmpty());
-            assertEquals("Arg: [" + arg + "]", 0, tool.getExitCode());
+            assertEquals(argFormat(arg), StringUtils.countMatches(tool.getStdout(), "Table:"), 1);
+            assertTrue(argFormat(arg), tool.getCleanedStderr().isEmpty());
+            assertEquals(argFormat(arg), 0, tool.getExitCode());
         });
 
         ToolResult tool = ToolRunner.invokeNodetool("tablestats", "-s", "table_name", "-t", "-1");
         assertThat(tool.getStdout(), CoreMatchers.containsString("argument for top must be a positive integer"));
         tool.assertCleanStdErr();
         assertEquals(1, tool.getExitCode());
+    }
+
+    @Test
+    public void testSSTableLocationCheckArg()
+    {
+        Arrays.asList("-l", "--sstable-location-check").forEach(arg -> {
+            ToolResult tool = ToolRunner.invokeNodetool("tablestats", arg, "system.local");
+            assertEquals(argFormat(arg), StringUtils.countMatches(tool.getStdout(), "SSTables in correct location: "), 1);
+            assertTrue(argFormat(arg), tool.getCleanedStderr().isEmpty());
+            assertEquals(argFormat(arg), 0, tool.getExitCode());
+        });
+
+        ToolResult tool = ToolRunner.invokeNodetool("tablestats", "system.local");
+        assertThat(tool.getStdout(), CoreMatchers.not(CoreMatchers.containsString("SSTables in correct location: ")));
+        tool.assertCleanStdErr();
+        assertEquals(0, tool.getExitCode());
+    }
+
+    private String argFormat(String arg)
+    {
+        return "Arg: [" + arg + ']';
     }
 }

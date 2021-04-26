@@ -35,6 +35,8 @@ default_env_vars: &default_env_vars
     DTEST_BRANCH: trunk
     CCM_MAX_HEAP_SIZE: 1024M
     CCM_HEAP_NEWSIZE: 256M
+    REPEATED_DTEST_PYTHON_TEST_NAME:
+    REPEATED_DTEST_PYTHON_COUNT: 100
 
 j8_par_executor: &j8_par_executor
   executor:
@@ -228,6 +230,28 @@ j8_with_dtests_jobs: &j8_with_dtests_jobs
     - j11_cqlsh-dtests-py38-no-vnodes:
         requires:
           - start_j11_cqlsh_tests-no-vnodes
+          - j8_build
+    # Java 8 repeated dtests (on request)
+    - start_j8_repeated-dtest:
+        type: approval
+    - j8_repeated-dtest-with-vnodes:
+        requires:
+          - start_j8_repeated-dtest
+          - j8_build
+    - j8_repeated-dtest-no-vnodes:
+        requires:
+          - start_j8_repeated-dtest
+          - j8_build
+    # Java 11 repeated dtests (on request)
+    - start_j11_repeated-dtest:
+        type: approval
+    - j11_repeated-dtest-with-vnodes:
+        requires:
+          - start_j11_repeated-dtest
+          - j8_build
+    - j11_repeated-dtest-no-vnodes:
+        requires:
+          - start_j11_repeated-dtest
           - j8_build
 
 j11_with_dtests_jobs: &j11_with_dtests_jobs
@@ -758,6 +782,52 @@ jobs:
           extra_env_args: 'CQLSH_PYTHON=/usr/bin/python3.8'
           python_version: '3.8'
 
+  j8_repeated-dtest-with-vnodes:
+    <<: *j8_par_executor
+    steps:
+      - attach_workspace:
+          at: /home/cassandra
+      - clone_dtest
+      - create_venv
+      - run_repeated_dtest:
+          file_tag: j8_with_vnodes
+          pytest_extra_args: '--use-vnodes --num-tokens=16'
+
+  j11_repeated-dtest-with-vnodes:
+    <<: *j11_par_executor
+    steps:
+      - attach_workspace:
+          at: /home/cassandra
+      - log_environment
+      - clone_dtest
+      - create_venv
+      - run_repeated_dtest:
+          file_tag: j11_with_vnodes
+          pytest_extra_args: '--use-vnodes --num-tokens=16'
+
+  j8_repeated-dtest-no-vnodes:
+    <<: *j8_par_executor
+    steps:
+      - attach_workspace:
+          at: /home/cassandra
+      - clone_dtest
+      - create_venv
+      - run_repeated_dtest:
+          file_tag: j8_without_vnodes
+          pytest_extra_args: ''
+
+  j11_repeated-dtest-no-vnodes:
+    <<: *j11_par_executor
+    steps:
+      - attach_workspace:
+          at: /home/cassandra
+      - log_environment
+      - clone_dtest
+      - create_venv
+      - run_repeated_dtest:
+          file_tag: j11_without_vnodes
+          pytest_extra_args: ''
+
 commands:
   log_environment:
     steps:
@@ -1094,6 +1164,73 @@ commands:
             # we need the "set -o pipefail" here so that the exit code that circleci will actually use is from pytest and not the exit code from tee
             export SPLIT_TESTS=`cat /tmp/split_dtest_tests_<<parameters.file_tag>>_final.txt`
             set -o pipefail && cd ~/cassandra-dtest && pytest <<parameters.pytest_extra_args>> --log-cli-level=DEBUG --junit-xml=/tmp/results/dtests/pytest_result_<<parameters.file_tag>>.xml -s --cassandra-dir=/home/cassandra/cassandra --keep-test-dir $SPLIT_TESTS 2>&1 | tee /tmp/dtest/stdout.txt
+      - store_test_results:
+          path: /tmp/results
+      - store_artifacts:
+          path: /tmp/dtest
+          destination: dtest_<<parameters.file_tag>>
+      - store_artifacts:
+          path: ~/cassandra-dtest/logs
+          destination: dtest_<<parameters.file_tag>>_logs
+
+  run_repeated_dtest:
+    parameters:
+      file_tag:
+        type: string
+      pytest_extra_args:
+        type: string
+        default: ''
+      extra_env_args:
+        type: string
+        default: ''
+      python_version:
+        type: enum
+        default: "3.6"
+        enum: [ "3.6", "3.7", "3.8" ]
+    steps:
+      - run:
+          name: Run dtests (<<parameters.file_tag>>)
+          no_output_timeout: 15m
+          command: |
+            if [ "$REPEATED_DTEST_PYTHON_TEST_NAME" == "<nil>" ]; then
+              echo "Repeated dtest name hasn't been defined, exiting without running any test"
+            elif [ "$REPEATED_DTEST_PYTHON_COUNT" == "<nil>" ]; then
+              echo "Repeated dtest repetitions hasn't been defined, exiting without running any test"
+            elif [ "$REPEATED_DTEST_PYTHON_COUNT" -le 0 ]; then
+              echo "Repeated dtest repetitions is lesser or equals than zero, exiting without running any test"
+            else
+
+              # calculate the number of test iterations to be run by the current parallel runner
+              div=$((REPEATED_DTEST_PYTHON_COUNT / CIRCLE_NODE_TOTAL))
+              mod=$((REPEATED_DTEST_PYTHON_COUNT % CIRCLE_NODE_TOTAL))
+              if (($CIRCLE_NODE_INDEX < $mod)); then
+                export REPEATED_DTEST_PYTHON_SPLIT_COUNT=$((div+1))
+              else
+                export REPEATED_DTEST_PYTHON_SPLIT_COUNT=$div
+              fi
+
+              if (($REPEATED_DTEST_PYTHON_SPLIT_COUNT <= 0)); then
+                echo "No tests to run in this runner"
+              else
+                echo "Running $REPEATED_DTEST_PYTHON_TEST_NAME $REPEATED_DTEST_PYTHON_SPLIT_COUNT times"
+            
+                source ~/env<<parameters.python_version>>/bin/activate
+                export PATH=$JAVA_HOME/bin:$PATH
+                if [ -n '<<parameters.extra_env_args>>' ]; then
+                  export <<parameters.extra_env_args>>
+                fi
+
+                java -version
+                cd ~/cassandra-dtest
+                mkdir -p /tmp/dtest
+
+                echo "env: $(env)"
+                echo "** done env"
+                mkdir -p /tmp/results/dtests
+                # we need the "set -o pipefail" here so that the exit code that circleci will actually use is from pytest and not the exit code from tee
+                set -o pipefail && cd ~/cassandra-dtest && pytest <<parameters.pytest_extra_args>> --count=$REPEATED_DTEST_PYTHON_SPLIT_COUNT --log-cli-level=DEBUG --junit-xml=/tmp/results/dtests/pytest_result_<<parameters.file_tag>>.xml -s --cassandra-dir=/home/cassandra/cassandra --keep-test-dir $REPEATED_DTEST_PYTHON_TEST_NAME | tee /tmp/dtest/stdout.txt
+              fi
+            fi
       - store_test_results:
           path: /tmp/results
       - store_artifacts:

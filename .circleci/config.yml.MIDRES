@@ -109,6 +109,66 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
+    - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+    - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+  j8_repeated-dtest-no-vnodes:
+    docker:
+    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:20210304
+    resource_class: medium
+    working_directory: ~/
+    shell: /bin/bash -eo pipefail -l
+    parallelism: 25
+    steps:
+    - attach_workspace:
+        at: /home/cassandra
+    - run:
+        name: Clone Cassandra dtest Repository (via git)
+        command: |
+          git clone --single-branch --branch $DTEST_BRANCH --depth 1 $DTEST_REPO ~/cassandra-dtest
+    - run:
+        name: Configure virtualenv and python Dependencies
+        command: |
+          # note, this should be super quick as all dependencies should be pre-installed in the docker image
+          # if additional dependencies were added to requirmeents.txt and the docker image hasn't been updated
+          # we'd have to install it here at runtime -- which will make things slow, so do yourself a favor and
+          # rebuild the docker image! (it automatically pulls the latest requirements.txt on build)
+          source ~/env3.6/bin/activate
+          export PATH=$JAVA_HOME/bin:$PATH
+          pip3 install --exists-action w --upgrade -r ~/cassandra-dtest/requirements.txt
+          pip3 uninstall -y cqlsh
+          pip3 freeze
+    - run:
+        name: Run dtests (j8_without_vnodes)
+        no_output_timeout: 15m
+        command: "if [ \"$REPEATED_DTEST_PYTHON_TEST_NAME\" == \"<nil>\" ]; then\n  echo \"Repeated dtest name hasn't been defined, exiting without running any test\"\nelif [ \"$REPEATED_DTEST_PYTHON_COUNT\" == \"<nil>\" ]; then\n  echo \"Repeated dtest repetitions hasn't been defined, exiting without running any test\"\nelif [ \"$REPEATED_DTEST_PYTHON_COUNT\" -le 0 ]; then\n  echo \"Repeated dtest repetitions is lesser or equals than zero, exiting without running any test\"\nelse\n\n  # calculate the number of test iterations to be run by the current parallel runner\n  div=$((REPEATED_DTEST_PYTHON_COUNT / CIRCLE_NODE_TOTAL))\n  mod=$((REPEATED_DTEST_PYTHON_COUNT % CIRCLE_NODE_TOTAL))\n  if (($CIRCLE_NODE_INDEX < $mod)); then\n    export REPEATED_DTEST_PYTHON_SPLIT_COUNT=$((div+1))\n  else\n    export REPEATED_DTEST_PYTHON_SPLIT_COUNT=$div\n  fi\n\n  if (($REPEATED_DTEST_PYTHON_SPLIT_COUNT <= 0)); then\n    echo \"No tests to run in this runner\"\n  else\n    echo \"Running $REPEATED_DTEST_PYTHON_TEST_NAME $REPEATED_DTEST_PYTHON_SPLIT_COUNT times\"\n\n    source ~/env3.6/bin/activate\n    export PATH=$JAVA_HOME/bin:$PATH\n    if [ -n '' ]; then\n      export \n    fi\n\n    java -version\n    cd ~/cassandra-dtest\n    mkdir -p /tmp/dtest\n\n    echo \"env: $(env)\"\n    echo \"** done env\"\n    mkdir -p /tmp/results/dtests\n    # we need the \"set -o pipefail\" here so that the exit code that circleci will actually use is from pytest and not the exit code from tee\n    set -o pipefail && cd ~/cassandra-dtest && pytest  --count=$REPEATED_DTEST_PYTHON_SPLIT_COUNT --log-cli-level=DEBUG --junit-xml=/tmp/results/dtests/pytest_result_j8_without_vnodes.xml -s --cassandra-dir=/home/cassandra/cassandra --keep-test-dir $REPEATED_DTEST_PYTHON_TEST_NAME | tee /tmp/dtest/stdout.txt\n  fi\nfi\n"
+    - store_test_results:
+        path: /tmp/results
+    - store_artifacts:
+        path: /tmp/dtest
+        destination: dtest_j8_without_vnodes
+    - store_artifacts:
+        path: ~/cassandra-dtest/logs
+        destination: dtest_j8_without_vnodes_logs
+    environment:
+    - ANT_HOME: /usr/share/ant
+    - JAVA11_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    - JAVA8_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+    - LANG: en_US.UTF-8
+    - KEEP_TEST_DIR: true
+    - DEFAULT_DIR: /home/cassandra/cassandra-dtest
+    - PYTHONIOENCODING: utf-8
+    - PYTHONUNBUFFERED: true
+    - CASS_DRIVER_NO_EXTENSIONS: true
+    - CASS_DRIVER_NO_CYTHON: true
+    - CASSANDRA_SKIP_SYNC: true
+    - DTEST_REPO: git://github.com/apache/cassandra-dtest.git
+    - DTEST_BRANCH: trunk
+    - CCM_MAX_HEAP_SIZE: 1024M
+    - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_cqlsh-dtests-py2-with-vnodes:
@@ -188,6 +248,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j11_unit_tests:
@@ -281,6 +343,89 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
+    - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    - CASSANDRA_USE_JDK11: true
+  j11_repeated-dtest-with-vnodes:
+    docker:
+    - image: apache/cassandra-testing-ubuntu2004-java11:20210304
+    resource_class: medium
+    working_directory: ~/
+    shell: /bin/bash -eo pipefail -l
+    parallelism: 25
+    steps:
+    - attach_workspace:
+        at: /home/cassandra
+    - run:
+        name: Log Environment Information
+        command: |
+          echo '*** id ***'
+          id
+          echo '*** cat /proc/cpuinfo ***'
+          cat /proc/cpuinfo
+          echo '*** free -m ***'
+          free -m
+          echo '*** df -m ***'
+          df -m
+          echo '*** ifconfig -a ***'
+          ifconfig -a
+          echo '*** uname -a ***'
+          uname -a
+          echo '*** mount ***'
+          mount
+          echo '*** env ***'
+          env
+          echo '*** java ***'
+          which java
+          java -version
+    - run:
+        name: Clone Cassandra dtest Repository (via git)
+        command: |
+          git clone --single-branch --branch $DTEST_BRANCH --depth 1 $DTEST_REPO ~/cassandra-dtest
+    - run:
+        name: Configure virtualenv and python Dependencies
+        command: |
+          # note, this should be super quick as all dependencies should be pre-installed in the docker image
+          # if additional dependencies were added to requirmeents.txt and the docker image hasn't been updated
+          # we'd have to install it here at runtime -- which will make things slow, so do yourself a favor and
+          # rebuild the docker image! (it automatically pulls the latest requirements.txt on build)
+          source ~/env3.6/bin/activate
+          export PATH=$JAVA_HOME/bin:$PATH
+          pip3 install --exists-action w --upgrade -r ~/cassandra-dtest/requirements.txt
+          pip3 uninstall -y cqlsh
+          pip3 freeze
+    - run:
+        name: Run dtests (j11_with_vnodes)
+        no_output_timeout: 15m
+        command: "if [ \"$REPEATED_DTEST_PYTHON_TEST_NAME\" == \"<nil>\" ]; then\n  echo \"Repeated dtest name hasn't been defined, exiting without running any test\"\nelif [ \"$REPEATED_DTEST_PYTHON_COUNT\" == \"<nil>\" ]; then\n  echo \"Repeated dtest repetitions hasn't been defined, exiting without running any test\"\nelif [ \"$REPEATED_DTEST_PYTHON_COUNT\" -le 0 ]; then\n  echo \"Repeated dtest repetitions is lesser or equals than zero, exiting without running any test\"\nelse\n\n  # calculate the number of test iterations to be run by the current parallel runner\n  div=$((REPEATED_DTEST_PYTHON_COUNT / CIRCLE_NODE_TOTAL))\n  mod=$((REPEATED_DTEST_PYTHON_COUNT % CIRCLE_NODE_TOTAL))\n  if (($CIRCLE_NODE_INDEX < $mod)); then\n    export REPEATED_DTEST_PYTHON_SPLIT_COUNT=$((div+1))\n  else\n    export REPEATED_DTEST_PYTHON_SPLIT_COUNT=$div\n  fi\n\n  if (($REPEATED_DTEST_PYTHON_SPLIT_COUNT <= 0)); then\n    echo \"No tests to run in this runner\"\n  else\n    echo \"Running $REPEATED_DTEST_PYTHON_TEST_NAME $REPEATED_DTEST_PYTHON_SPLIT_COUNT times\"\n\n    source ~/env3.6/bin/activate\n    export PATH=$JAVA_HOME/bin:$PATH\n    if [ -n '' ]; then\n      export \n    fi\n\n    java -version\n    cd ~/cassandra-dtest\n    mkdir -p /tmp/dtest\n\n    echo \"env: $(env)\"\n    echo \"** done env\"\n    mkdir -p /tmp/results/dtests\n    # we need the \"set -o pipefail\" here so that the exit code that circleci will actually use is from pytest and not the exit code from tee\n    set -o pipefail && cd ~/cassandra-dtest && pytest --use-vnodes --num-tokens=16 --count=$REPEATED_DTEST_PYTHON_SPLIT_COUNT --log-cli-level=DEBUG --junit-xml=/tmp/results/dtests/pytest_result_j11_with_vnodes.xml -s --cassandra-dir=/home/cassandra/cassandra --keep-test-dir $REPEATED_DTEST_PYTHON_TEST_NAME | tee /tmp/dtest/stdout.txt\n  fi\nfi\n"
+    - store_test_results:
+        path: /tmp/results
+    - store_artifacts:
+        path: /tmp/dtest
+        destination: dtest_j11_with_vnodes
+    - store_artifacts:
+        path: ~/cassandra-dtest/logs
+        destination: dtest_j11_with_vnodes_logs
+    environment:
+    - ANT_HOME: /usr/share/ant
+    - JAVA11_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    - JAVA8_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+    - LANG: en_US.UTF-8
+    - KEEP_TEST_DIR: true
+    - DEFAULT_DIR: /home/cassandra/cassandra-dtest
+    - PYTHONIOENCODING: utf-8
+    - PYTHONUNBUFFERED: true
+    - CASS_DRIVER_NO_EXTENSIONS: true
+    - CASS_DRIVER_NO_CYTHON: true
+    - CASSANDRA_SKIP_SYNC: true
+    - DTEST_REPO: git://github.com/apache/cassandra-dtest.git
+    - DTEST_BRANCH: trunk
+    - CCM_MAX_HEAP_SIZE: 1024M
+    - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
@@ -361,6 +506,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j11_cqlsh-dtests-py3-with-vnodes:
@@ -440,6 +587,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
@@ -520,6 +669,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
@@ -600,6 +751,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
@@ -680,6 +833,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_cqlsh-dtests-py2-no-vnodes:
@@ -759,6 +914,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j11_cqlsh-dtests-py2-with-vnodes:
@@ -838,6 +995,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
@@ -921,6 +1080,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
@@ -982,6 +1143,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_upgradetests-no-vnodes:
@@ -1042,8 +1205,91 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+  j11_repeated-dtest-no-vnodes:
+    docker:
+    - image: apache/cassandra-testing-ubuntu2004-java11:20210304
+    resource_class: medium
+    working_directory: ~/
+    shell: /bin/bash -eo pipefail -l
+    parallelism: 25
+    steps:
+    - attach_workspace:
+        at: /home/cassandra
+    - run:
+        name: Log Environment Information
+        command: |
+          echo '*** id ***'
+          id
+          echo '*** cat /proc/cpuinfo ***'
+          cat /proc/cpuinfo
+          echo '*** free -m ***'
+          free -m
+          echo '*** df -m ***'
+          df -m
+          echo '*** ifconfig -a ***'
+          ifconfig -a
+          echo '*** uname -a ***'
+          uname -a
+          echo '*** mount ***'
+          mount
+          echo '*** env ***'
+          env
+          echo '*** java ***'
+          which java
+          java -version
+    - run:
+        name: Clone Cassandra dtest Repository (via git)
+        command: |
+          git clone --single-branch --branch $DTEST_BRANCH --depth 1 $DTEST_REPO ~/cassandra-dtest
+    - run:
+        name: Configure virtualenv and python Dependencies
+        command: |
+          # note, this should be super quick as all dependencies should be pre-installed in the docker image
+          # if additional dependencies were added to requirmeents.txt and the docker image hasn't been updated
+          # we'd have to install it here at runtime -- which will make things slow, so do yourself a favor and
+          # rebuild the docker image! (it automatically pulls the latest requirements.txt on build)
+          source ~/env3.6/bin/activate
+          export PATH=$JAVA_HOME/bin:$PATH
+          pip3 install --exists-action w --upgrade -r ~/cassandra-dtest/requirements.txt
+          pip3 uninstall -y cqlsh
+          pip3 freeze
+    - run:
+        name: Run dtests (j11_without_vnodes)
+        no_output_timeout: 15m
+        command: "if [ \"$REPEATED_DTEST_PYTHON_TEST_NAME\" == \"<nil>\" ]; then\n  echo \"Repeated dtest name hasn't been defined, exiting without running any test\"\nelif [ \"$REPEATED_DTEST_PYTHON_COUNT\" == \"<nil>\" ]; then\n  echo \"Repeated dtest repetitions hasn't been defined, exiting without running any test\"\nelif [ \"$REPEATED_DTEST_PYTHON_COUNT\" -le 0 ]; then\n  echo \"Repeated dtest repetitions is lesser or equals than zero, exiting without running any test\"\nelse\n\n  # calculate the number of test iterations to be run by the current parallel runner\n  div=$((REPEATED_DTEST_PYTHON_COUNT / CIRCLE_NODE_TOTAL))\n  mod=$((REPEATED_DTEST_PYTHON_COUNT % CIRCLE_NODE_TOTAL))\n  if (($CIRCLE_NODE_INDEX < $mod)); then\n    export REPEATED_DTEST_PYTHON_SPLIT_COUNT=$((div+1))\n  else\n    export REPEATED_DTEST_PYTHON_SPLIT_COUNT=$div\n  fi\n\n  if (($REPEATED_DTEST_PYTHON_SPLIT_COUNT <= 0)); then\n    echo \"No tests to run in this runner\"\n  else\n    echo \"Running $REPEATED_DTEST_PYTHON_TEST_NAME $REPEATED_DTEST_PYTHON_SPLIT_COUNT times\"\n\n    source ~/env3.6/bin/activate\n    export PATH=$JAVA_HOME/bin:$PATH\n    if [ -n '' ]; then\n      export \n    fi\n\n    java -version\n    cd ~/cassandra-dtest\n    mkdir -p /tmp/dtest\n\n    echo \"env: $(env)\"\n    echo \"** done env\"\n    mkdir -p /tmp/results/dtests\n    # we need the \"set -o pipefail\" here so that the exit code that circleci will actually use is from pytest and not the exit code from tee\n    set -o pipefail && cd ~/cassandra-dtest && pytest  --count=$REPEATED_DTEST_PYTHON_SPLIT_COUNT --log-cli-level=DEBUG --junit-xml=/tmp/results/dtests/pytest_result_j11_without_vnodes.xml -s --cassandra-dir=/home/cassandra/cassandra --keep-test-dir $REPEATED_DTEST_PYTHON_TEST_NAME | tee /tmp/dtest/stdout.txt\n  fi\nfi\n"
+    - store_test_results:
+        path: /tmp/results
+    - store_artifacts:
+        path: /tmp/dtest
+        destination: dtest_j11_without_vnodes
+    - store_artifacts:
+        path: ~/cassandra-dtest/logs
+        destination: dtest_j11_without_vnodes_logs
+    environment:
+    - ANT_HOME: /usr/share/ant
+    - JAVA11_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    - JAVA8_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+    - LANG: en_US.UTF-8
+    - KEEP_TEST_DIR: true
+    - DEFAULT_DIR: /home/cassandra/cassandra-dtest
+    - PYTHONIOENCODING: utf-8
+    - PYTHONUNBUFFERED: true
+    - CASS_DRIVER_NO_EXTENSIONS: true
+    - CASS_DRIVER_NO_CYTHON: true
+    - CASSANDRA_SKIP_SYNC: true
+    - DTEST_REPO: git://github.com/apache/cassandra-dtest.git
+    - DTEST_BRANCH: trunk
+    - CCM_MAX_HEAP_SIZE: 1024M
+    - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
+    - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    - CASSANDRA_USE_JDK11: true
   utests_stress:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:20210304
@@ -1089,6 +1335,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_unit_tests:
@@ -1182,6 +1430,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j11_jvm_dtests:
@@ -1275,6 +1525,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
@@ -1358,6 +1610,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
@@ -1438,9 +1692,69 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
+  j8_repeated-dtest-with-vnodes:
+    docker:
+    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:20210304
+    resource_class: medium
+    working_directory: ~/
+    shell: /bin/bash -eo pipefail -l
+    parallelism: 25
+    steps:
+    - attach_workspace:
+        at: /home/cassandra
+    - run:
+        name: Clone Cassandra dtest Repository (via git)
+        command: |
+          git clone --single-branch --branch $DTEST_BRANCH --depth 1 $DTEST_REPO ~/cassandra-dtest
+    - run:
+        name: Configure virtualenv and python Dependencies
+        command: |
+          # note, this should be super quick as all dependencies should be pre-installed in the docker image
+          # if additional dependencies were added to requirmeents.txt and the docker image hasn't been updated
+          # we'd have to install it here at runtime -- which will make things slow, so do yourself a favor and
+          # rebuild the docker image! (it automatically pulls the latest requirements.txt on build)
+          source ~/env3.6/bin/activate
+          export PATH=$JAVA_HOME/bin:$PATH
+          pip3 install --exists-action w --upgrade -r ~/cassandra-dtest/requirements.txt
+          pip3 uninstall -y cqlsh
+          pip3 freeze
+    - run:
+        name: Run dtests (j8_with_vnodes)
+        no_output_timeout: 15m
+        command: "if [ \"$REPEATED_DTEST_PYTHON_TEST_NAME\" == \"<nil>\" ]; then\n  echo \"Repeated dtest name hasn't been defined, exiting without running any test\"\nelif [ \"$REPEATED_DTEST_PYTHON_COUNT\" == \"<nil>\" ]; then\n  echo \"Repeated dtest repetitions hasn't been defined, exiting without running any test\"\nelif [ \"$REPEATED_DTEST_PYTHON_COUNT\" -le 0 ]; then\n  echo \"Repeated dtest repetitions is lesser or equals than zero, exiting without running any test\"\nelse\n\n  # calculate the number of test iterations to be run by the current parallel runner\n  div=$((REPEATED_DTEST_PYTHON_COUNT / CIRCLE_NODE_TOTAL))\n  mod=$((REPEATED_DTEST_PYTHON_COUNT % CIRCLE_NODE_TOTAL))\n  if (($CIRCLE_NODE_INDEX < $mod)); then\n    export REPEATED_DTEST_PYTHON_SPLIT_COUNT=$((div+1))\n  else\n    export REPEATED_DTEST_PYTHON_SPLIT_COUNT=$div\n  fi\n\n  if (($REPEATED_DTEST_PYTHON_SPLIT_COUNT <= 0)); then\n    echo \"No tests to run in this runner\"\n  else\n    echo \"Running $REPEATED_DTEST_PYTHON_TEST_NAME $REPEATED_DTEST_PYTHON_SPLIT_COUNT times\"\n\n    source ~/env3.6/bin/activate\n    export PATH=$JAVA_HOME/bin:$PATH\n    if [ -n '' ]; then\n      export \n    fi\n\n    java -version\n    cd ~/cassandra-dtest\n    mkdir -p /tmp/dtest\n\n    echo \"env: $(env)\"\n    echo \"** done env\"\n    mkdir -p /tmp/results/dtests\n    # we need the \"set -o pipefail\" here so that the exit code that circleci will actually use is from pytest and not the exit code from tee\n    set -o pipefail && cd ~/cassandra-dtest && pytest --use-vnodes --num-tokens=16 --count=$REPEATED_DTEST_PYTHON_SPLIT_COUNT --log-cli-level=DEBUG --junit-xml=/tmp/results/dtests/pytest_result_j8_with_vnodes.xml -s --cassandra-dir=/home/cassandra/cassandra --keep-test-dir $REPEATED_DTEST_PYTHON_TEST_NAME | tee /tmp/dtest/stdout.txt\n  fi\nfi\n"
+    - store_test_results:
+        path: /tmp/results
+    - store_artifacts:
+        path: /tmp/dtest
+        destination: dtest_j8_with_vnodes
+    - store_artifacts:
+        path: ~/cassandra-dtest/logs
+        destination: dtest_j8_with_vnodes_logs
+    environment:
+    - ANT_HOME: /usr/share/ant
+    - JAVA11_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    - JAVA8_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+    - LANG: en_US.UTF-8
+    - KEEP_TEST_DIR: true
+    - DEFAULT_DIR: /home/cassandra/cassandra-dtest
+    - PYTHONIOENCODING: utf-8
+    - PYTHONUNBUFFERED: true
+    - CASS_DRIVER_NO_EXTENSIONS: true
+    - CASS_DRIVER_NO_CYTHON: true
+    - CASSANDRA_SKIP_SYNC: true
+    - DTEST_REPO: git://github.com/apache/cassandra-dtest.git
+    - DTEST_BRANCH: trunk
+    - CCM_MAX_HEAP_SIZE: 1024M
+    - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
+    - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+    - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j11_cqlshlib_tests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:20210304
@@ -1477,6 +1791,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
@@ -1538,6 +1854,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j11_cqlsh-dtests-py38-no-vnodes:
@@ -1617,6 +1935,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
@@ -1711,6 +2031,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_build:
@@ -1793,6 +2115,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_cqlsh-dtests-py3-no-vnodes:
@@ -1872,6 +2196,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_cqlsh-dtests-py38-with-vnodes:
@@ -1951,6 +2277,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_long:
@@ -1998,6 +2326,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_system_keyspace_directory:
@@ -2091,6 +2421,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_cqlshlib_tests:
@@ -2129,6 +2461,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_fqltool:
@@ -2176,6 +2510,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j11_dtests-no-vnodes:
@@ -2258,6 +2594,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-11-openjdk-amd64
     - CASSANDRA_USE_JDK11: true
@@ -2352,6 +2690,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtest_jars_build:
@@ -2431,6 +2771,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
+    - REPEATED_DTEST_PYTHON_TEST_NAME: null
+    - REPEATED_DTEST_PYTHON_COUNT: 100
     - JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
 workflows:
@@ -2573,6 +2915,26 @@ workflows:
     - j11_cqlsh-dtests-py38-no-vnodes:
         requires:
         - start_j11_cqlsh_tests-no-vnodes
+        - j8_build
+    - start_j8_repeated-dtest:
+        type: approval
+    - j8_repeated-dtest-with-vnodes:
+        requires:
+        - start_j8_repeated-dtest
+        - j8_build
+    - j8_repeated-dtest-no-vnodes:
+        requires:
+        - start_j8_repeated-dtest
+        - j8_build
+    - start_j11_repeated-dtest:
+        type: approval
+    - j11_repeated-dtest-with-vnodes:
+        requires:
+        - start_j11_repeated-dtest
+        - j8_build
+    - j11_repeated-dtest-no-vnodes:
+        requires:
+        - start_j11_repeated-dtest
         - j8_build
   java11_build_and_run_tests:
     jobs:

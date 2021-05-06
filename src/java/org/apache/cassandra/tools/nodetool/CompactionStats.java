@@ -29,7 +29,6 @@ import java.util.Map;
 
 import org.apache.cassandra.db.compaction.CompactionInfo;
 import org.apache.cassandra.db.compaction.CompactionManagerMBean;
-import org.apache.cassandra.db.compaction.OperationType;
 import org.apache.cassandra.db.compaction.CompactionInfo.Unit;
 import org.apache.cassandra.io.util.FileUtils;
 import org.apache.cassandra.tools.NodeProbe;
@@ -72,8 +71,7 @@ public class CompactionStats extends NodeToolCmd
                 String percentComplete = total == 0 ? "n/a" : new DecimalFormat("0.00").format((double) completed / total * 100) + "%";
                 String id = c.get("compactionId");
                 addLine(lines, columnSizes, id, taskType, keyspace, columnFamily, completedStr, totalStr, unit, percentComplete);
-                if (taskType.equals(OperationType.COMPACTION.toString()))
-                    remainingBytes += total - completed;
+                remainingBytes += total - completed;
             }
 
             StringBuilder buffer = new StringBuilder();

@@ -94,8 +94,7 @@ public class CompactionStats extends NodeToolCmd
                 String percentComplete = total == 0 ? "n/a" : new DecimalFormat("0.00").format((double) completed / total * 100) + "%";
                 String id = c.get("compactionId");
                 table.add(id, taskType, keyspace, columnFamily, completedStr, totalStr, unit, percentComplete);
-                if (taskType.equals(OperationType.COMPACTION.toString()))
-                    remainingBytes += total - completed;
+                remainingBytes += total - completed;
             }
             table.printTo(out);
 

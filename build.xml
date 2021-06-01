@@ -269,7 +269,7 @@
     </path>
     <path id="cassandra.classpath.test">
         <file file="${build.dir}/${final.name}.jar"/> <!-- we need the jar for tests and benchmarks (multi-version jar) -->
-        <fileset dir="${build.dir.lib}">
+        <fileset dir="${build.lib}">
             <include name="**/*.jar" />
         </fileset>
         <fileset dir="${test.lib}/jars">

@@ -177,8 +177,8 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
         expireTimeEndpointMap.clear();
         endpointStateMap.clear();
         endpointShadowStateMap.clear();
+        seedsInShadowRound.clear();
     }
-
 
     final Supplier<ExpiringMemoizingSupplier.ReturnValue<CassandraVersion>> upgradeFromVersionSupplier = () ->
     {

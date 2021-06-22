@@ -136,7 +136,7 @@ public class LongBufferPoolTest
     private void testPoolAllocate(boolean recyclePartially) throws InterruptedException, ExecutionException
     {
         BufferPool pool = new BufferPool("test_pool", 16 << 20, recyclePartially);
-        testAllocate(pool, Runtime.getRuntime().availableProcessors() * 2, TimeUnit.MINUTES.toNanos(2L));
+        testAllocate(pool, 16, TimeUnit.MINUTES.toNanos(2L));
     }
 
     private static final class BufferCheck
@@ -366,7 +366,7 @@ public class LongBufferPoolTest
                         size = 0;
 
                     // either share to free, or free immediately
-                    if (rand.nextBoolean())
+                    if (rand.nextInt(10) == 0)
                     {
                         shareTo.add(check);
                         freeingSize += size;

@@ -1700,6 +1700,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
         /* initialize the heartbeat state for this localEndpoint */
         maybeInitializeLocalState(generationNbr);
         EndpointState localState = endpointStateMap.get(FBUtilities.getBroadcastAddressAndPort());
+        expireUpgradeFromVersion(); // do this here so hasMajorVersion3Nodes is correct
         localState.addApplicationStates(preloadLocalStates);
 
         //notify snitches that Gossiper is about to start

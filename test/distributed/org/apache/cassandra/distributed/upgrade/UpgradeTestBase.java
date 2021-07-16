@@ -111,6 +111,7 @@ public class UpgradeTestBase extends DistributedTestBase
         private final Versions versions;
         private final List<TestVersions> upgrade = new ArrayList<>();
         private int nodeCount = 3;
+        private int dcCount = 1;
         private RunOnCluster setup;
         private RunOnClusterAndNode runBeforeNodeRestart;
         private RunOnClusterAndNode runAfterNodeUpgrade;
@@ -131,6 +132,12 @@ public class UpgradeTestBase extends DistributedTestBase
         public TestCase nodes(int nodeCount)
         {
             this.nodeCount = nodeCount;
+            return this;
+        }
+
+        public TestCase datacenters(int dcCount)
+        {
+            this.dcCount = dcCount;
             return this;
         }
 
@@ -211,7 +218,9 @@ public class UpgradeTestBase extends DistributedTestBase
             for (TestVersions upgrade : this.upgrade)
             {
                 System.out.printf("testing upgrade from %s to %s%n", upgrade.initial.version, upgrade.upgrade.version);
-                try (UpgradeableCluster cluster = init(UpgradeableCluster.create(nodeCount, upgrade.initial, configConsumer)))
+                try(UpgradeableCluster cluster = UpgradeableCluster.build().withNodes(nodeCount).withDCs(dcCount).withVersion(upgrade.initial)
+                                          .withConfig(configConsumer).start()
+                    )
                 {
                     setup.run(cluster);
 

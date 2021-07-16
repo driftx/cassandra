@@ -86,4 +86,50 @@ public class MixedModeReplicationTestBase extends UpgradeTestBase
         })
         .run();
     }
+
+    protected void testNetworkTopologyStrategy(Semver from) throws Throwable
+    {
+        testNetworkTopologyStrategy(from, UpgradeTestBase.CURRENT);
+    }
+
+    protected void testNetworkTopologyStrategy(Semver from, Semver to) throws Throwable
+    {
+        String insert = "INSERT INTO test_nts.names (key, name) VALUES (?, ?)";
+        String select = "SELECT * FROM test_nts.names WHERE key = ?";
+
+        new TestCase()
+        .nodes(6)
+        .datacenters(2)
+        .nodesToUpgrade(1, 2, 3)
+        .upgrades(from, to)
+        .setup(cluster -> {
+            cluster.schemaChange("CREATE KEYSPACE test_nts WITH replication = {'class': 'NetworkTopologyStrategy', 'datacenter1': 3, 'datacenter2': 3};");
+            cluster.schemaChange("CREATE TABLE test_nts.names (key int PRIMARY KEY, name text)");
+        })
+        .runAfterNodeUpgrade((cluster, upgraded) -> {
+            // node 1,2,3 are ddatacenter1, 4,5,6 are datacenter2
+            for (int i =1; i <= 3; i++)
+            {
+                Object[] row = row(i, "dc1");
+                cluster.coordinator(1).execute(insert, ConsistencyLevel.LOCAL_QUORUM, row);
+            }
+            for (int i =4; i <= 6; i++)
+            {
+                Object[] row = row(i, "dc2");
+                cluster.coordinator(6).execute(insert, ConsistencyLevel.LOCAL_QUORUM, row);
+            }
+
+            for (int i = 1; i <= cluster.size(); i++)
+            {
+                    Object[] row;
+                    if (i < 4)
+                        row = row(i, "dc1");
+                    else
+                        row = row(i, "dc2");
+
+                    assertRows(cluster.get(i).executeInternal(select, i), row);
+            }
+        })
+        .run();
+    }
 }

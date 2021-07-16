@@ -35,4 +35,16 @@ public class MixedModeFrom3ReplicationTest extends MixedModeReplicationTestBase
     {
         testSimpleStrategy(v30);
     }
+
+    @Test
+    public void testNetworkTopologyStrategy30to3X() throws Throwable
+    {
+        testNetworkTopologyStrategy(v30, v3X);
+    }
+
+    @Test
+    public void testNetworkTopologyStrategy() throws Throwable
+    {
+        testNetworkTopologyStrategy(v30);
+    }
 }

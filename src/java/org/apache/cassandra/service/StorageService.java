@@ -3540,6 +3540,11 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         return stringify(tokenMetadata.getBootstrapTokens().valueSet(), true);
     }
 
+    public List<String> getReplacingNodes()
+    {
+        return stringify(tokenMetadata.getReplacingEndpoints(), true);
+    }
+
     @Deprecated
     public List<String> getLiveNodes()
     {

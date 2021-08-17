@@ -599,6 +599,11 @@ public class NodeProbe implements AutoCloseable
         return withPort ? ssProxy.getUnreachableNodesWithPort() : ssProxy.getUnreachableNodes();
     }
 
+    public List<String> getReplacingNodes()
+    {
+        return ssProxy.getReplacingNodes();
+    }
+
     public Map<String, String> getLoadMap(boolean withPort)
     {
         return withPort ? ssProxy.getLoadMapWithPort() : ssProxy.getLoadMap();

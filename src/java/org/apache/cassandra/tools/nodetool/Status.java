@@ -49,7 +49,7 @@ public class Status extends NodeToolCmd
     private boolean resolveIp = false;
 
     private boolean isTokenPerNode = true;
-    private Collection<String> joiningNodes, leavingNodes, movingNodes, liveNodes, unreachableNodes;
+    private Collection<String> joiningNodes, leavingNodes, movingNodes, liveNodes, unreachableNodes, replacingNodes;
     private Map<String, String> loadMap, hostIDMap;
     private EndpointSnitchInfoMBean epSnitchInfo;
 
@@ -64,6 +64,7 @@ public class Status extends NodeToolCmd
         Map<String, String> tokensToEndpoints = probe.getTokenToEndpointMap(true);
         liveNodes = probe.getLiveNodes(true);
         unreachableNodes = probe.getUnreachableNodes(true);
+        replacingNodes = probe.getReplacingNodes();
         hostIDMap = probe.getHostIdMap(true);
         epSnitchInfo = probe.getEndpointSnitchInfoProxy();
 
@@ -149,10 +150,13 @@ public class Status extends NodeToolCmd
                            TableBuilder tableBuilder)
     {
         String status, state, load, strOwns, hostID, rack, epDns;
+
         if (liveNodes.contains(endpoint)) status = "U";
         else if (unreachableNodes.contains(endpoint)) status = "D";
         else status = "?";
-        if (joiningNodes.contains(endpoint)) state = "J";
+
+        if (replacingNodes.contains(endpoint)) state = "R";
+        else if (joiningNodes.contains(endpoint)) state = "J";
         else if (leavingNodes.contains(endpoint)) state = "L";
         else if (movingNodes.contains(endpoint)) state = "M";
         else state = "N";

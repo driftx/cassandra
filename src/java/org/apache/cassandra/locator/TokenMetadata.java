@@ -1056,6 +1056,7 @@ public class TokenMetadata
         }
     }
 
+
     /** @return a copy of the bootstrapping tokens map */
     public BiMultiValMap<Token, InetAddressAndPort> getBootstrapTokens()
     {
@@ -1068,6 +1069,20 @@ public class TokenMetadata
         {
             lock.readLock().unlock();
         }
+    }
+
+    public Set<InetAddressAndPort> getReplacingEndpoints()
+    {
+        lock.readLock().lock();
+        try
+        {
+            return ImmutableSet.copyOf(replacementToOriginal.keySet());
+        }
+        finally
+        {
+            lock.readLock().unlock();
+        }
+
     }
 
     public Set<InetAddressAndPort> getAllEndpoints()

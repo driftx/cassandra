@@ -65,6 +65,13 @@ public interface StorageServiceMBean extends NotificationEmitter
     public List<String> getJoiningNodesWithPort();
 
     /**
+     * Retrieve the list of nodes currently bootstrapping into the ring as replacements
+     *
+     * @return set of IP addresses, as Strings
+     */
+    public List<String> getReplacingNodes();
+
+    /**
      * Retrieve the list of nodes currently leaving the ring.
      *
      * @return set of IP addresses, as Strings

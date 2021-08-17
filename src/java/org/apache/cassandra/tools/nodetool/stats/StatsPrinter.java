@@ -18,11 +18,14 @@
 
 package org.apache.cassandra.tools.nodetool.stats;
 
+import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Map;
 
-import org.json.simple.JSONObject;
+import org.apache.cassandra.cql3.Json;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 /**
  * Interface for the Stats printer, that'd output statistics
@@ -39,9 +42,22 @@ public interface StatsPrinter<T extends StatsHolder>
         @Override
         public void print(T data, PrintStream out)
         {
-            JSONObject json = new JSONObject();
-            json.putAll(data.convert2Map());
-            out.println(json.toString());
+            // First need to get a Map representation of stats
+            final Map<String, Object> stats = data.convert2Map();
+            // but then also need slight massaging to coerce NaN values into nulls
+            for (Object statEntry : stats.values()) {
+                if (statEntry instanceof Map<?,?>) {
+                    for (Map.Entry<String, Object> entry : ((Map<String, Object>) statEntry).entrySet()) {
+                        if (entry.getValue() instanceof Double
+                            && !Double.isFinite((Double) entry.getValue())) {
+                            entry.setValue(null);
+                        }
+                    }
+                }
+            }
+
+            // and then we can serialize
+            out.println(Json.writeAsJsonString(stats));
         }
     }
 

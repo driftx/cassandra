@@ -2254,6 +2254,11 @@ public class DatabaseDescriptor
         return (int) ByteUnit.MEBI_BYTES.toBytes(conf.native_transport_max_frame_size_in_mb);
     }
 
+    public static void setNativeTransportMaxFrameSize(int bytes)
+    {
+        conf.native_transport_max_frame_size_in_mb = (int) ByteUnit.MEBI_BYTES.fromBytes(bytes);
+    }
+
     public static long getNativeTransportMaxConcurrentConnections()
     {
         return conf.native_transport_max_concurrent_connections;
@@ -3294,6 +3299,11 @@ public class DatabaseDescriptor
         public long toBytes(int val)
         {
             return val * multiplier;
+        }
+
+        public long fromBytes(int val)
+        {
+            return val / multiplier;
         }
     }
 

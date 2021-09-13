@@ -29,6 +29,7 @@ import org.apache.cassandra.concurrent.Stage;
 import org.apache.cassandra.config.Config;
 import org.apache.cassandra.config.DatabaseDescriptor;
 import org.apache.cassandra.db.SystemKeyspace;
+import org.apache.cassandra.gms.Gossiper;
 import org.apache.cassandra.metrics.ConnectionMetrics;
 import org.apache.cassandra.security.SSLFactory;
 import org.apache.cassandra.utils.FBUtilities;
@@ -45,8 +46,6 @@ public class OutboundTcpConnectionPool
     public final OutboundTcpConnection largeMessages;
     public final OutboundTcpConnection gossipMessages;
 
-    // pointer to the reset Address.
-    private InetAddress resetEndpoint;
     private ConnectionMetrics metrics;
 
     // back-pressure state linked to this connection:
@@ -55,7 +54,6 @@ public class OutboundTcpConnectionPool
     OutboundTcpConnectionPool(InetAddress remoteEp, BackPressureState backPressureState)
     {
         id = remoteEp;
-        resetEndpoint = SystemKeyspace.getPreferredIP(remoteEp);
         started = new CountDownLatch(1);
 
         smallMessages = new OutboundTcpConnection(this, "Small");
@@ -106,13 +104,12 @@ public class OutboundTcpConnectionPool
     public void reset(InetAddress remoteEP)
     {
         SystemKeyspace.updatePreferredIP(id, remoteEP);
-        resetEndpoint = remoteEP;
         for (OutboundTcpConnection conn : new OutboundTcpConnection[] { smallMessages, largeMessages, gossipMessages })
             conn.softCloseSocket();
 
         // release previous metrics and create new one with reset address
         metrics.release();
-        metrics = new ConnectionMetrics(resetEndpoint, this);
+        metrics = new ConnectionMetrics(remoteEP, this);
     }
 
     public long getTimeouts()
@@ -151,7 +148,7 @@ public class OutboundTcpConnectionPool
     {
         if (id.equals(FBUtilities.getBroadcastAddress()))
             return FBUtilities.getLocalAddress();
-        return resetEndpoint;
+        return Gossiper.instance.getInternalAddress(id);
     }
 
     public void start()

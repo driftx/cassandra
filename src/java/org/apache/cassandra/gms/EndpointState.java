@@ -83,6 +83,11 @@ public class EndpointState
         return applicationState.get().get(key);
     }
 
+    public void removeApplicationState(ApplicationState key)
+    {
+        applicationState.get().remove(key);
+    }
+
     public boolean containsApplicationState(ApplicationState key)
     {
         return applicationState.get().containsKey(key);

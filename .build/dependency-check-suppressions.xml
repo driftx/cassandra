@@ -24,15 +24,7 @@
         <!-- not applicable since 4.0 -->
         <packageUrl regex="true">^pkg:maven/com\.datastax\.cassandra/cassandra\-driver\-core@.*$</packageUrl>
         <cve>CVE-2018-8016</cve>
-    </suppress>
-    <suppress>
-        <!-- not applicable since 4.0 -->
-        <packageUrl regex="true">^pkg:maven/com\.datastax\.cassandra/cassandra\-driver\-core@.*$</packageUrl>
         <cve>CVE-2020-13946</cve>
-    </suppress>
-    <suppress>
-        <!-- not applicable since 4.0 -->
-        <packageUrl regex="true">^pkg:maven/com\.datastax\.cassandra/cassandra\-driver\-core@.*$</packageUrl>
         <cve>CVE-2020-17516</cve>
     </suppress>
     <suppress>
@@ -49,13 +41,7 @@
     <suppress>
         <packageUrl regex="true">^pkg:maven/io\.netty/netty\-all@.*$</packageUrl>
         <cve>CVE-2021-21290</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/io\.netty/netty\-all@.*$</packageUrl>
         <cve>CVE-2021-21295</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/io\.netty/netty\-all@.*$</packageUrl>
         <cve>CVE-2021-21409</cve>
     </suppress>
 </suppressions>

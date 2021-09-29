@@ -75,6 +75,7 @@
                           centralAnalyzerUseCache="false"
                           nodeAuditAnalyzerUseCache="false"
                           failBuildOnCVSS="1"
+                          assemblyAnalyzerEnabled="false"
                           dataDirectory="${dependency-check.home}/data"
                           suppressionFile="${basedir}/.build/dependency-check-suppressions.xml">
             <fileset dir="lib">

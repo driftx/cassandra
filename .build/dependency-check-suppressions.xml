@@ -30,25 +30,10 @@
     <suppress>
         <packageUrl regex="true">^pkg:maven/io\.netty/netty\-all@.*$</packageUrl>
         <cve>CVE-2019-16869</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/io\.netty/netty\-all@.*$</packageUrl>
         <cve>CVE-2019-20444</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/io\.netty/netty\-all@.*$</packageUrl>
         <cve>CVE-2019-20445</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/io\.netty/netty\-all@.*$</packageUrl>
         <cve>CVE-2021-21290</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/io\.netty/netty\-all@.*$</packageUrl>
         <cve>CVE-2021-21295</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/io\.netty/netty\-all@.*$</packageUrl>
         <cve>CVE-2021-21409</cve>
     </suppress>
 
@@ -66,9 +51,6 @@
     <suppress>
         <packageUrl regex="true">^pkg:maven/com\.datastax\.cassandra/cassandra\-driver\-core@.*$</packageUrl>
         <cve>CVE-2020-13946</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/com\.datastax\.cassandra/cassandra\-driver\-core@.*$</packageUrl>
         <cve>CVE-2020-17516</cve>
     </suppress>
 
@@ -76,9 +58,6 @@
     <suppress>
         <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
         <cve>CVE-2018-10237</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
         <cve>CVE-2020-8908</cve>
     </suppress>
 
@@ -86,21 +65,9 @@
     <suppress>
         <packageUrl regex="true">^pkg:maven/org\.apache\.thrift/libthrift@.*$</packageUrl>
         <cve>CVE-2015-3254</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.thrift/libthrift@.*$</packageUrl>
         <cve>CVE-2016-5397</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.thrift/libthrift@.*$</packageUrl>
         <cve>CVE-2018-1320</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.thrift/libthrift@.*$</packageUrl>
         <cve>CVE-2018-11798</cve>
-    </suppress>
-    <suppress>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.thrift/libthrift@.*$</packageUrl>
         <cve>CVE-2019-0205</cve>
     </suppress>
 </suppressions>

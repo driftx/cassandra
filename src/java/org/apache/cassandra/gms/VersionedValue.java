@@ -80,6 +80,7 @@ public class VersionedValue implements Comparable<VersionedValue>
     public final static String REMOVED_TOKEN = "removed";
 
     public final static String HIBERNATE = "hibernate";
+    public final static String NONMEMBER = "nonmember";
     public final static String SHUTDOWN = "shutdown";
 
     // values for ApplicationState.REMOVAL_COORDINATOR
@@ -234,6 +235,11 @@ public class VersionedValue implements Comparable<VersionedValue>
         public VersionedValue hibernate(boolean value)
         {
             return new VersionedValue(VersionedValue.HIBERNATE + VersionedValue.DELIMITER + value);
+        }
+
+        public VersionedValue nonmember(boolean value)
+        {
+            return new VersionedValue(VersionedValue.NONMEMBER + VersionedValue.DELIMITER + value);
         }
 
         public VersionedValue rpcReady(boolean value)

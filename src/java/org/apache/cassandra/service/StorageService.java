@@ -832,8 +832,8 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
                 // order is important here, the gossiper can fire in between adding these two states.  It's ok to send TOKENS without STATUS, but *not* vice versa.
                 List<Pair<ApplicationState, VersionedValue>> states = new ArrayList<Pair<ApplicationState, VersionedValue>>();
                 states.add(Pair.create(ApplicationState.TOKENS, valueFactory.tokens(tokens)));
-                states.add(Pair.create(ApplicationState.STATUS_WITH_PORT, valueFactory.hibernate(true)));
-                states.add(Pair.create(ApplicationState.STATUS, valueFactory.hibernate(true)));
+                states.add(Pair.create(ApplicationState.STATUS_WITH_PORT, valueFactory.nonmember(true)));
+                states.add(Pair.create(ApplicationState.STATUS, valueFactory.nonmember(true)));
                 Gossiper.instance.addLocalApplicationStates(states);
             }
             doAuthSetup(true);

@@ -3550,6 +3550,12 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         return FBUtilities.getReleaseVersionString();
     }
 
+    @Override
+    public String getGitSHA()
+    {
+        return FBUtilities.getGitSHA();
+    }
+
     public String getSchemaVersion()
     {
         return Schema.instance.getVersion().toString();

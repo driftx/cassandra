@@ -881,12 +881,37 @@
         <echo message="${base.version}" />
     </target>
 
+    <target name="get-git-sha">
+        <exec executable="git" osfamily="unix" dir="${basedir}" logError="true" failonerror="false" failifexecutionfails="false">
+            <arg value="describe"/>
+            <arg value="--match=''"/>
+            <arg value="--always"/>
+            <arg value="--abbrev=0"/>
+            <arg value="--dirty"/>
+            <redirector outputproperty="git.sha"/>
+        </exec>
+        <property name="git.sha" value="Unknown"/>
+        <echo level="info">git.sha=${git.sha}</echo>
+
+        <exec executable="git" osfamily="unix" dir="${basedir}" logError="true" failonerror="false" failifexecutionfails="false">
+            <arg value="diff"/>
+            <arg value="--stat"/>
+            <redirector outputproperty="git.diffstat"/>
+        </exec>
+        <condition property="is-dirty">
+            <contains string="${git.sha}" substring="-dirty"/>
+        </condition>
+        <echo level="warning" if:true="${is-dirty}">Repository state is dirty</echo>
+        <echo level="warning" if:true="${is-dirty}">${git.diffstat}</echo>
+    </target>
+
     <!-- create properties file with C version -->
-    <target name="createVersionPropFile">
+    <target name="createVersionPropFile" depends="get-git-sha">
       <taskdef name="propertyfile" classname="org.apache.tools.ant.taskdefs.optional.PropertyFile"/>
       <mkdir dir="${version.properties.dir}"/>
       <propertyfile file="${version.properties.dir}/version.properties">
         <entry key="CassandraVersion" value="${version}"/>
+        <entry key="GitSHA" value="${git.sha}"/>
       </propertyfile>
     </target>
 
@@ -929,7 +954,7 @@
         </javac>
     </target>
 
-    <target depends="init,gen-cql3-grammar,generate-cql-html,generate-jflex-java,rat-check"
+    <target depends="init,gen-cql3-grammar,generate-cql-html,generate-jflex-java,rat-check,get-git-sha"
             name="build-project">
         <echo message="${ant.project.name}: ${ant.file}"/>
         <!-- Order matters! -->
@@ -1126,6 +1151,7 @@
           <attribute name="Implementation-Title" value="Cassandra"/>
           <attribute name="Implementation-Version" value="${version}"/>
           <attribute name="Implementation-Vendor" value="Apache"/>
+          <attribute name="Implementation-Git-SHA" value="${git.sha}"/>
         <!-- </section> -->
         </manifest>
       </jar>

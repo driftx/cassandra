@@ -116,4 +116,13 @@ public class NodeToolTest extends TestBaseImpl
             ringResult.asserts().stderrContains("is not permitted as this cache is disabled");
         }
     }
+
+    @Test
+    public void testInfoIncludesGitSHA() throws Throwable
+    {
+        NODE.nodetoolResult("version")
+            .asserts()
+            .success()
+            .stdoutContains("GitSHA:");
+    }
 }

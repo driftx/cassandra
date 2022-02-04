@@ -29,5 +29,6 @@ public class Version extends NodeToolCmd
     public void execute(NodeProbe probe)
     {
         probe.output().out.println("ReleaseVersion: " + probe.getReleaseVersion());
+        probe.output().out.println("GitSHA: " + probe.getGitSHA());
     }
 }

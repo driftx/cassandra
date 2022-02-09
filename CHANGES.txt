@@ -1,4 +1,5 @@
 4.0.4
+ * Fix ignored streaming encryption settings in sstableloader (CASSANDRA-17367)
 Merged from 3.0:
  * Fixed TestCqlshOutput failing tests (CASSANDRA-17386)
  * Lazy transaction log replica creation allows incorrect replica content divergence during anticompaction (CASSANDRA-17273)

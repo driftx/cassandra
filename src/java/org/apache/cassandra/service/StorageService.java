@@ -3779,6 +3779,11 @@ public class StorageService extends NotificationBroadcasterSupport implements IE
         {
             throw new IllegalArgumentException("the local data center must be part of the repair");
         }
+        TokenMetadata metadata = tokenMetadata.cloneOnlyTokenMap();
+        if (!metadata.getTopology().getDatacenterEndpoints().keys().elementSet().containsAll(options.getDataCenters()))
+        {
+            throw new IllegalArgumentException("data center not found");
+        }
 
         RepairRunnable task = new RepairRunnable(this, cmd, options, keyspace);
         task.addProgressListener(progressSupport);

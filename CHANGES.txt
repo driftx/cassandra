@@ -1,4 +1,5 @@
 2.2.20
+ * Fix URISyntaxException in nodetool with updated Java (CASSANDRA-17581)
  * Add python2 location to RPMs (CASSANDRA-16822)
  * CQL shell should prefer newer TLS version by default (CASSANDRA-16695)
  * Fix Debian init start/stop (CASSANDRA-15770)

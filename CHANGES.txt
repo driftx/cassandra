@@ -1,4 +1,5 @@
 2.1.23
+ * Fix URISyntaxException in nodetool with updated Java (CASSANDRA-17581)
 
 2.1.22
  * Only allow strings to be passed to JMX authentication (CASSANDRA-16077)

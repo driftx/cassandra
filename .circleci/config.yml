@@ -21,10 +21,10 @@ jobs:
   j8_jvm_upgrade_dtests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 4
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -114,10 +114,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -130,10 +130,10 @@ jobs:
   repeated_jvm_upgrade_dtest:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -289,10 +289,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -305,10 +305,10 @@ jobs:
   j8_jvm_dtests_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 10
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -398,10 +398,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -417,7 +417,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -507,10 +507,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -524,10 +524,10 @@ jobs:
   repeated_upgrade_dtest:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -630,10 +630,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -646,10 +646,10 @@ jobs:
   j8_cqlsh-dtests-py38-no-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -725,10 +725,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -741,10 +741,10 @@ jobs:
   j11_cqlsh-dtests-py3-with-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -820,10 +820,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -837,10 +837,10 @@ jobs:
   j11_cqlsh-dtests-py3-no-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -916,10 +916,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -933,10 +933,10 @@ jobs:
   j11_cqlsh-dtests-py38-with-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1012,10 +1012,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -1029,10 +1029,10 @@ jobs:
   j11_jvm_dtests_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 10
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1122,10 +1122,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -1139,10 +1139,10 @@ jobs:
   j8_cqlsh-dtests-py3-with-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1218,10 +1218,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -1234,10 +1234,10 @@ jobs:
   j11_repeated_dtest:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1362,10 +1362,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -1379,10 +1379,10 @@ jobs:
   j8_repeated_dtest:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1485,10 +1485,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -1501,10 +1501,10 @@ jobs:
   j11_dtests-with-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1583,10 +1583,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -1600,10 +1600,10 @@ jobs:
   j8_dtests-no-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1660,10 +1660,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -1676,10 +1676,10 @@ jobs:
   j8_upgradetests-no-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 100
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1736,10 +1736,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -1799,10 +1799,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -1818,7 +1818,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1908,10 +1908,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -1924,10 +1924,10 @@ jobs:
   j11_jvm_dtests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 10
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2017,10 +2017,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -2116,10 +2116,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -2171,10 +2171,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -2191,7 +2191,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2347,10 +2347,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -2364,10 +2364,10 @@ jobs:
   j8_dtests-with-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2424,10 +2424,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -2440,10 +2440,10 @@ jobs:
   j11_cqlsh-dtests-py38-no-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2519,10 +2519,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -2536,10 +2536,10 @@ jobs:
   j8_jvm_dtests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 10
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2629,10 +2629,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -2727,10 +2727,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -2743,10 +2743,10 @@ jobs:
   j8_cqlsh-dtests-py3-no-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2822,10 +2822,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -2838,10 +2838,10 @@ jobs:
   j8_cqlsh-dtests-py38-with-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2917,10 +2917,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -2980,10 +2980,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -2999,7 +2999,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3089,10 +3089,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -3143,10 +3143,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -3206,10 +3206,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -3222,10 +3222,10 @@ jobs:
   j11_dtests-no-vnodes:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3304,10 +3304,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -3324,7 +3324,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3414,10 +3414,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -3433,7 +3433,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3589,10 +3589,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false
@@ -3684,10 +3684,10 @@ jobs:
     - REPEATED_UTEST_METHODS: null
     - REPEATED_UTEST_COUNT: 100
     - REPEATED_UTEST_STOP_ON_FAILURE: false
-    - REPEATED_DTEST_NAME: null
+    - REPEATED_DTEST_NAME: consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_move
     - REPEATED_DTEST_VNODES: false
-    - REPEATED_DTEST_COUNT: 100
-    - REPEATED_DTEST_STOP_ON_FAILURE: false
+    - REPEATED_DTEST_COUNT: 500
+    - REPEATED_DTEST_STOP_ON_FAILURE: true
     - REPEATED_UPGRADE_DTEST_NAME: null
     - REPEATED_UPGRADE_DTEST_COUNT: 100
     - REPEATED_UPGRADE_DTEST_STOP_ON_FAILURE: false

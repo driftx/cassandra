@@ -372,7 +372,6 @@ public class CASTest extends TestBaseImpl
      * Range moves to {2, 3, 4}
      * Prepare and Propose B (=> !A) to {3, 4}
      */
-    @Ignore
     @Test
     public void testSuccessfulWriteBeforeRangeMovement() throws Throwable
     {
@@ -413,7 +412,6 @@ public class CASTest extends TestBaseImpl
      *  -  X: Prepare, Propose and Commit A to {3, 4}
      *  - !X: Prepare and Propose B (=>!A) to {1, 2}
      */
-    @Ignore
     @Test
     public void testConflictingWritesWithStaleRingInformation() throws Throwable
     {

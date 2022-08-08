@@ -350,10 +350,11 @@ class TerminalTypeMatcher(Matcher):
 
 
 class ParsingRuleSet:
-    "Define the BNF tokenization rules for cql3handling.syntax_rules. Backus-Naur Form consists of
+    """Define the BNF tokenization rules for cql3handling.syntax_rules. Backus-Naur Form consists of
        - Production rules in the form: Left-Hand-Side ::= Right-Hand-Side.  The LHS is a non-terminal.
        - Productions or non-terminal symbols
        - Terminal symbols.  Every terminal is a single token.
+    """
 
     RuleSpecScanner = SaferScanner([
         (r'::=', lambda s, t: t),                   # BNF rule definition 

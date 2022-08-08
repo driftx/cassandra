@@ -357,7 +357,7 @@ class ParsingRuleSet:
     """
 
     RuleSpecScanner = SaferScanner([
-        (r'::=', lambda s, t: t),                   # BNF rule definition 
+        (r'::=', lambda s, t: t),                   # BNF rule definition
         (r'\[[a-z0-9_]+\]=', lambda s, t: ('named_collector', t[1:-2])),
         (r'[a-z0-9_]+=', lambda s, t: ('named_symbol', t[:-1])),
         (r'/(\[\^?.[^]]*\]|[^/]|\\.)*/', lambda s, t: ('regex', t[1:-1].replace(r'\/', '/'))),

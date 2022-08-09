@@ -329,6 +329,7 @@ def format_integer_type(val, colormap, thousands_sep=None, **_):
 def format_integer_with_thousands_sep(val, thousands_sep=','):
     return "{:,.0f}".format(val).replace(',', thousands_sep)
 
+
 formatter_for('long')(format_integer_type)
 formatter_for('int')(format_integer_type)
 formatter_for('bigint')(format_integer_type)

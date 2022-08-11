@@ -283,6 +283,15 @@ public class FailureDetector implements IFailureDetector, FailureDetectorMBean
         return epState != null && epState.isAlive();
     }
 
+    public boolean isKnownAndAlive(InetAddressAndPort ep)
+    {
+        if (ep.equals(FBUtilities.getBroadcastAddressAndPort()))
+            return true;
+
+        EndpointState epState = Gossiper.instance.getEndpointStateForEndpoint(ep);
+        return epState != null && epState.isAlive();
+    }
+
     public void report(InetAddressAndPort ep)
     {
         long now = preciseTime.now();

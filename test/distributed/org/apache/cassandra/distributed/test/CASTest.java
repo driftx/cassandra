@@ -20,13 +20,17 @@ package org.apache.cassandra.distributed.test;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 
 
+import com.google.common.util.concurrent.Uninterruptibles;
+import org.apache.cassandra.utils.FBUtilities;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
@@ -202,6 +206,20 @@ public class CASTest extends CASCommonTestCases
             PAXOS_COMMIT_REQ.id,
             READ_REQ.id
         };
+    }
+
+    private void waitUntilUp(Cluster cluster, int to, int from) {
+        String waithost = cluster.get(from).callOnInstance(() -> FBUtilities.getBroadcastAddressAndPort().getHostAddressAndPort());
+        cluster.get(to).runOnInstance(() -> {
+            InetAddressAndPort waitnode;
+            try {
+                waitnode = InetAddressAndPort.getByName(waithost);
+            } catch (UnknownHostException e) {
+                throw new RuntimeException(e);
+            }
+            while (!FailureDetector.instance.isAlive(waitnode))
+                Uninterruptibles.sleepUninterruptibly(500, TimeUnit.MILLISECONDS);
+        });
     }
 
     /**
@@ -473,6 +491,7 @@ public class CASTest extends CASCommonTestCases
         for (int i = 1 ; i <= 4 ; ++i)
             FOUR_NODES.get(i).acceptsOnInstance(CASTestBase::addToRingNormal).accept(FOUR_NODES.get(4));
 
+        waitUntilUp(FOUR_NODES, 3, 4);
         // {3} reads from !{2} => {3, 4}
         drop(FOUR_NODES, 3, to(2), to(), to());
         assertRows(FOUR_NODES.coordinator(3).execute("SELECT * FROM " + KEYSPACE + "." + tableName + " WHERE pk = ?", SERIAL, pk),
@@ -509,6 +528,7 @@ public class CASTest extends CASCommonTestCases
         for (int i = 1 ; i <= 4 ; ++i)
             FOUR_NODES.get(i).acceptsOnInstance(CASTestBase::addToRingNormal).accept(FOUR_NODES.get(4));
 
+        waitUntilUp(FOUR_NODES, 3, 4);
         // {3} reads from !{2} => {3, 4}
         drop(FOUR_NODES, 3, to(2), to(), to());
         assertRows(FOUR_NODES.coordinator(3).execute("INSERT INTO " + KEYSPACE + ".tbl (pk, ck, v2) VALUES (?, 1, 2) IF NOT EXISTS", ONE, pk),
@@ -577,6 +597,7 @@ public class CASTest extends CASCommonTestCases
         for (int i = 1 ; i <= 4 ; ++i)
             FOUR_NODES.get(i).acceptsOnInstance(CASTestBase::addToRingNormal).accept(FOUR_NODES.get(4));
 
+        waitUntilUp(FOUR_NODES, 3, 4);
         // {3} reads from !{2} => {3, 4}
         drop(FOUR_NODES, 3, to(2), to(2), to());
         assertRows(FOUR_NODES.coordinator(3).execute("SELECT * FROM " + KEYSPACE + "." + tableName + " WHERE pk = ?", SERIAL, pk),
@@ -644,6 +665,7 @@ public class CASTest extends CASCommonTestCases
         for (int i = 1; i <= 4; ++i)
             FOUR_NODES.get(i).acceptsOnInstance(CASTestBase::addToRingNormal).accept(FOUR_NODES.get(4));
 
+        waitUntilUp(FOUR_NODES, 3, 4);
         // {3} reads from !{2} => {3, 4}
         FOUR_NODES.filters().verbs(PAXOS2_PREPARE_REQ.id, PAXOS_PREPARE_REQ.id, READ_REQ.id).from(3).to(2).drop();
         FOUR_NODES.filters().verbs(PAXOS2_PROPOSE_REQ.id, PAXOS_PROPOSE_REQ.id).from(3).to(2).drop();

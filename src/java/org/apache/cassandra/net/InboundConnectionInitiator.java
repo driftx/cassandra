@@ -563,7 +563,14 @@ public class InboundConnectionInitiator
 
             pipeline.addLast("deserialize", handler);
 
-            pipeline.remove(this);
+            try
+            {
+                pipeline.remove(this);
+            }
+            catch (NoSuchElementException ex)
+            {
+                // possible race with the handshake timeout firing and removing this handler already
+            }
         }
     }
 

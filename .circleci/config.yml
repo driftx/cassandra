@@ -20,7 +20,7 @@ version: 2
 jobs:
   j8_jvm_upgrade_dtests:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -104,8 +104,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -128,7 +128,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   repeated_jvm_upgrade_dtest:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -278,8 +278,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -302,7 +302,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   repeated_upgrade_dtest:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -398,8 +398,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -422,7 +422,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_repeated_dtest:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -518,8 +518,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -542,7 +542,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   build:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -615,8 +615,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -639,7 +639,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests-no-vnodes:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -689,8 +689,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -713,7 +713,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_upgradetests-no-vnodes:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -804,8 +804,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -828,7 +828,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_unit_tests:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -912,8 +912,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -936,7 +936,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests-with-vnodes:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -986,8 +986,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -1010,7 +1010,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_jvm_dtests:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1094,8 +1094,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -1118,7 +1118,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_long:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1156,8 +1156,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -1180,7 +1180,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_compression:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1264,8 +1264,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -1288,7 +1288,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_repeated_utest:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1438,8 +1438,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome
@@ -1462,7 +1462,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtest_jars_build:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: edimitrova86/cassandra-testing-base-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1532,8 +1532,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-17885
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_UTEST_TARGET: testsome

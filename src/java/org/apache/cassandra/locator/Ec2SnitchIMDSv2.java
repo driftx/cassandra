@@ -26,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.cassandra.exceptions.ConfigurationException;
 import org.apache.cassandra.io.util.FileUtils;
+import org.apache.cassandra.utils.Clock.Global;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +57,7 @@ public class Ec2SnitchIMDSv2 extends Ec2Snitch
     {
         // Populate the region and zone by introspection, fail if 404 on metadata
         if (myToken == null || myLastTokenTime == null
-            || System.currentTimeMillis() - myLastTokenTime > (REFRESH_TOKEN_TIME - 100))
+            || Global.currentTimeMillis() - myLastTokenTime > (REFRESH_TOKEN_TIME - 100))
         {
             getAndSetNewToken();
         }
@@ -79,7 +80,7 @@ public class Ec2SnitchIMDSv2 extends Ec2Snitch
         http.setRequestMethod("PUT");
 
         myToken = getContent(http);
-        myLastTokenTime = System.currentTimeMillis();
+        myLastTokenTime = Global.currentTimeMillis();
     }
 
     private String getContent(final HttpURLConnection conn) throws IOException

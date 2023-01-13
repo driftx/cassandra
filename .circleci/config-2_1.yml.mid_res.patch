@@ -1,5 +1,5 @@
---- config-2_1.yml	2022-12-08 11:47:59.977505612 -0600
-+++ config-2_1.yml.MIDRES	2022-12-08 11:55:50.012884824 -0600
+--- config-2_1.yml	2023-01-19 06:40:13.405500420 -0600
++++ config-2_1.yml.MIDRES	2023-01-13 11:58:24.226316122 -0600
 @@ -157,14 +157,14 @@
  j8_par_executor: &j8_par_executor
    executor:
@@ -32,7 +32,7 @@
 +j8_very_large_par_executor: &j8_very_large_par_executor
 +  executor:
 +    name: java8-executor
-+    exec_resource_class: large
++    exec_resource_class: xlarge
 +  parallelism: 100
 +
  j8_medium_par_executor: &j8_medium_par_executor
@@ -224,10 +224,28 @@
      steps:
        - attach_workspace:
            at: /home/cassandra
+@@ -1986,7 +2010,7 @@
+           python_version: '3.8'
+ 
+   j8_cqlsh_dtests_py311_vnode:
+-    <<: *j8_par_executor
++    <<: *j8_large_par_executor
+     steps:
+       - attach_workspace:
+           at: /home/cassandra
 @@ -2004,7 +2028,7 @@
            python_version: '3.11'
  
    j8_cqlsh_dtests_py38_offheap:
+-    <<: *j8_par_executor
++    <<: *j8_large_par_executor
+     steps:
+       - attach_workspace:
+           at: /home/cassandra
+@@ -2022,7 +2046,7 @@
+           python_version: '3.8'
+ 
+   j8_cqlsh_dtests_py311_offheap:
 -    <<: *j8_par_executor
 +    <<: *j8_large_par_executor
      steps:
@@ -246,6 +264,15 @@
            extra_env_args: 'CQLSH_PYTHON=/usr/bin/python3.6'
  
    j8_cqlsh_dtests_py38:
+-    <<: *j8_par_executor
++    <<: *j8_large_par_executor
+     steps:
+       - attach_workspace:
+           at: /home/cassandra
+@@ -2073,7 +2097,7 @@
+           python_version: '3.8'
+ 
+   j8_cqlsh_dtests_py311:
 -    <<: *j8_par_executor
 +    <<: *j8_large_par_executor
      steps:
@@ -278,10 +305,28 @@
      steps:
        - attach_workspace:
            at: /home/cassandra
+@@ -2139,7 +2163,7 @@
+           python_version: '3.8'
+ 
+   j11_cqlsh_dtests_py311_vnode:
+-    <<: *j11_par_executor
++    <<: *j11_large_par_executor
+     steps:
+       - attach_workspace:
+           at: /home/cassandra
 @@ -2157,7 +2181,7 @@
            python_version: '3.11'
  
    j11_cqlsh_dtests_py38_offheap:
+-    <<: *j11_par_executor
++    <<: *j11_large_par_executor
+     steps:
+       - attach_workspace:
+           at: /home/cassandra
+@@ -2175,7 +2199,7 @@
+           python_version: '3.8'
+ 
+   j11_cqlsh_dtests_py311_offheap:
 -    <<: *j11_par_executor
 +    <<: *j11_large_par_executor
      steps:
@@ -300,6 +345,15 @@
            extra_env_args: 'CQLSH_PYTHON=/usr/bin/python3.6'
  
    j11_cqlsh_dtests_py38:
+-    <<: *j11_par_executor
++    <<: *j11_large_par_executor
+     steps:
+       - attach_workspace:
+           at: /home/cassandra
+@@ -2226,7 +2250,7 @@
+           python_version: '3.8'
+ 
+   j11_cqlsh_dtests_py311:
 -    <<: *j11_par_executor
 +    <<: *j11_large_par_executor
      steps:

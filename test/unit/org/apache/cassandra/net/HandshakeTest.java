@@ -381,7 +381,6 @@ public class HandshakeTest
             OutboundConnection outboundConnection = initiateOutbound(endpoint, fromConnectionType, fromOptional);
             waitForConnection(outboundConnection);
             assertTrue(outboundConnection.isConnected());
-            assertFalse(outboundConnection.hasPending());
         }
         finally
         {

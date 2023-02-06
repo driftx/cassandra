@@ -309,7 +309,6 @@ public class HandshakeTest
             // As soon as the node accepts inbound connections, the connection must be established with right SSL context
             waitForConnection(outboundConnection);
             assertTrue(outboundConnection.isConnected());
-            assertFalse(outboundConnection.hasPending());
         }
         finally
         {

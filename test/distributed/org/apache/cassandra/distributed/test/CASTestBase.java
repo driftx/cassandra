@@ -203,7 +203,7 @@ public abstract class CASTestBase extends TestBaseImpl
                 StorageService.instance.onChange(address,
                                                  ApplicationState.STATUS,
                                                  new VersionedValue.VersionedValueFactory(partitioner).left(Collections.singleton(token), 0L, 0));
-                Gossiper.instance.unsafeAnnulEndpoint(address);
+                Gossiper.instance.unsafeAnnulEndpoint(address, null);
                 Gossiper.instance.realMarkAlive(address, new EndpointState(new HeartBeatState(0, 0)));
             });
             PendingRangeCalculatorService.instance.blockUntilFinished();

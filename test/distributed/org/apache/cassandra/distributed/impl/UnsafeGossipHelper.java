@@ -197,7 +197,7 @@ public class UnsafeGossipHelper
                     StorageService.instance.onChange(addressAndPort,
                                                      ApplicationState.STATUS,
                                                      new VersionedValue.VersionedValueFactory(partitioner).left(singleton(token), 0L));
-                    Gossiper.instance.unsafeAnnulEndpoint(addressAndPort);
+                    Gossiper.instance.unsafeAnnulEndpoint(addressAndPort, hostId);
                     Gossiper.instance.initializeNodeUnsafe(addressAndPort, hostId, 1);
                     Gossiper.instance.realMarkAlive(addressAndPort, Gossiper.instance.getEndpointStateForEndpoint(addressAndPort));
                 });

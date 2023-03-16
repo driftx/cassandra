@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 
 import org.apache.cassandra.diag.DiagnosticEvent;
 import org.apache.cassandra.locator.InetAddressAndPort;
+import org.apache.cassandra.locator.InetAddressAndPortAndUUID;
 
 /**
  * DiagnosticEvent implementation for {@link Gossiper} activities.
@@ -41,7 +42,7 @@ public final class GossiperEvent extends DiagnosticEvent
 
     private final Map<InetAddressAndPort, EndpointState> endpointStateMap;
     private final boolean inShadowRound;
-    private final Map<InetAddressAndPort, Long> justRemovedEndpoints;
+    private final Map<InetAddressAndPortAndUUID, Long> justRemovedEndpoints;
     private final long lastProcessedMessageAt;
     private final Set<InetAddressAndPort> liveEndpoints;
     private final List<String> seeds;

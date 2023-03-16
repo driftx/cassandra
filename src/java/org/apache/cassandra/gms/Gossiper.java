@@ -47,6 +47,7 @@ import com.google.common.util.concurrent.Uninterruptibles;
 import org.apache.cassandra.concurrent.*;
 import org.apache.cassandra.concurrent.FutureTask;
 import org.apache.cassandra.locator.InetAddressAndPort;
+import org.apache.cassandra.locator.InetAddressAndPortAndUUID;
 import org.apache.cassandra.net.NoPayload;
 import org.apache.cassandra.net.Verb;
 import org.apache.cassandra.utils.CassandraVersion;
@@ -167,7 +168,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
      * gossip. We will ignore any gossip regarding these endpoints for QUARANTINE_DELAY time
      * after removal to prevent nodes from falsely reincarnating during the time when removal
      * gossip gets propagated to all nodes */
-    private final Map<InetAddressAndPort, Long> justRemovedEndpoints = new ConcurrentHashMap<>();
+    private final Map<InetAddressAndPortAndUUID, Long> justRemovedEndpoints = new ConcurrentHashMap<>();
 
     private final Map<InetAddressAndPort, Long> expireTimeEndpointMap = new ConcurrentHashMap<>();
 
@@ -226,7 +227,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
         boolean allHostsHaveKnownVersion = true;
         for (InetAddressAndPort host : endpointStateMap.keySet())
         {
-            if (justRemovedEndpoints.containsKey(host))
+            if (justRemovedEndpoints.containsKey(InetAddressAndPortAndUUID.create(host, getHostId(host))))
                 continue;
 
             CassandraVersion version = getReleaseVersion(host);
@@ -629,12 +630,13 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
      */
     private void evictFromMembership(InetAddressAndPort endpoint)
     {
+        UUID hostId = getHostId(endpoint);
         checkProperThreadForStateMutation();
         unreachableEndpoints.remove(endpoint);
         endpointStateMap.remove(endpoint);
         expireTimeEndpointMap.remove(endpoint);
         FailureDetector.instance.remove(endpoint);
-        quarantineEndpoint(endpoint);
+        quarantineEndpoint(InetAddressAndPortAndUUID.create(endpoint, hostId));
         if (logger.isDebugEnabled())
             logger.debug("evicting {} from gossip", endpoint);
         GossiperDiagnostics.evictedFromMembership(this, endpoint);
@@ -665,7 +667,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
         liveEndpoints.remove(endpoint);
         unreachableEndpoints.remove(endpoint);
         MessagingService.instance().versions.reset(endpoint);
-        quarantineEndpoint(endpoint);
+        quarantineEndpoint(InetAddressAndPortAndUUID.create(endpoint, getHostId(endpoint)));
         MessagingService.instance().closeOutbound(endpoint);
         MessagingService.instance().removeInbound(endpoint);
         logger.debug("removing endpoint {}", endpoint);
@@ -673,10 +675,10 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
     }
 
     @VisibleForTesting
-    public void unsafeAnnulEndpoint(InetAddressAndPort endpoint)
+    public void unsafeAnnulEndpoint(InetAddressAndPort endpoint, UUID hostId)
     {
         removeEndpoint(endpoint);
-        justRemovedEndpoints.remove(endpoint);
+        justRemovedEndpoints.remove(InetAddressAndPortAndUUID.create(endpoint, hostId));
         endpointStateMap.remove(endpoint);
         expireTimeEndpointMap.remove(endpoint);
         unreachableEndpoints.remove(endpoint);
@@ -685,25 +687,25 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
     /**
      * Quarantines the endpoint for QUARANTINE_DELAY
      *
-     * @param endpoint
+     * @param endpointAndId
      */
-    private void quarantineEndpoint(InetAddressAndPort endpoint)
+    private void quarantineEndpoint(InetAddressAndPortAndUUID endpointAndId)
     {
-        quarantineEndpoint(endpoint, currentTimeMillis());
+        quarantineEndpoint(endpointAndId, currentTimeMillis());
     }
 
     /**
      * Quarantines the endpoint until quarantineExpiration + QUARANTINE_DELAY
      *
-     * @param endpoint
+     * @param endpointAndId
      * @param quarantineExpiration
      */
-    private void quarantineEndpoint(InetAddressAndPort endpoint, long quarantineExpiration)
+    private void quarantineEndpoint(InetAddressAndPortAndUUID endpointAndId, long quarantineExpiration)
     {
         if (disableEndpointRemoval)
             return;
-        justRemovedEndpoints.put(endpoint, quarantineExpiration);
-        GossiperDiagnostics.quarantinedEndpoint(this, endpoint, quarantineExpiration);
+        justRemovedEndpoints.put(endpointAndId, quarantineExpiration);
+        GossiperDiagnostics.quarantinedEndpoint(this, endpointAndId.getInetAddressAndPort(), quarantineExpiration);
     }
 
     /**
@@ -713,7 +715,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
     public void replacementQuarantine(InetAddressAndPort endpoint)
     {
         // remember, quarantineEndpoint will effectively already add QUARANTINE_DELAY, so this is 2x
-        quarantineEndpoint(endpoint, currentTimeMillis() + QUARANTINE_DELAY);
+        quarantineEndpoint(InetAddressAndPortAndUUID.create(endpoint, getHostId(endpoint)), currentTimeMillis() + QUARANTINE_DELAY);
         GossiperDiagnostics.replacementQuarantine(this, endpoint);
     }
 
@@ -1119,7 +1121,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
 
         if (!justRemovedEndpoints.isEmpty())
         {
-            for (Entry<InetAddressAndPort, Long> entry : justRemovedEndpoints.entrySet())
+            for (Entry<InetAddressAndPortAndUUID, Long> entry : justRemovedEndpoints.entrySet())
             {
                 if ((now - entry.getValue()) > QUARANTINE_DELAY)
                 {
@@ -1175,7 +1177,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
         return ImmutableMap.copyOf(endpointStateMap);
     }
 
-    Map<InetAddressAndPort, Long> getJustRemovedEndpoints()
+    Map<InetAddressAndPortAndUUID, Long> getJustRemovedEndpoints()
     {
         return ImmutableMap.copyOf(justRemovedEndpoints);
     }
@@ -1588,9 +1590,11 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
             InetAddressAndPort ep = entry.getKey();
             if (ep.equals(getBroadcastAddressAndPort()) && !isInShadowRound())
                 continue;
-            if (justRemovedEndpoints.containsKey(ep))
+            UUID hostId = getHostId(ep, epStateMap);
+            InetAddressAndPortAndUUID endpointAndHostId = InetAddressAndPortAndUUID.create(ep, hostId);
+            if (justRemovedEndpoints.containsKey(endpointAndHostId))
             {
-                justRemovedEndpoints.put(ep, System.currentTimeMillis());
+                justRemovedEndpoints.put(endpointAndHostId, System.currentTimeMillis());
                 if (logger.isTraceEnabled())
                     logger.trace("Ignoring gossip for {} because it is quarantined", ep);
                 continue;

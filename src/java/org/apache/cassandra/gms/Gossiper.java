@@ -1594,7 +1594,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
             InetAddressAndPortAndUUID endpointAndHostId = InetAddressAndPortAndUUID.create(ep, hostId);
             if (justRemovedEndpoints.containsKey(endpointAndHostId))
             {
-                justRemovedEndpoints.put(endpointAndHostId, System.currentTimeMillis());
+                justRemovedEndpoints.put(endpointAndHostId, currentTimeMillis());
                 if (logger.isTraceEnabled())
                     logger.trace("Ignoring gossip for {} because it is quarantined", ep);
                 continue;

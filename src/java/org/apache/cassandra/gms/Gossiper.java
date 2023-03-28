@@ -227,7 +227,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
         boolean allHostsHaveKnownVersion = true;
         for (InetAddressAndPort host : endpointStateMap.keySet())
         {
-            if (justRemovedEndpoints.containsKey(InetAddressAndPortAndUUID.create(host, getHostId(host))))
+            if (endpointStateMap.get(host).containsApplicationState(ApplicationState.HOST_ID) &&  (justRemovedEndpoints.containsKey(InetAddressAndPortAndUUID.create(host, getHostId(host)))))
                 continue;
 
             CassandraVersion version = getReleaseVersion(host);

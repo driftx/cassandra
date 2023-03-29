@@ -311,7 +311,7 @@
             <equals arg1="${ant.java.version}" arg2="1.8"/>
         </not>
     </condition>
-    <condition property="checkstyle.version" value="9.3" else="10.8.1">
+    <condition property="checkstyle.version" value="8.45.1" else="10.8.1">
         <equals arg1="${ant.java.version}" arg2="1.8"/>
     </condition>
 

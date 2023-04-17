@@ -124,7 +124,7 @@ public class HelpersTest
         failure = false;
         try
         {
-            Map<Integer, Integer> notIdentity = ImmutableMap.of(1, Integer.valueOf(1), 2, 2, 3, 3);
+            Map<Integer, Integer> notIdentity = ImmutableMap.of(Integer.MIN_VALUE, Integer.valueOf(Integer.MIN_VALUE), 2, 2, 3, 3);
             Helpers.replace(notIdentity, a, b);
         }
         catch (AssertionError e)

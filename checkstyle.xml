@@ -127,6 +127,27 @@
       <property name="ignoreComments" value="true"/>
       <property name="message" value="Avoid Float() and use Float.valueOf()" />
     </module>
+    <module name="RegexpSinglelineJava">
+      <!-- block Byte() -->
+      <property name="id" value="blockByteInstantiation"/>
+      <property name="format" value="new Byte\("/>
+      <property name="ignoreComments" value="true"/>
+      <property name="message" value="Avoid Byte() and use Byte.valueOf()" />
+    </module>
+    <module name="RegexpSinglelineJava">
+      <!-- block Double() -->
+      <property name="id" value="blockDoubleInstantiation"/>
+      <property name="format" value="new Double\("/>
+      <property name="ignoreComments" value="true"/>
+      <property name="message" value="Avoid Double() and use Double.valueOf()" />
+    </module>
+    <module name="RegexpSinglelineJava">
+      <!-- block Short() -->
+      <property name="id" value="blockShortInstantiation"/>
+      <property name="format" value="new Short\("/>
+      <property name="ignoreComments" value="true"/>
+      <property name="message" value="Avoid Short() and use Short.valueOf()" />
+    </module>
 
     <module name="RedundantImport"/>
     <module name="UnusedImports"/>

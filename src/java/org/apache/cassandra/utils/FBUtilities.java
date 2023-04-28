@@ -262,6 +262,21 @@ public class FBUtilities
         return broadcastNativeAddressAndPort;
     }
 
+    public static InetAddressAndPort getBroadcastNativeAddressAndPortSSL()
+    {
+        if (broadcastNativeAddressAndPort == null)
+            if(DatabaseDescriptor.getRawConfig() == null)
+            {
+                broadcastNativeAddressAndPort = InetAddressAndPort.getByAddress(getJustBroadcastNativeAddress());
+            }
+            else
+            {
+                broadcastNativeAddressAndPort = InetAddressAndPort.getByAddressOverrideDefaults(getJustBroadcastNativeAddress(),
+                                                                                                DatabaseDescriptor.getNativeTransportPortSSL());
+            }
+        return broadcastNativeAddressAndPort;
+    }
+
     public static String getNetworkInterface(InetAddress localAddress)
     {
         try

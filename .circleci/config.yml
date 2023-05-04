@@ -20,7 +20,7 @@ version: 2
 jobs:
   j8_jvm_upgrade_dtests:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -133,7 +133,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_compression_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -318,7 +318,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests_large_vnode:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -397,7 +397,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_stress_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -582,7 +582,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_cqlshlib_cython_tests:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -641,7 +641,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests_offheap_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -768,7 +768,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests_large_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -895,7 +895,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_long_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1080,7 +1080,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_unit_tests_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1265,7 +1265,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests_large:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1344,7 +1344,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_upgrade_dtests_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1471,7 +1471,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   build:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1573,7 +1573,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests_vnode_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1700,7 +1700,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_upgrade_dtests:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1779,7 +1779,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_jvm_upgrade_dtests_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -1964,7 +1964,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_cdc:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -2077,7 +2077,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_stress:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -2144,7 +2144,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests_offheap:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -2245,7 +2245,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_unit_tests:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -2358,7 +2358,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -2437,7 +2437,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests_vnode:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -2516,7 +2516,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_jvm_dtests_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -2701,7 +2701,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_repeated_ant_test:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -2881,7 +2881,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -3008,7 +3008,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_cdc_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -3193,7 +3193,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_jvm_dtests:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -3306,7 +3306,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_long:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -3395,7 +3395,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_cqlshlib_tests:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -3453,7 +3453,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtests_large_vnode_repeat:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -3580,7 +3580,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   utests_compression:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
@@ -3693,7 +3693,7 @@ jobs:
     - JDK_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   j8_dtest_jars_build:
     docker:
-    - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
+    - image: driftx/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l

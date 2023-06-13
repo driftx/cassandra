@@ -682,6 +682,11 @@
         <artifactId>netty-tcnative-boringssl-static</artifactId>
         <version>2.0.36.Final</version>
       </dependency>
+      <dependency>
+        <groupId>org.bouncycastle</groupId>
+        <artifactId>bcpkix-jdk15on</artifactId>
+        <version>1.70</version>
+      </dependency>
 
       <!-- chronicle-queue deps -->
       <dependency>

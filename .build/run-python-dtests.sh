@@ -117,8 +117,8 @@ if [ "${DTEST_TARGET}" = "dtest" ]; then
     DTEST_ARGS="--use-vnodes --num-tokens=${NUM_TOKENS} --skip-resource-intensive-tests"
 elif [ "${DTEST_TARGET}" = "dtest-novnode" ]; then
     DTEST_ARGS="--skip-resource-intensive-tests --keep-failed-test-dir"
-elif [ "${DTEST_TARGET}" = "dtest-offheap" ]; then
-    DTEST_ARGS="--use-vnodes --num-tokens=${NUM_TOKENS} --use-off-heap-memtables --skip-resource-intensive-tests"
+elif [ "${DTEST_TARGET}" = "dtest-latest" ]; then
+    DTEST_ARGS="--use-vnodes --num-tokens=${NUM_TOKENS} --configuration-yaml=cassandra_latest.yaml --skip-resource-intensive-tests"
 elif [ "${DTEST_TARGET}" = "dtest-large" ]; then
     DTEST_ARGS="--use-vnodes --num-tokens=${NUM_TOKENS} --only-resource-intensive-tests --force-resource-intensive-tests"
 elif [ "${DTEST_TARGET}" = "dtest-large-novnode" ]; then
@@ -167,7 +167,7 @@ pushd ${CASSANDRA_DIR}/ >/dev/null
 # remove <testsuites> wrapping elements. `ant generate-unified-test-report` doesn't like it`
 sed -r "s/<[\/]?testsuites>//g" ${DIST_DIR}/test/output/nosetests.xml > ${TMPDIR}/nosetests.xml
 cat ${TMPDIR}/nosetests.xml > ${DIST_DIR}/test/output/nosetests.xml
-ant -quiet -silent generate-unified-test-report
+ant -quiet -silent generate-test-report
 popd  >/dev/null
 
 ################################

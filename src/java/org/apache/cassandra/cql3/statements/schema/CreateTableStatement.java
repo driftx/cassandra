@@ -254,7 +254,7 @@ public final class CreateTableStatement extends AlterSchemaStatement
                                                                  .collect(Collectors.toList());
         if (!nonClusterColumn.isEmpty())
         {
-            throw ire("Only clustering key columns can be defined in CLUSTERING ORDER directive: " + nonClusterColumn + " are not clustering column");
+            throw ire("Only clustering key columns can be defined in CLUSTERING ORDER directive: " + nonClusterColumn + " are not clustering columns");
         }
 
         int n = 0;

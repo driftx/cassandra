@@ -108,19 +108,19 @@ public class CreateTableValidationTest extends CQLTester
     }
 
     @Test
-    public void testCreateTableOnSelectedClusterColumn()
+    public void testCreateTableOnSelectedClusteringColumn()
     {
         createTable("CREATE TABLE %s (pk int, ck1 int, ck2 int, v int, PRIMARY KEY ((pk),ck1, ck2)) WITH CLUSTERING ORDER BY (ck1 ASC);");
     }
 
     @Test
-    public void testCreateTableOnAllClusterColumns()
+    public void testCreateTableOnAllClusteringColumns()
     {
         createTable("CREATE TABLE %s (pk int, ck1 int, ck2 int, v int, PRIMARY KEY ((pk),ck1, ck2)) WITH CLUSTERING ORDER BY (ck1 ASC, ck2 DESC);");
     }
 
     @Test
-    public void testCreateTableErrorOnNonClusterKey()
+    public void testCreateTableErrorOnNonClusteringKey()
     {
         String expectedMessage = "Only clustering key columns can be defined in CLUSTERING ORDER directive";
         expectedFailure("CREATE TABLE %s (pk int, ck1 int, ck2 int, v int, PRIMARY KEY ((pk),ck1, ck2)) WITH CLUSTERING ORDER BY (ck1 ASC, ck2 DESC, v ASC);",
@@ -144,14 +144,14 @@ public class CreateTableValidationTest extends CQLTester
     }
 
     @Test
-    public void testCreateTableInWrongOrdering()
+    public void testCreateTableInWrongOrder()
     {
         expectedFailure("CREATE TABLE %s (pk int, ck1 int, ck2 int, v int, PRIMARY KEY ((pk),ck1, ck2)) WITH CLUSTERING ORDER BY (ck2 ASC, ck1 DESC);",
                         "The order of columns in the CLUSTERING ORDER directive must match that of the clustering columns");
     }
 
     @Test
-    public void testCreateTableWithMissingClusterColumn()
+    public void testCreateTableWithMissingClusteringColumn()
     {
         expectedFailure("CREATE TABLE %s (pk int, ck1 int, ck2 int, v int, PRIMARY KEY ((pk),ck1, ck2)) WITH CLUSTERING ORDER BY (ck2 ASC);",
                         "Missing CLUSTERING ORDER for column ck1");

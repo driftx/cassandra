@@ -30,7 +30,14 @@
         <cve>CVE-2021-44521</cve>
     </suppress>
     <suppress>
-        <!--  https://issues.apache.org/jira/browse/CASSANDRA-17907 -->
+        <!--  https://issues.apache.org/jira/browse/CASSANDRA-18608 -->
+        <packageUrl regex="true">^pkg:maven/org\.xerial\.snappy/snappy\-java@.*$</packageUrl>
+        <cve>CVE-2023-34453</cve>
+        <cve>CVE-2023-34454</cve>
+        <cve>CVE-2023-34455</cve>
+    </suppress>
+    <suppress>
+        <!--  https://issues.apache.org/jira/browse/CASSANDRA-16150 -->
         <packageUrl regex="true">^pkg:maven/org\.yaml/snakeyaml@.*$</packageUrl>
         <cve>CVE-2023-2251</cve>
         <cve>CVE-2022-25857</cve>

@@ -109,8 +109,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -168,8 +168,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -272,8 +272,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -357,8 +357,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -442,8 +442,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -501,8 +501,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -605,8 +605,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -718,8 +718,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -822,8 +822,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -972,8 +972,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -1100,8 +1100,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -1228,8 +1228,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -1341,8 +1341,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -1445,8 +1445,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -1530,8 +1530,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -1643,8 +1643,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -1728,8 +1728,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -1832,8 +1832,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -1960,8 +1960,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -2110,8 +2110,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -2223,8 +2223,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -2327,8 +2327,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -2431,8 +2431,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -2516,8 +2516,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -2601,8 +2601,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -2714,8 +2714,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -2905,8 +2905,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -2985,8 +2985,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -3113,8 +3113,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -3226,8 +3226,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -3330,8 +3330,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -3410,8 +3410,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -3495,8 +3495,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -3608,8 +3608,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -3721,8 +3721,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -3912,8 +3912,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -4016,8 +4016,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -4118,8 +4118,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -4231,8 +4231,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -4316,8 +4316,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -4383,8 +4383,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -4511,8 +4511,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -4624,8 +4624,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -4691,8 +4691,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -4776,8 +4776,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -4885,8 +4885,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -4952,8 +4952,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -5037,8 +5037,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -5139,8 +5139,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -5267,8 +5267,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -5380,8 +5380,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -5465,8 +5465,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -5569,8 +5569,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -5673,8 +5673,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -5786,8 +5786,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -5914,8 +5914,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -5999,8 +5999,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -6103,8 +6103,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -6170,8 +6170,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -6250,8 +6250,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -6330,8 +6330,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -6434,8 +6434,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -6519,8 +6519,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -6604,8 +6604,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -6689,8 +6689,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -6793,8 +6793,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -6851,8 +6851,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -6955,8 +6955,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -7068,8 +7068,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -7172,8 +7172,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -7276,8 +7276,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -7389,8 +7389,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -7456,8 +7456,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -7541,8 +7541,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -7643,8 +7643,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -7728,8 +7728,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -7786,8 +7786,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -7866,8 +7866,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -7979,8 +7979,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -8083,8 +8083,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -8196,8 +8196,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -8281,8 +8281,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -8361,8 +8361,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -8446,8 +8446,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -8513,8 +8513,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -8598,8 +8598,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -8678,8 +8678,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -8763,8 +8763,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -8865,8 +8865,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -8993,8 +8993,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -9078,8 +9078,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -9163,8 +9163,8 @@ jobs:
     - REPEATED_SIMULATOR_DTESTS_COUNT: 500
     - REPEATED_JVM_DTESTS: null
     - REPEATED_JVM_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: ttl_test.py::TestRecoverNegativeExpirationDate::test_recover_negative_expiration_date_sstables_with_scrub
+    - REPEATED_DTESTS_COUNT: 3
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_ANT_TEST_TARGET: testsome
@@ -9359,6 +9359,12 @@ workflows:
         requires:
         - start_j11_dtests_offheap
         - j11_build
+    - start_j11_dtests_offheap_repeat:
+        type: approval
+    - j11_dtests_offheap_repeat:
+        requires:
+        - start_j11_dtests_offheap_repeat
+        - j11_build
     - start_j17_dtests:
         type: approval
     - j17_dtests:
@@ -9376,6 +9382,12 @@ workflows:
     - j17_dtests_offheap:
         requires:
         - start_j17_dtests_offheap
+        - j11_build
+    - start_j17_dtests_offheap_repeat:
+        type: approval
+    - j17_dtests_offheap_repeat:
+        requires:
+        - start_j17_dtests_offheap_repeat
         - j11_build
     - start_j11_dtests_large:
         type: approval
@@ -9480,6 +9492,30 @@ workflows:
     - j17_cqlsh_dtests_py311_offheap:
         requires:
         - start_j17_cqlsh_tests_offheap
+        - j11_build
+    - start_j11_dtests_repeat:
+        type: approval
+    - j11_dtests_repeat:
+        requires:
+        - start_j11_dtests_repeat
+        - j11_build
+    - start_j11_dtests_vnode_repeat:
+        type: approval
+    - j11_dtests_vnode_repeat:
+        requires:
+        - start_j11_dtests_vnode_repeat
+        - j11_build
+    - start_j17_dtests_repeat:
+        type: approval
+    - j17_dtests_repeat:
+        requires:
+        - start_j17_dtests_repeat
+        - j11_build
+    - start_j17_dtests_vnode_repeat:
+        type: approval
+    - j17_dtests_vnode_repeat:
+        requires:
+        - start_j17_dtests_vnode_repeat
         - j11_build
   java11_pre-commit_tests:
     jobs:
@@ -9599,7 +9635,13 @@ workflows:
     - j11_dtests:
         requires:
         - j11_build
+    - j11_dtests_repeat:
+        requires:
+        - j11_build
     - j11_dtests_vnode:
+        requires:
+        - j11_build
+    - j11_dtests_vnode_repeat:
         requires:
         - j11_build
     - start_j11_dtests_offheap:
@@ -9608,15 +9650,29 @@ workflows:
         requires:
         - start_j11_dtests_offheap
         - j11_build
+    - j11_dtests_offheap_repeat:
+        requires:
+        - start_j11_dtests_offheap
+        - j11_build
     - j17_dtests:
+        requires:
+        - j11_build
+    - j17_dtests_repeat:
         requires:
         - j11_build
     - j17_dtests_vnode:
         requires:
         - j11_build
+    - j17_dtests_vnode_repeat:
+        requires:
+        - j11_build
     - start_j17_dtests_offheap:
         type: approval
     - j17_dtests_offheap:
+        requires:
+        - start_j17_dtests_offheap
+        - j11_build
+    - j17_dtests_offheap_repeat:
         requires:
         - start_j17_dtests_offheap
         - j11_build
@@ -9763,6 +9819,12 @@ workflows:
         requires:
         - start_j17_dtests_offheap
         - j17_build
+    - start_j17_dtests_offheap_repeat:
+        type: approval
+    - j17_dtests_offheap_repeat:
+        requires:
+        - start_j17_dtests_offheap_repeat
+        - j17_build
     - start_j17_dtests_large:
         type: approval
     - j17_dtests_large:
@@ -9857,6 +9919,18 @@ workflows:
         requires:
         - start_j17_utests_system_keyspace_directory
         - j17_build
+    - start_j17_dtests_repeat:
+        type: approval
+    - j17_dtests_repeat:
+        requires:
+        - start_j17_dtests_repeat
+        - j17_build
+    - start_j17_dtests_vnode_repeat:
+        type: approval
+    - j17_dtests_vnode_repeat:
+        requires:
+        - start_j17_dtests_vnode_repeat
+        - j17_build
   java17_pre-commit_tests:
     jobs:
     - start_pre-commit_tests:
@@ -9885,7 +9959,13 @@ workflows:
     - j17_dtests:
         requires:
         - j17_build
+    - j17_dtests_repeat:
+        requires:
+        - j17_build
     - j17_dtests_vnode:
+        requires:
+        - j17_build
+    - j17_dtests_vnode_repeat:
         requires:
         - j17_build
     - start_j17_dtests_offheap:
@@ -9893,6 +9973,12 @@ workflows:
     - j17_dtests_offheap:
         requires:
         - start_j17_dtests_offheap
+        - j17_build
+    - start_j17_dtests_offheap_repeat:
+        type: approval
+    - j17_dtests_offheap_repeat:
+        requires:
+        - start_j17_dtests_offheap_repeat
         - j17_build
     - start_j17_dtests_large:
         type: approval

@@ -70,6 +70,7 @@ Cassandra is a distributed (peer-to-peer) system for the management and storage 
 export LANG=en_US.UTF-8
 export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8"
 ant clean jar -Dversion=%{upstream_version}
+%py3_build
 
 %install
 %{__rm} -rf %{buildroot}
@@ -88,7 +89,6 @@ mkdir -p %{buildroot}/var/lib/%{username}/saved_caches
 mkdir -p %{buildroot}/var/lib/%{username}/hints
 mkdir -p %{buildroot}/var/run/%{username}
 mkdir -p %{buildroot}/var/log/%{username}
-( cd pylib && %{__python} setup.py install --no-compile --root %{buildroot}; )
 
 # patches for data and log paths
 patch -p1 < debian/patches/cassandra_yaml_dirs.diff
@@ -101,6 +101,7 @@ rm -f bin/*.orig
 rm -f bin/cassandra.in.sh
 rm -f lib/sigar-bin/*winnt*  # strip segfaults on dll..
 rm -f tools/bin/cassandra.in.sh
+rm -rf bin/__pycache__
 
 # copy default configs
 cp -pr conf/* %{buildroot}/%{_sysconfdir}/%{username}/default.conf/
@@ -127,6 +128,7 @@ cp -p tools/bin/* %{buildroot}/usr/bin/
 
 # copy cassandra jar
 cp build/apache-cassandra-%{upstream_version}.jar %{buildroot}/usr/share/%{username}/
+%py3_install
 
 %clean
 %{__rm} -rf %{buildroot}

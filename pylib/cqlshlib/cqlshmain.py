@@ -2237,6 +2237,7 @@ def setup_docspath(path):
         # fallback to online version
         CASSANDRA_CQL_HTML = CASSANDRA_CQL_HTML_FALLBACK
 
+
 def insert_driver_hooks():
 
     class DateOverFlowWarning(RuntimeWarning):

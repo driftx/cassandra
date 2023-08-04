@@ -94,4 +94,11 @@
         <cve>CVE-2022-45688</cve>
     </suppress>
 
+    <!-- https://issues.apache.org/jira/browse/CASSANDRA-18723 -->
+    <suppress>
+        <packageUrl regex="true">^pkg:maven/org\.bouncycastle/.*$</packageUrl>
+        <cve>CVE-2023-33201</cve>
+    </suppress>
+
+
 </suppressions>

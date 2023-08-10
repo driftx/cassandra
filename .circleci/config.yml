@@ -21,10 +21,10 @@ jobs:
   j11_jvm_upgrade_dtests_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -79,8 +79,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -111,10 +111,10 @@ jobs:
   j17_dtests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -186,8 +186,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -250,8 +250,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -281,10 +281,10 @@ jobs:
   j17_cqlsh_dtests_py311_offheap:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -358,8 +358,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -392,7 +392,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -447,8 +447,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -481,7 +481,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -536,8 +536,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -601,8 +601,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -633,10 +633,10 @@ jobs:
   j17_cqlsh_dtests_py3_offheap:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -710,8 +710,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -744,7 +744,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -827,8 +827,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -858,10 +858,10 @@ jobs:
   j17_cqlsh_dtests_py38_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -935,8 +935,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -966,10 +966,10 @@ jobs:
   j17_dtests_vnode_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1089,8 +1089,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1120,10 +1120,10 @@ jobs:
   j17_dtests_offheap_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1221,8 +1221,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1252,10 +1252,10 @@ jobs:
   j11_dtests_vnode_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1353,8 +1353,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1388,7 +1388,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1471,8 +1471,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1503,10 +1503,10 @@ jobs:
   j17_cqlsh_dtests_py3:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1580,8 +1580,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1614,7 +1614,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1669,8 +1669,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1704,7 +1704,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1787,8 +1787,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1821,7 +1821,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1876,8 +1876,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1907,10 +1907,10 @@ jobs:
   j11_cqlsh_dtests_py311:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1984,8 +1984,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2016,10 +2016,10 @@ jobs:
   j17_dtests_large_vnode_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2117,8 +2117,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2148,10 +2148,10 @@ jobs:
   j17_dtests_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2271,8 +2271,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2305,7 +2305,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2388,8 +2388,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2420,10 +2420,10 @@ jobs:
   j17_cqlsh_dtests_py311:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2497,8 +2497,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2528,10 +2528,10 @@ jobs:
   j11_cqlsh_dtests_py38:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2605,8 +2605,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2640,7 +2640,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2695,8 +2695,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2729,7 +2729,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2784,8 +2784,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2819,7 +2819,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2902,8 +2902,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2936,7 +2936,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3097,8 +3097,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3129,7 +3129,7 @@ jobs:
   j11_dtests_large_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
     parallelism: 4
@@ -3182,8 +3182,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3214,10 +3214,10 @@ jobs:
   j11_dtests_large_vnode_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3315,8 +3315,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3350,7 +3350,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3433,8 +3433,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3464,10 +3464,10 @@ jobs:
   j11_cqlsh_dtests_py38_offheap:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3541,8 +3541,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3573,7 +3573,7 @@ jobs:
   j11_dtests_large:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
     parallelism: 4
@@ -3626,8 +3626,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3661,7 +3661,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3716,8 +3716,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3751,7 +3751,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3834,8 +3834,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3866,10 +3866,10 @@ jobs:
   j11_upgrade_dtests_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3967,8 +3967,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3999,10 +3999,10 @@ jobs:
   j17_jvm_dtests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 10
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -4085,8 +4085,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4119,7 +4119,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -4280,8 +4280,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4311,10 +4311,10 @@ jobs:
   j11_cqlsh_dtests_py3:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -4388,8 +4388,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4495,8 +4495,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4529,7 +4529,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -4612,8 +4612,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4647,7 +4647,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -4702,8 +4702,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4773,8 +4773,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4805,10 +4805,10 @@ jobs:
   j11_dtests_offheap_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -4906,8 +4906,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4938,10 +4938,10 @@ jobs:
   j11_jvm_dtests_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 10
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -5024,8 +5024,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5128,8 +5128,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5200,8 +5200,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5235,7 +5235,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -5290,8 +5290,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5403,8 +5403,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5435,10 +5435,10 @@ jobs:
   j11_jvm_upgrade_dtests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 4
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -5521,8 +5521,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5593,8 +5593,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5628,7 +5628,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -5683,8 +5683,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5715,10 +5715,10 @@ jobs:
   j17_dtests_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -5790,8 +5790,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5821,10 +5821,10 @@ jobs:
   j11_dtests_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -5922,8 +5922,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5957,7 +5957,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -6040,8 +6040,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6075,7 +6075,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -6130,8 +6130,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6161,10 +6161,10 @@ jobs:
   j11_cqlsh_dtests_py3_offheap:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -6238,8 +6238,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6270,10 +6270,10 @@ jobs:
   j11_cqlsh_dtests_py311_offheap:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -6347,8 +6347,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6382,7 +6382,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -6465,8 +6465,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6497,10 +6497,10 @@ jobs:
   j11_upgrade_dtests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 100
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -6550,8 +6550,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6582,10 +6582,10 @@ jobs:
   j11_dtests_large_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -6683,8 +6683,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6718,7 +6718,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -6773,8 +6773,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6804,10 +6804,10 @@ jobs:
   j11_cqlsh_dtests_py3_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -6881,8 +6881,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6953,8 +6953,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6984,7 +6984,7 @@ jobs:
   j17_dtests_large_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
     parallelism: 4
@@ -7037,8 +7037,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7068,10 +7068,10 @@ jobs:
   j11_dtests_offheap:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -7121,8 +7121,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7153,10 +7153,10 @@ jobs:
   j11_cqlsh_dtests_py38_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -7230,8 +7230,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7265,7 +7265,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -7320,8 +7320,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7355,7 +7355,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -7410,8 +7410,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7445,7 +7445,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -7500,8 +7500,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7532,10 +7532,10 @@ jobs:
   j17_cqlsh_dtests_py38_offheap:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -7609,8 +7609,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7672,8 +7672,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7703,10 +7703,10 @@ jobs:
   j11_cqlsh_dtests_py311_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -7780,8 +7780,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7815,7 +7815,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -7898,8 +7898,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7929,10 +7929,10 @@ jobs:
   j17_cqlsh_dtests_py3_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -8006,8 +8006,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8037,10 +8037,10 @@ jobs:
   j17_cqlsh_dtests_py311_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -8114,8 +8114,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8145,10 +8145,10 @@ jobs:
   j11_jvm_dtests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 10
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -8231,8 +8231,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8303,8 +8303,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8337,7 +8337,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -8392,8 +8392,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8499,8 +8499,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8534,7 +8534,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -8589,8 +8589,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8653,8 +8653,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8685,10 +8685,10 @@ jobs:
   j11_dtests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -8738,8 +8738,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8770,10 +8770,10 @@ jobs:
   j17_jvm_dtests_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 10
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -8856,8 +8856,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8887,10 +8887,10 @@ jobs:
   j17_cqlsh_dtests_py38:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -8964,8 +8964,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8998,7 +8998,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -9081,8 +9081,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9115,7 +9115,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -9170,8 +9170,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9201,7 +9201,7 @@ jobs:
   j17_dtests_large:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
     parallelism: 4
@@ -9254,8 +9254,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9288,7 +9288,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -9343,8 +9343,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9415,8 +9415,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9449,7 +9449,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -9504,8 +9504,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9535,10 +9535,10 @@ jobs:
   j11_dtests_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -9588,8 +9588,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9623,7 +9623,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -9678,8 +9678,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9709,10 +9709,10 @@ jobs:
   j17_dtests_offheap:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -9784,8 +9784,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9815,10 +9815,10 @@ jobs:
   j17_dtests_large_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -9916,8 +9916,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9950,7 +9950,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -10005,8 +10005,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -10039,7 +10039,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -10094,8 +10094,8 @@ jobs:
     - DTEST_BRANCH: trunk
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
-    - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_TESTS_STOP_ON_FAILURE: true
+    - REPEATED_UTESTS: org.apache.cassandra.cql3.ViewTest,org.apache.cassandra.cql3.ViewTest#testIgnoreUpdate
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -10137,6 +10137,12 @@ workflows:
     - j11_unit_tests:
         requires:
         - start_j11_unit_tests
+        - j11_build
+    - start_j11_unit_tests_repeat:
+        type: approval
+    - j11_unit_tests_repeat:
+        requires:
+        - start_j11_unit_tests_repeat
         - j11_build
     - start_j11_jvm_dtests:
         type: approval
@@ -10198,17 +10204,35 @@ workflows:
         requires:
         - start_j17_unit_tests
         - j11_build
+    - start_j17_unit_tests_repeat:
+        type: approval
+    - j17_unit_tests_repeat:
+        requires:
+        - start_j17_unit_tests_repeat
+        - j11_build
     - start_j11_utests_oa:
         type: approval
     - j11_utests_oa:
         requires:
         - start_j11_utests_oa
         - j11_build
+    - start_j11_utests_oa_repeat:
+        type: approval
+    - j11_utests_oa_repeat:
+        requires:
+        - start_j11_utests_oa_repeat
+        - j11_build
     - start_j17_utests_oa:
         type: approval
     - j17_utests_oa:
         requires:
         - start_j17_utests_oa
+        - j11_build
+    - start_j17_utests_oa_repeat:
+        type: approval
+    - j17_utests_oa_repeat:
+        requires:
+        - start_j17_utests_oa_repeat
         - j11_build
     - start_j11_utests_long:
         type: approval
@@ -10234,6 +10258,18 @@ workflows:
         requires:
         - start_j17_utests_cdc
         - j11_build
+    - start_j11_utests_cdc_repeat:
+        type: approval
+    - j11_utests_cdc_repeat:
+        requires:
+        - start_j11_utests_cdc_repeat
+        - j11_build
+    - start_j17_utests_cdc_repeat:
+        type: approval
+    - j17_utests_cdc_repeat:
+        requires:
+        - start_j17_utests_cdc_repeat
+        - j11_build
     - start_j11_utests_compression:
         type: approval
     - j11_utests_compression:
@@ -10246,6 +10282,18 @@ workflows:
         requires:
         - start_j17_utests_compression
         - j11_build
+    - start_j11_utests_compression_repeat:
+        type: approval
+    - j11_utests_compression_repeat:
+        requires:
+        - start_j11_utests_compression_repeat
+        - j11_build
+    - start_j17_utests_compression_repeat:
+        type: approval
+    - j17_utests_compression_repeat:
+        requires:
+        - start_j17_utests_compression_repeat
+        - j11_build
     - start_j11_utests_trie:
         type: approval
     - j11_utests_trie:
@@ -10257,6 +10305,18 @@ workflows:
     - j17_utests_trie:
         requires:
         - start_j17_utests_trie
+        - j11_build
+    - start_j11_utests_trie_repeat:
+        type: approval
+    - j11_utests_trie_repeat:
+        requires:
+        - start_j11_utests_trie_repeat
+        - j11_build
+    - start_j17_utests_trie_repeat:
+        type: approval
+    - j17_utests_trie_repeat:
+        requires:
+        - start_j17_utests_trie_repeat
         - j11_build
     - start_j11_utests_stress:
         type: approval
@@ -10293,6 +10353,18 @@ workflows:
     - j17_utests_system_keyspace_directory:
         requires:
         - start_j17_utests_system_keyspace_directory
+        - j11_build
+    - start_j11_utests_system_keyspace_directory_repeat:
+        type: approval
+    - j11_utests_system_keyspace_directory_repeat:
+        requires:
+        - start_j11_utests_system_keyspace_directory_repeat
+        - j11_build
+    - start_j17_utests_system_keyspace_directory_repeat:
+        type: approval
+    - j17_utests_system_keyspace_directory_repeat:
+        requires:
+        - start_j17_utests_system_keyspace_directory_repeat
         - j11_build
     - start_j11_dtest_jars_build:
         type: approval
@@ -10465,6 +10537,15 @@ workflows:
     - j11_utests_oa:
         requires:
         - j11_build
+    - j11_utests_oa_repeat:
+        requires:
+        - j11_build
+    - j17_utests_oa_repeat:
+        requires:
+        - j11_build
+    - j11_unit_tests_repeat:
+        requires:
+        - j11_build
     - j11_simulator_dtests:
         requires:
         - j11_build
@@ -10498,6 +10579,9 @@ workflows:
     - j17_utests_oa:
         requires:
         - j11_build
+    - j17_unit_tests_repeat:
+        requires:
+        - j11_build
     - start_utests_long:
         type: approval
     - j11_utests_long:
@@ -10518,6 +10602,14 @@ workflows:
         requires:
         - start_utests_cdc
         - j11_build
+    - j11_utests_cdc_repeat:
+        requires:
+        - start_utests_cdc
+        - j11_build
+    - j17_utests_cdc_repeat:
+        requires:
+        - start_utests_cdc
+        - j11_build
     - start_utests_compression:
         type: approval
     - j11_utests_compression:
@@ -10528,6 +10620,14 @@ workflows:
         requires:
         - start_utests_compression
         - j11_build
+    - j11_utests_compression_repeat:
+        requires:
+        - start_utests_compression
+        - j11_build
+    - j17_utests_compression_repeat:
+        requires:
+        - start_utests_compression
+        - j11_build
     - start_utests_trie:
         type: approval
     - j11_utests_trie:
@@ -10535,6 +10635,14 @@ workflows:
         - start_utests_trie
         - j11_build
     - j17_utests_trie:
+        requires:
+        - start_utests_trie
+        - j11_build
+    - j11_utests_trie_repeat:
+        requires:
+        - start_utests_trie
+        - j11_build
+    - j17_utests_trie_repeat:
         requires:
         - start_utests_trie
         - j11_build
@@ -10564,6 +10672,13 @@ workflows:
         requires:
         - j11_build
     - j17_utests_system_keyspace_directory:
+        requires:
+        - start_utests_system_keyspace_directory
+        - j11_build
+    - j11_utests_system_keyspace_directory_repeat:
+        requires:
+        - j11_build
+    - j17_utests_system_keyspace_directory_repeat:
         requires:
         - start_utests_system_keyspace_directory
         - j11_build
@@ -10703,6 +10818,12 @@ workflows:
         requires:
         - start_j17_unit_tests
         - j17_build
+    - start_j17_unit_tests_repeat:
+        type: approval
+    - j17_unit_tests_repeat:
+        requires:
+        - start_j17_unit_tests_repeat
+        - j17_build
     - start_j17_jvm_dtests:
         type: approval
     - j17_jvm_dtests:
@@ -10803,6 +10924,12 @@ workflows:
         requires:
         - start_j17_utests_oa
         - j17_build
+    - start_j17_utests_oa_repeat:
+        type: approval
+    - j17_utests_oa_repeat:
+        requires:
+        - start_j17_utests_oa_repeat
+        - j17_build
     - start_j17_utests_long:
         type: approval
     - j17_utests_long:
@@ -10815,17 +10942,35 @@ workflows:
         requires:
         - start_j17_utests_cdc
         - j17_build
+    - start_j17_utests_cdc_repeat:
+        type: approval
+    - j17_utests_cdc_repeat:
+        requires:
+        - start_j17_utests_cdc_repeat
+        - j17_build
     - start_j17_utests_compression:
         type: approval
     - j17_utests_compression:
         requires:
         - start_j17_utests_compression
         - j17_build
+    - start_j17_utests_compression_repeat:
+        type: approval
+    - j17_utests_compression_repeat:
+        requires:
+        - start_j17_utests_compression_repeat
+        - j17_build
     - start_j17_utests_trie:
         type: approval
     - j17_utests_trie:
         requires:
         - start_j17_utests_trie
+        - j17_build
+    - start_j17_utests_trie_repeat:
+        type: approval
+    - j17_utests_trie_repeat:
+        requires:
+        - start_j17_utests_trie_repeat
         - j17_build
     - start_j17_utests_stress:
         type: approval
@@ -10845,6 +10990,12 @@ workflows:
         requires:
         - start_j17_utests_system_keyspace_directory
         - j17_build
+    - start_j17_utests_system_keyspace_directory_repeat:
+        type: approval
+    - j17_utests_system_keyspace_directory_repeat:
+        requires:
+        - start_j17_utests_system_keyspace_directory_repeat
+        - j17_build
   java17_pre-commit_tests:
     jobs:
     - start_pre-commit_tests:
@@ -10856,6 +11007,12 @@ workflows:
         requires:
         - j17_build
     - j17_utests_oa:
+        requires:
+        - j17_build
+    - j17_utests_oa_repeat:
+        requires:
+        - j17_build
+    - j17_unit_tests_repeat:
         requires:
         - j17_build
     - j17_jvm_dtests:
@@ -10936,15 +11093,27 @@ workflows:
         requires:
         - start_utests_cdc
         - j17_build
+    - j17_utests_cdc_repeat:
+        requires:
+        - start_utests_cdc
+        - j17_build
     - start_utests_compression:
         type: approval
     - j17_utests_compression:
         requires:
         - start_utests_compression
         - j17_build
+    - j17_utests_compression_repeat:
+        requires:
+        - start_utests_compression
+        - j17_build
     - start_utests_trie:
         type: approval
     - j17_utests_trie:
+        requires:
+        - start_utests_trie
+        - j17_build
+    - j17_utests_trie_repeat:
         requires:
         - start_utests_trie
         - j17_build
@@ -10963,6 +11132,10 @@ workflows:
     - start_utests_system_keyspace_directory:
         type: approval
     - j17_utests_system_keyspace_directory:
+        requires:
+        - start_utests_system_keyspace_directory
+        - j17_build
+    - j17_utests_system_keyspace_directory_repeat:
         requires:
         - start_utests_system_keyspace_directory
         - j17_build

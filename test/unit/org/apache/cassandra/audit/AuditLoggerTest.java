@@ -59,9 +59,9 @@ import static org.junit.Assert.fail;
 public class AuditLoggerTest extends CQLTester
 {
     @BeforeClass
-    public static void setUp()
+    public static void setUp() throws IOException
     {
-        AuditLogOptions options = new AuditLogOptions();
+        AuditLogOptions options = getBaseAuditLogOptions();
         options.enabled = true;
         options.logger = new ParameterizedClass("InMemoryAuditLogger", null);
         DatabaseDescriptor.setAuditLoggingOptions(options);
@@ -69,7 +69,7 @@ public class AuditLoggerTest extends CQLTester
     }
 
     @Before
-    public void beforeTestMethod()
+    public void beforeTestMethod() throws IOException
     {
         AuditLogOptions options = new AuditLogOptions();
         enableAuditLogOptions(options);
@@ -81,7 +81,20 @@ public class AuditLoggerTest extends CQLTester
         disableAuditLogOptions();
     }
 
-    private void enableAuditLogOptions(AuditLogOptions options)
+    /**
+       Create a new AuditLogOptions instance with the log dir set appropriately to a temp dir for unit testing.
+    */
+    private static AuditLogOptions getBaseAuditLogOptions() throws IOException {
+        AuditLogOptions options = new AuditLogOptions();
+
+        // Ensure that we create a new audit log directory to separate outputs
+        Path tmpDir = Files.createTempDirectory("AuditLoggerTest");
+        options.audit_logs_dir = tmpDir.toString();
+
+        return options;
+    }
+
+    private void enableAuditLogOptions(AuditLogOptions options) throws IOException
     {
         String loggerName = "InMemoryAuditLogger";
         String includedKeyspaces = options.included_keyspaces;
@@ -180,7 +193,7 @@ public class AuditLoggerTest extends CQLTester
     }
 
     @Test
-    public void testAuditLogExceptions()
+    public void testAuditLogExceptions() throws IOException
     {
         AuditLogOptions options = new AuditLogOptions();
         options.excluded_keyspaces += ',' + KEYSPACE;
@@ -673,10 +686,10 @@ public class AuditLoggerTest extends CQLTester
     }
 
     @Test
-    public void testConflictingPaths()
+    public void testConflictingPaths() throws IOException
     {
         disableAuditLogOptions();
-        AuditLogOptions options = new AuditLogOptions();
+        AuditLogOptions options = getBaseAuditLogOptions();
         DatabaseDescriptor.setAuditLoggingOptions(options);
         StorageService.instance.enableAuditLog(null, null, options.included_keyspaces, options.excluded_keyspaces, options.included_categories, options.excluded_categories, options.included_users, options.excluded_users);
         try
@@ -696,10 +709,10 @@ public class AuditLoggerTest extends CQLTester
 
 
     @Test
-    public void testConflictingPathsFQLFirst()
+    public void testConflictingPathsFQLFirst() throws IOException
     {
         disableAuditLogOptions();
-        AuditLogOptions options = new AuditLogOptions();
+        AuditLogOptions options = getBaseAuditLogOptions();
         DatabaseDescriptor.setAuditLoggingOptions(options);
         StorageService.instance.enableFullQueryLogger(options.audit_logs_dir, RollCycles.HOURLY.toString(), false, 1000, 1000, null, 0);
         try
@@ -718,10 +731,10 @@ public class AuditLoggerTest extends CQLTester
     }
 
     @Test
-    public void testJMXArchiveCommand()
+    public void testJMXArchiveCommand() throws IOException
     {
         disableAuditLogOptions();
-        AuditLogOptions options = new AuditLogOptions();
+        AuditLogOptions options = getBaseAuditLogOptions();
 
         try
         {
@@ -736,7 +749,7 @@ public class AuditLoggerTest extends CQLTester
         }
 
         options.archive_command = "/xyz/not/null";
-        options.audit_logs_dir = "/tmp/abc";
+
         DatabaseDescriptor.setAuditLoggingOptions(options);
         StorageService.instance.enableAuditLog("BinAuditLogger", Collections.emptyMap(), "", "", "", "",
                                                "", "", 10, true, options.roll_cycle,

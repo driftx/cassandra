@@ -24,7 +24,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 4
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -104,8 +104,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -119,8 +119,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -137,7 +137,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -289,8 +289,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -304,8 +304,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -319,7 +319,7 @@ jobs:
   j8_dtests_large_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
     parallelism: 4
@@ -368,8 +368,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -383,8 +383,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -401,7 +401,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -553,8 +553,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -568,8 +568,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -612,8 +612,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -627,8 +627,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -642,10 +642,10 @@ jobs:
   j8_dtests_offheap_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -739,8 +739,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -754,8 +754,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -769,10 +769,10 @@ jobs:
   j8_dtests_large_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -866,8 +866,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -881,8 +881,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -899,7 +899,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1051,8 +1051,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -1066,8 +1066,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -1084,7 +1084,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1236,8 +1236,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -1251,8 +1251,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -1266,7 +1266,7 @@ jobs:
   j8_dtests_large:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
     parallelism: 4
@@ -1315,8 +1315,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -1330,8 +1330,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -1345,10 +1345,10 @@ jobs:
   j8_upgrade_dtests_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: xlarge
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1442,8 +1442,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -1457,8 +1457,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -1544,8 +1544,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -1559,8 +1559,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -1574,10 +1574,10 @@ jobs:
   j8_dtests_vnode_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1671,8 +1671,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -1686,8 +1686,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -1701,10 +1701,10 @@ jobs:
   j8_upgrade_dtests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 100
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1750,8 +1750,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -1765,8 +1765,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -1783,7 +1783,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -1935,8 +1935,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -1950,8 +1950,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -1968,7 +1968,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2048,8 +2048,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -2063,8 +2063,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -2115,8 +2115,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -2130,8 +2130,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -2145,10 +2145,10 @@ jobs:
   j8_dtests_offheap:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2216,8 +2216,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -2231,8 +2231,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -2249,7 +2249,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2329,8 +2329,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -2344,8 +2344,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -2359,10 +2359,10 @@ jobs:
   j8_dtests:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2408,8 +2408,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -2423,8 +2423,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -2438,10 +2438,10 @@ jobs:
   j8_dtests_vnode:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 50
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2487,8 +2487,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -2502,8 +2502,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -2520,7 +2520,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2672,8 +2672,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -2687,8 +2687,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -2705,7 +2705,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2852,8 +2852,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -2867,8 +2867,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -2882,10 +2882,10 @@ jobs:
   j8_dtests_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -2979,8 +2979,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -2994,8 +2994,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -3012,7 +3012,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3164,8 +3164,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -3179,8 +3179,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -3197,7 +3197,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 1
+    parallelism: 10
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3277,8 +3277,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -3292,8 +3292,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -3366,8 +3366,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -3381,8 +3381,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -3424,8 +3424,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -3439,8 +3439,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -3454,10 +3454,10 @@ jobs:
   j8_dtests_large_vnode_repeat:
     docker:
     - image: apache/cassandra-testing-ubuntu2004-java11-w-dependencies:latest
-    resource_class: medium
+    resource_class: large
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3551,8 +3551,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -3566,8 +3566,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -3584,7 +3584,7 @@ jobs:
     resource_class: medium
     working_directory: ~/
     shell: /bin/bash -eo pipefail -l
-    parallelism: 4
+    parallelism: 25
     steps:
     - attach_workspace:
         at: /home/cassandra
@@ -3664,8 +3664,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -3679,8 +3679,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -3763,8 +3763,8 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/driftx/cassandra-dtest.git
+    - DTEST_BRANCH: CASSANDRA-18709-2
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
@@ -3778,8 +3778,8 @@ jobs:
     - REPEATED_JVM_DTESTS_COUNT: 500
     - REPEATED_JVM_UPGRADE_DTESTS: null
     - REPEATED_JVM_UPGRADE_DTESTS_COUNT: 500
-    - REPEATED_DTESTS: null
-    - REPEATED_DTESTS_COUNT: 500
+    - REPEATED_DTESTS: jmx_test.py::TestJMX::test_compactionstats
+    - REPEATED_DTESTS_COUNT: 10
     - REPEATED_LARGE_DTESTS: null
     - REPEATED_LARGE_DTESTS_COUNT: 100
     - REPEATED_UPGRADE_DTESTS: null
@@ -3865,11 +3865,23 @@ workflows:
         requires:
         - start_j8_dtests
         - build
+    - start_j8_dtests_repeat:
+        type: approval
+    - j8_dtests_repeat:
+        requires:
+        - start_j8_dtests_repeat
+        - build
     - start_j8_dtests_vnode:
         type: approval
     - j8_dtests_vnode:
         requires:
         - start_j8_dtests_vnode
+        - build
+    - start_j8_dtests_vnode_repeat:
+        type: approval
+    - j8_dtests_vnode_repeat:
+        requires:
+        - start_j8_dtests_vnode_repeat
         - build
     - start_j8_dtests_large:
         type: approval
@@ -3894,6 +3906,12 @@ workflows:
     - j8_dtests_offheap:
         requires:
         - start_j8_dtests_offheap
+        - build
+    - start_j8_dtests_offheap_repeat:
+        type: approval
+    - j8_dtests_offheap_repeat:
+        requires:
+        - start_j8_dtests_offheap_repeat
         - build
   pre-commit_tests:
     jobs:
@@ -3950,7 +3968,13 @@ workflows:
     - j8_dtests:
         requires:
         - build
+    - j8_dtests_repeat:
+        requires:
+        - build
     - j8_dtests_vnode:
+        requires:
+        - build
+    - j8_dtests_vnode_repeat:
         requires:
         - build
     - start_j8_dtests_large:
@@ -3972,6 +3996,10 @@ workflows:
     - start_j8_dtests_offheap:
         type: approval
     - j8_dtests_offheap:
+        requires:
+        - start_j8_dtests_offheap
+        - build
+    - j8_dtests_offheap_repeat:
         requires:
         - start_j8_dtests_offheap
         - build

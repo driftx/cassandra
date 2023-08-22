@@ -346,7 +346,8 @@ public class ImportTest extends CQLTester
             int pk = r.getInt("id");
             assertTrue("pk = "+pk, pk >= 100 && pk < 130);
         }
-        assertEquals("Data dir should contain one file", 1, countFiles(getCurrentColumnFamilyStore().getDirectories().getDirectoryForNewSSTables()));
+        Set<SSTableReader> tables = getCurrentColumnFamilyStore().getLiveSSTables();
+        assertEquals(String.format("Data dir should contain one file: %s", tables), 1, countFiles(getCurrentColumnFamilyStore().getDirectories().getDirectoryForNewSSTables()));
         assertEquals("backupdir contained 2 files before import, should still contain 2 after failing to import it", beforeImport, Sets.newHashSet(backupdir.tryList()));
         if (copy)
         {

@@ -1352,6 +1352,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
     {
         if (inflightEcho.contains(addr))
         {
+            logger.debug("in flight echos for {}", addr);
             return;
         }
         inflightEcho.add(addr);
@@ -1359,7 +1360,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
         localState.markDead();
 
         Message<NoPayload> echoMessage = Message.out(ECHO_REQ, noPayload);
-        logger.trace("Sending ECHO_REQ to {}", addr);
+        logger.debug("Sending ECHO_REQ to {}", addr);
         RequestCallback echoHandler = new RequestCallback()
         {
             @Override
@@ -1369,6 +1370,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
                 runInGossipStageBlocking(() -> {
                     try
                     {
+                        logger.debug("Call realMarkAlive");
                         realMarkAlive(addr, localState);
                     }
                     finally
@@ -1387,6 +1389,7 @@ public class Gossiper implements IFailureDetectionEventListener, GossiperMBean
             @Override
             public void onFailure(InetAddressAndPort from, RequestFailureReason failureReason)
             {
+                logger.debug("echo failure from {}, reason {}", from, failureReason);
                 inflightEcho.remove(addr);
             }
         };

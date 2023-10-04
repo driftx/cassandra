@@ -29,7 +29,7 @@ test:
 	dh_testdir
 	$(ANT) test
 
-clean: unpatch
+clean: 
 	dh_clean build-stamp
 	dh_testdir
 	dh_testroot

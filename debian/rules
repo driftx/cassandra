@@ -26,7 +26,7 @@ ANT = /usr/bin/ant
 VERSION = $(shell dpkg-parsechangelog | sed -ne 's/^Version: \([^-|~|+]*\).*/\1/p')
 BUILD_DIR ?= "build"
 
-clean: unpatch
+clean: 
 	dh_clean build-stamp
 	dh_testdir
 	dh_testroot

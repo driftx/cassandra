@@ -27,7 +27,7 @@ test:
 	dh_testdir
 	$(ANT) test
 
-clean: unpatch
+clean:
 	dh_testdir
 	dh_testroot
 	$(ANT) realclean

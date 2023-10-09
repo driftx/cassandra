@@ -20,7 +20,6 @@ package org.apache.cassandra.distributed.test.gossip;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 

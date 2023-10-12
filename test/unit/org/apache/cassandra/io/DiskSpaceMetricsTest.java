@@ -29,6 +29,8 @@ import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.apache.cassandra.Util;
 import org.apache.cassandra.config.DatabaseDescriptor;
@@ -52,6 +54,7 @@ import static org.psjava.util.AssertStatus.assertTrue;
 
 public class DiskSpaceMetricsTest extends CQLTester
 {
+    private static final Logger logger = LoggerFactory.getLogger(DiskSpaceMetricsTest.class);
     /**
      * This test runs the system with normal operations and makes sure the disk metrics match reality
      */
@@ -111,11 +114,15 @@ public class DiskSpaceMetricsTest extends CQLTester
 
         int totalSize = 0;
         final Set<SSTableReader> liveSSTables = cfs.getLiveSSTables();
+        SSTableReader smallest = null;
         for (SSTableReader rdr : liveSSTables)
         {
             totalSize += rdr.onDiskLength();
+            if (smallest == null || rdr.onDiskLength() < smallest.onDiskLength())
+                smallest = rdr;
         }
         final int avgSize = totalSize / liveSSTables.size();
+        logger.info("smallest sstable is {} at {} bytes", smallest.getFilename(), smallest.onDiskLength());
         assertEquals(avgSize, cfs.metric.flushSizeOnDisk.get(), 0.05 * avgSize);
     }
 

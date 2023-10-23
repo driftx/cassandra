@@ -1007,6 +1007,12 @@ public class ColumnFamilyStore implements ColumnFamilyStoreMBean, Memtable.Owner
     // print out size of all memtables we're enqueuing
     private void logFlush(FlushReason reason)
     {
+        if (reason == FlushReason.COMMITLOG_DIRTY)
+        {
+            String fullStackTrace = Arrays.toString(new Throwable().getStackTrace()).replace(',', '\n');
+            logger.error("Bad flush reason: {}", reason);
+            logger.error(fullStackTrace);
+        }
         // reclaiming includes that which we are GC-ing;
         Memtable.MemoryUsage usage = Memtable.newMemoryUsage();
         getTracker().getView().getCurrentMemtable().addMemoryUsageTo(usage);

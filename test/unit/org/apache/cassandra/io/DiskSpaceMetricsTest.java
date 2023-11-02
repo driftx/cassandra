@@ -21,11 +21,13 @@ package org.apache.cassandra.io;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import org.apache.cassandra.cql3.CQLTester;
@@ -85,6 +87,31 @@ public class DiskSpaceMetricsTest extends CQLTester
         }
     }
 
+    @Test
+    public void testFlushSize() throws Throwable
+    {
+        createTable(KEYSPACE_PER_TEST, "CREATE TABLE %s (pk bigint, PRIMARY KEY (pk))");
+        ColumnFamilyStore cfs = getCurrentColumnFamilyStore(KEYSPACE_PER_TEST);
+
+        // disable compaction so nothing changes between calculations
+        cfs.disableAutoCompaction();
+
+        for (int i = 0; i < 3; i++)
+            insertN(KEYSPACE_PER_TEST, cfs, 1000, 55);
+
+        int totalSize = 0;
+        final Set<SSTableReader> liveSSTables = cfs.getLiveSSTables();
+        for (SSTableReader rdr : liveSSTables)
+        {
+            totalSize += rdr.onDiskLength();
+        }
+        final int avgSize = totalSize / liveSSTables.size();
+        for (SSTableReader rdr : liveSSTables)
+        {
+            assertEquals(avgSize, rdr.onDiskLength(), 0.05 * avgSize);
+        }
+    }
+
     private void insert(ColumnFamilyStore cfs, long value) throws Throwable
     {
         insertN(cfs, 1, value);
@@ -92,12 +119,18 @@ public class DiskSpaceMetricsTest extends CQLTester
 
     private void insertN(ColumnFamilyStore cfs, int n, long base) throws Throwable
     {
+        insertN(KEYSPACE, cfs, n, base);
+    }
+
+    private void insertN(String keyspace, ColumnFamilyStore cfs, int n, long base) throws Throwable
+    {
         for (int i = 0; i < n; i++)
-            execute("INSERT INTO %s (pk) VALUES (?)", base + i);
+            executeFormattedQuery(formatQuery(keyspace, "INSERT INTO %s (pk) VALUES (?)"), base + i);
 
         // flush to write the sstable
         cfs.forceBlockingFlush();
     }
+
 
     private void assertDiskSpaceEqual(ColumnFamilyStore cfs)
     {

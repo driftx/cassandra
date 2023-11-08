@@ -3374,7 +3374,7 @@ public class ColumnFamilyStore implements ColumnFamilyStoreMBean, Memtable.Owner
     {
         indexManager.markAllIndexesRemoved();
 
-        CompactionManager.instance.interruptCompactionForCFs(concatWithIndexes(), (sstable) -> true, true);
+        CompactionManager.instance.interruptCompactionFor(Collections.singleton(metadata()), (sstable) -> true, true);
 
         if (isAutoSnapshotEnabled())
             snapshot(Keyspace.getTimestampedSnapshotNameWithPrefix(name, ColumnFamilyStore.SNAPSHOT_DROP_PREFIX), DatabaseDescriptor.getAutoSnapshotTtl());
@@ -3383,6 +3383,7 @@ public class ColumnFamilyStore implements ColumnFamilyStoreMBean, Memtable.Owner
 
         compactionStrategyManager.shutdown();
 
+        CompactionManager.instance.interruptCompactionForCFs(concatWithIndexes(), (sstable) -> true, true);
         // wait for any outstanding reads/writes that might affect the CFS
         Keyspace.writeOrder.awaitNewBarrier();
         readOrdering.awaitNewBarrier();

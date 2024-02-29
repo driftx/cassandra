@@ -215,8 +215,8 @@ public class UpgradeSSTablesTest extends TestBaseImpl
                 cluster.get(1).nodetool("upgradesstables", "-a", KEYSPACE, "tbl");
             });
 
-            cluster.schemaChange(withKeyspace("TRUNCATE %s.tbl"));
             upgrade.get();
+            cluster.schemaChange(withKeyspace("TRUNCATE %s.tbl"));
             Assert.assertFalse(logAction.grep("Compaction interrupted").getResult().isEmpty());
         }
     }

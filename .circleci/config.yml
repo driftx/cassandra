@@ -75,12 +75,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -182,12 +182,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -299,12 +299,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -364,12 +364,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -453,12 +453,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -586,12 +586,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -651,12 +651,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -769,12 +769,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -877,12 +877,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1031,12 +1031,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1163,12 +1163,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1272,12 +1272,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1389,12 +1389,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1479,12 +1479,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1597,12 +1597,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1705,12 +1705,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1795,12 +1795,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -1903,12 +1903,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2036,12 +2036,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2190,12 +2190,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2307,12 +2307,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2397,12 +2397,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2505,12 +2505,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2613,12 +2613,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2703,12 +2703,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2792,12 +2792,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -2910,12 +2910,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3105,12 +3105,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3190,12 +3190,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3323,12 +3323,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3408,12 +3408,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3498,12 +3498,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3616,12 +3616,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3749,12 +3749,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -3867,12 +3867,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4062,12 +4062,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4168,12 +4168,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4285,12 +4285,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4375,12 +4375,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4492,12 +4492,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4563,12 +4563,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4653,12 +4653,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4743,12 +4743,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4846,12 +4846,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -4918,12 +4918,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5008,12 +5008,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5121,12 +5121,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5239,12 +5239,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5311,12 +5311,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5401,12 +5401,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5508,12 +5508,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5640,12 +5640,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5758,12 +5758,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -5876,12 +5876,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6009,12 +6009,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6098,12 +6098,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6183,12 +6183,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6316,12 +6316,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6406,12 +6406,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6477,12 +6477,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6561,12 +6561,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6669,12 +6669,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6759,12 +6759,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6849,12 +6849,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -6958,12 +6958,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7022,12 +7022,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7130,12 +7130,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7248,12 +7248,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7356,12 +7356,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7464,12 +7464,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7581,12 +7581,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7688,12 +7688,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7805,12 +7805,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7876,12 +7876,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -7982,12 +7982,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8072,12 +8072,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8157,12 +8157,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8221,12 +8221,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8306,12 +8306,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8415,12 +8415,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8532,12 +8532,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8621,12 +8621,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8705,12 +8705,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8794,12 +8794,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8866,12 +8866,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -8955,12 +8955,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9039,12 +9039,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9129,12 +9129,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9261,12 +9261,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9350,12 +9350,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500
@@ -9439,12 +9439,12 @@ jobs:
     - CASS_DRIVER_NO_EXTENSIONS: true
     - CASS_DRIVER_NO_CYTHON: true
     - CASSANDRA_SKIP_SYNC: true
-    - DTEST_REPO: https://github.com/apache/cassandra-dtest.git
-    - DTEST_BRANCH: trunk
+    - DTEST_REPO: https://github.com/Mmuzaf/cassandra-dtest.git
+    - DTEST_BRANCH: cassandra-14572
     - CCM_MAX_HEAP_SIZE: 1024M
     - CCM_HEAP_NEWSIZE: 256M
     - REPEATED_TESTS_STOP_ON_FAILURE: false
-    - REPEATED_UTESTS: null
+    - REPEATED_UTESTS: org.apache.cassandra.utils.FBUtilitiesTest,org.apache.cassandra.metrics.TrieMemtableMetricsTest,org.apache.cassandra.metrics.TableMetricsTest,org.apache.cassandra.metrics.LatencyMetricsTest,org.apache.cassandra.metrics.KeyspaceMetricsTest,org.apache.cassandra.metrics.JmxVirtualTableMetricsTest,org.apache.cassandra.metrics.ClientRequestRowAndColumnMetricsTest,org.apache.cassandra.metrics.ClientRequestMetricsTest,org.apache.cassandra.metrics.CassandraMetricsRegistryTest,org.apache.cassandra.metrics.CQLMetricsTest,org.apache.cassandra.metrics.BatchMetricsTest,org.apache.cassandra.db.virtual.CollectionVirtualTableAdapterTest
     - REPEATED_UTESTS_COUNT: 500
     - REPEATED_UTESTS_FQLTOOL: null
     - REPEATED_UTESTS_FQLTOOL_COUNT: 500

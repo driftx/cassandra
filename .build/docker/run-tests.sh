@@ -177,13 +177,14 @@ fi
 docker_flags="${docker_flags} -d --rm"
 
 # make sure build_dir is good
-mkdir -p ${build_dir}/tmp || true
-mkdir -p ${build_dir}/test/logs || true
-mkdir -p ${build_dir}/test/output || true
-chmod -R ag+rwx ${build_dir}
+mkdir -p "${build_dir}/tmp" || true
+mkdir -p "${build_dir}/test/logs" || true
+mkdir -p "${build_dir}/test/output" || true
+mkdir -p "${build_dir}/test/reports" || true
+chmod -R ag+rwx "${build_dir}"
 
 # define testtag.extra so tests can be aggregated together. (jdk is already appended in build.xml)
-case ${target} in
+case "${target}" in
     "cqlsh-test" | "dtest" | "dtest-novnode" | "dtest-latest" | "dtest-large" | "dtest-large-novnode" | "dtest-upgrade" | "dtest-upgrade-large" | "dtest-upgrade-novnode" | "dtest-upgrade-novnode-large" )
         ANT_OPTS="-Dtesttag.extra=_$(arch)_python${python_version/./-}"
     ;;

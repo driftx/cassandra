@@ -102,7 +102,7 @@ pipeline {
   }
   post {
     always {
-      generateUnifiedTestReport()
+      generateTestReports()
       sendNotifications()
     }
   }
@@ -194,8 +194,9 @@ def tasks() {
     }
 
     def Map tasks = [
-      jars: [failFast: !isPostCommit()],
-      tests: [failFast: !isPostCommit()],
+      // FIXME where is this used ?
+      jars: [failFast: true],
+      tests: [failFast: !isPostCommit()], // FIXME all buildSteps are always failFast
     ]
 
     for (def axis in _axes) {
@@ -288,6 +289,7 @@ def build(command, cell) {
                 // pipe to tee needs pipefail
                 sh label: "RUNNING ${cell.step}...", script: "#!/bin/bash \n set -o pipefail ; ${build_script} ${cell.jdk} 2>&1 | tee ${logfile}"
                 if ("jar" == step) { // only stash the project built files. all dependency libraries are restored from the local maven repo using `ant resolver-dist-lib`
+                    // TODO if jvm-dtest tests are included, build the dtest jars and include them in the stash
                     stash name: "${cell.arch}_${cell.jdk}", useDefaultExcludes: false //, includes: '**/*.jar' //, includes: "*.jar,classes/**,test/classes/**,tools/**"
                 }
                 dir("build") {
@@ -332,13 +334,13 @@ def test(command, cell) {
           catchError(buildResult: null, message: 'Tests failed', stageResult: 'FAILURE') {
             sh label: "RUNNING TESTS ${cell.step}...", script: "${script_vars} .build/docker/run-tests.sh ${cell.step} '${cell.split}/${splits}' ${cell.jdk} 2>&1 | tee ${logfile}"
             dir("build") {
-              junit testResults: "test/**/TEST*.xml,test/output/cqlshlib.xml,test/output/nosetests.xml", testDataPublishers: [[$class: 'StabilityTestDataPublisher']]
-              sh "xz -f test/**/TEST*.xml || true ; xz -f test/output/cqlshlib.xml || true ; xz -f test/output/nosetests.xml || true"
+              junit testResults: "test/**/TEST-*.xml,test/output/cqlshlib.xml,test/output/nosetests.xml", testDataPublishers: [[$class: 'StabilityTestDataPublisher']]
+              sh "find test/ -name \'TEST-*.xml\' -or -name 'cqlshlib.xml' -or -name 'nosetests.xml' -exec xz -f {} ';' "
             }
           }
           dir("build") {
               sh "xz -f *.log"
-              archiveArtifacts artifacts: "**/*.log.xz,test/logs/**,test/**/TEST*.xml.xz,test/output/cqlshlib.xml.xz,test/output/nosetests.xml.xz", fingerprint: true
+              archiveArtifacts artifacts: "**/*.log.xz,test/logs/**,test/**/TEST-*.xml.xz,test/output/cqlshlib.xml.xz,test/output/nosetests.xml.xz", fingerprint: true
               copyToNightlies("*.log.xz,test/logs/**", "${cell.step}/${cell.arch}/jdk${cell.jdk}/python${cell.python}/cython_${cell.cython}/" + "split_${cell.split}_${splits}".replace("/", "_"))
           }
           cleanAgent(".build/docker/run-tests.sh")
@@ -438,18 +440,27 @@ def summateStatus() {
   //}
 }
 
-def generateUnifiedTestReport() {
+def generateTestReports() {
   node(getNodeArch('amd64')) {
     checkout changelog: false, scm: scmGit(branches: [[name: params.branch]], extensions: [cloneOption(depth: 1, noTags: true, reference: '', shallow: true)], userRemoteConfigs: [[url: params.repository]])
-    copyArtifacts filter: 'test/**/TEST*.xml.xz,test/output/cqlshlib.xml.xz,test/output/nosetests.xml.xz', fingerprintArtifacts: true, projectName: env.JOB_NAME, selector: specific(env.BUILD_NUMBER), target: "build/", optional: true
+    copyArtifacts filter: 'test/**/TEST-*.xml.xz,test/output/cqlshlib.xml.xz,test/output/nosetests.xml.xz', fingerprintArtifacts: true, projectName: env.JOB_NAME, selector: specific(env.BUILD_NUMBER), target: "build/", optional: true
     if (fileExists('build/test/output')) {
-      sh "find build/test/ -name 'TEST*.xml.xz' -exec xz --decompress {} ';'"
-      sh ".build/docker/_docker_run.sh bullseye-build.docker generate-test-report.sh"
+
+        // merge splits for each target's test report, other axes are kept separate
+        sh """
+                find build/test/ -name \'TEST-*.xml.xz\' -or -name 'cqlshlib.xml.xz' -or -name 'nosetests.xml.xz' -exec xz --decompress {} ';'
+
+                for target in build/test/output/* ; do
+                    mkdir "build/test/reports/${target}"
+                    CASSANDRA_DOCKER_ANT_OPTS="-Dbuild.test.output.dir=build/test/output/${target} -Dbuild.test.report.dir=build/test/reports/${target}" .build/docker/_docker_run.sh bullseye-build.docker generate-test-report.sh ';'
+                done
+                
+                tar -cf results_details.tar build/test/reports && xz -f build/results_details.tar
+            """
+
       dir('build/') {
-        sh "xz -f TESTS-TestSuites.xml"
-        sh "tar -cf TESTS-html.tar test/html && xz -f TESTS-html.tar"
-        archiveArtifacts artifacts: "TESTS-TestSuites.xml.xz,TESTS-html.tar.xz", fingerprint: true
-        copyToNightlies('TESTS-TestSuites.xml.xz,TESTS-html.tar.xz')
+        archiveArtifacts artifacts: "results_details.tar.xz", fingerprint: true
+        copyToNightlies('results_details.tar.xz')
       }
     }
   }

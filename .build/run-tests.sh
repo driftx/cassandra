@@ -180,10 +180,10 @@ _main() {
   # ant test setup
   export TMP_DIR="${DIST_DIR}/tmp"
   [ -d ${TMP_DIR} ] || mkdir -p "${TMP_DIR}"
-  export ANT_TEST_OPTS="-Dno-build-test=true -Dtmp.dir=${TMP_DIR}"
+  export ANT_TEST_OPTS="-Dno-build-test=true -Dtmp.dir=${TMP_DIR} -Dbuild.test.output.dir=${DIST_DIR}/test/output/${target}"
 
   # fresh virtualenv and test logs results everytime
-  [[ "/" == "${DIST_DIR}" ]] || rm -rf "${DIST_DIR}/test/{html,output,logs}"
+  [[ "/" == "${DIST_DIR}" ]] || rm -rf "${DIST_DIR}/test/{html,output,logs,reports}"
 
   # cheap trick to ensure dependency libraries are in place. allows us to stash only project specific build artifacts.
   #  also recreate some of the non-build files we need

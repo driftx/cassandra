@@ -221,16 +221,30 @@ final class HintsWriteExecutor
 
     private void flush(Iterator<ByteBuffer> iterator, HintsStore store, HintsBuffer buffer)
     {
+        boolean isHintFileFull = false;
         while (true)
         {
             if (iterator.hasNext())
-                flushInternal(iterator, store);
+                isHintFileFull = flushInternal(iterator, store);
 
-            if (!iterator.hasNext())
+            if (isHintFileFull)
+            {
+                try
+                {
+                    // exceeded the size limit for an individual file, but still have more to write
+                    // close the current writer and continue flushing to a new one in the next iteration
+                    store.closeWriter();
+                }
+                finally
+                {
+                    buffer.clearEarliestHintForHostId(store.hostId);
+                }
+            }
+
+            if (!iterator.hasNext() && !isHintFileFull)
                 break;
 
-            // exceeded the size limit for an individual file, but still have more to write
-            // close the current writer and continue flushing to a new one in the next iteration
+
             try
             {
                 store.closeWriter();
@@ -256,7 +270,7 @@ final class HintsWriteExecutor
     }
 
     @SuppressWarnings("resource")   // writer not closed here
-    private void flushInternal(Iterator<ByteBuffer> iterator, HintsStore store)
+    private boolean flushInternal(Iterator<ByteBuffer> iterator, HintsStore store)
     {
         long maxHintsFileSize = DatabaseDescriptor.getMaxHintsFileSize();
 
@@ -264,12 +278,18 @@ final class HintsWriteExecutor
 
         try (HintsWriter.Session session = writer.newSession(writeBuffer))
         {
+            // check that we are not over the limit already
+            if (session.position() >= maxHintsFileSize)
+                return true;
+
             while (iterator.hasNext())
             {
                 session.append(iterator.next());
                 if (session.position() >= maxHintsFileSize)
-                    break;
+                    return true;
             }
+
+            return false;
         }
         catch (IOException e)
         {

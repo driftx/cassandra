@@ -72,7 +72,10 @@ final class HintsDispatchTrigger implements Runnable
             dispatchExecutor.dispatch(store);
 
         if (store.isWriting())
+        {
             writeExecutor.closeWriter(store);
+            HintsService.instance.getHintsBufferPool().clearEarliestHintsForHostId(store.hostId);
+        }
     }
 
     private boolean isScheduled(HintsStore store)

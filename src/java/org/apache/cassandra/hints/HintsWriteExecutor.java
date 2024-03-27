@@ -194,7 +194,7 @@ final class HintsWriteExecutor
         {
             HintsBuffer buffer = bufferPool.currentBuffer();
             buffer.waitForModifications();
-            stores.forEach(store -> flush(buffer.consumingHintsIterator(store.hostId), store, buffer));
+            stores.forEach(store -> flush(buffer.consumingHintsIterator(store.hostId), store));
         }
     }
 
@@ -216,10 +216,10 @@ final class HintsWriteExecutor
 
     private void flush(HintsBuffer buffer)
     {
-        buffer.hostIds().forEach(hostId -> flush(buffer.consumingHintsIterator(hostId), catalog.get(hostId), buffer));
+        buffer.hostIds().forEach(hostId -> flush(buffer.consumingHintsIterator(hostId), catalog.get(hostId)));
     }
 
-    private void flush(Iterator<ByteBuffer> iterator, HintsStore store, HintsBuffer buffer)
+    private void flush(Iterator<ByteBuffer> iterator, HintsStore store)
     {
         while (true)
         {

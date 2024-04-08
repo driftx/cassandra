@@ -82,7 +82,7 @@ public class CommitLog implements CommitLogMBean
 
     final public AbstractCommitLogSegmentManager segmentManager;
 
-    public final CommitLogArchiver archiver;
+    public CommitLogArchiver archiver;
     public final CommitLogMetrics metrics;
     final AbstractCommitLogService executor;
 
@@ -403,7 +403,13 @@ public class CommitLog implements CommitLogMBean
     @Override
     public long getRestorePointInTime()
     {
-        return archiver.restorePointInTime;
+        return archiver.restorePointInTimeInMicros;
+    }
+
+    @VisibleForTesting
+    public void setCommitlogArchiver(CommitLogArchiver archiver)
+    {
+        this.archiver = archiver;
     }
 
     @Override

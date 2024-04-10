@@ -23,7 +23,6 @@ package org.apache.cassandra.db.commitlog;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -34,6 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,19 +66,22 @@ public class CommitLogArchiver
     final String restoreCommand;
     final String restoreDirectories;
     public long restorePointInTimeInMicros;
+    public final TimeUnit precision;
 
-    public CommitLogArchiver(String archiveCommand, String restoreCommand, String restoreDirectories, long restorePointInTimeInMicros)
+    public CommitLogArchiver(String archiveCommand, String restoreCommand, String restoreDirectories,
+            long restorePointInTimeInMicros, TimeUnit precision)
     {
         this.archiveCommand = archiveCommand;
         this.restoreCommand = restoreCommand;
         this.restoreDirectories = restoreDirectories;
         this.restorePointInTimeInMicros = restorePointInTimeInMicros;
+        this.precision = precision;
         executor = !Strings.isNullOrEmpty(archiveCommand) ? new JMXEnabledThreadPoolExecutor("CommitLogArchiver") : null;
     }
 
     public static CommitLogArchiver disabled()
     {
-        return new CommitLogArchiver(null, null, null, Long.MAX_VALUE);
+        return new CommitLogArchiver(null, null, null, Long.MAX_VALUE,  TimeUnit.MICROSECONDS);
     }
 
     public static CommitLogArchiver construct()
@@ -124,16 +127,17 @@ public class CommitLogArchiver
             }
         }
         String targetTime = commitlogCommands.getProperty("restore_point_in_time");
+        TimeUnit precision = TimeUnit.valueOf(commitlogCommands.getProperty("precision", "MICROSECONDS"));
         long restorePointInTime;
         try
         {
             restorePointInTime = Strings.isNullOrEmpty(targetTime) ? Long.MAX_VALUE : getMicroSeconds(targetTime);
         }
-        catch (DateTimeParseException | ConfigurationException  e)
+        catch (DateTimeParseException e)
         {
             throw new RuntimeException("Unable to parse restore target time", e);
         }
-        return new CommitLogArchiver(archiveCommand, restoreCommand, restoreDirectories, restorePointInTime);
+        return new CommitLogArchiver(archiveCommand, restoreCommand, restoreDirectories, restorePointInTime, precision);
     }
 
     public void maybeArchive(final CommitLogSegment segment)

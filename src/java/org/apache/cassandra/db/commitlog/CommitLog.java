@@ -413,6 +413,13 @@ public class CommitLog implements CommitLogMBean
         this.archiver = archiver;
     }
 
+    @Deprecated
+    @Override
+    public String getRestorePrecision()
+    {
+        return archiver.precision.toString();
+    }
+
     public List<String> getActiveSegmentNames()
     {
         Collection<CommitLogSegment> segments = segmentManager.getActiveSegments();

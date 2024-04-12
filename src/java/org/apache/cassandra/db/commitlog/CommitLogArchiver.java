@@ -65,7 +65,7 @@ public class CommitLogArchiver
     final String archiveCommand;
     final String restoreCommand;
     final String restoreDirectories;
-    public long restorePointInTimeInMicros;
+    public volatile long restorePointInTimeInMicros;
     public final TimeUnit precision;
 
     public CommitLogArchiver(String archiveCommand, String restoreCommand, String restoreDirectories,

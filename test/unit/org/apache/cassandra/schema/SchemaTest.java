@@ -104,6 +104,7 @@ public class SchemaTest
             // schema should match the current digest
             assertEquals(SchemaKeyspace.calculateSchemaDigest(), Schema.instance.getVersion());
         }
+        Schema.instance.transform(current -> current.without(ksm.name));
     }
 
     @Test

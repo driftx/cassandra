@@ -182,8 +182,11 @@ public class CommitLog implements CommitLogMBean
         // archiving pass, which we should not treat as serious.
         for (File file : getUnmanagedFiles())
         {
-            archiver.maybeArchive(file.getPath(), file.getName());
-            archiver.maybeWaitForArchiving(file.getName());
+            if (file.exists())
+            {
+                archiver.maybeArchive(file.getPath(), file.getName());
+                archiver.maybeWaitForArchiving(file.getName());
+            }
         }
 
         assert archiver.archivePending.isEmpty() : "Not all commit log archive tasks were completed before restore";

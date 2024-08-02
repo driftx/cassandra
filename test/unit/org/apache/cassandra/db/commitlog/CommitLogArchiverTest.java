@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.Map;
+import java.util.HashMap;
 import java.util.Properties;
 
 import static org.junit.Assert.assertTrue;
@@ -50,10 +50,11 @@ public class CommitLogArchiverTest extends CQLTester
         CommitLog commitLog = CommitLog.instance;
         Properties properties = new Properties();
         archiver = commitLog.archiver;
-        properties.putAll(Map.of("archive_command", "/bin/cp %path " + backupDir,
-                                 "restore_command", "/bin/cp -f %from %to",
-                                 "restore_directories", backupDir,
-                                 "restore_point_in_time", rpiTime));
+        properties.putAll(new HashMap<String, String>() {{
+                          put("archive_command", "/bin/cp %path " + backupDir.toString());
+                          put("restore_command", "/bin/cp -f %from %to");
+                          put("restore_directories", backupDir.toString());
+                          put("restore_point_in_time", rpiTime);}});
         CommitLogArchiver commitLogArchiver = CommitLogArchiver.getArchiverFromProperty(properties);
         commitLog.setCommitlogArchiver(commitLogArchiver);
     }

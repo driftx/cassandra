@@ -60,6 +60,7 @@ import org.assertj.core.api.Assertions;
 import static net.bytebuddy.matcher.ElementMatchers.named;
 import static net.bytebuddy.matcher.ElementMatchers.takesArguments;
 import static org.apache.cassandra.config.CassandraRelevantProperties.JOIN_RING;
+import static org.apache.cassandra.config.CassandraRelevantProperties.RING_DELAY;
 import static org.apache.cassandra.distributed.action.GossipHelper.withProperty;
 import static org.apache.cassandra.distributed.api.Feature.GOSSIP;
 import static org.apache.cassandra.distributed.api.Feature.NETWORK;
@@ -183,7 +184,7 @@ public class GossipTest extends TestBaseImpl
         int expandedNodeCount = originalNodeCount + 1;
         ExecutorService es = Executors.newFixedThreadPool(1);
         // set 5s as ring delay so fatclient will be removed soon
-        System.setProperty("cassandra.ring_delay_ms", "5000");
+        RING_DELAY.setLong(5000);
         try (Cluster cluster = builder().withNodes(originalNodeCount)
                                         .withTokenSupplier(TokenSupplier.evenlyDistributedTokens(expandedNodeCount))
                                         .withNodeIdTopology(NetworkTopology.singleDcNetworkTopology(expandedNodeCount, "dc0", "rack0"))

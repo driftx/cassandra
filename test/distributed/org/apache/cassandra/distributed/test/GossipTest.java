@@ -194,7 +194,7 @@ public class GossipTest extends TestBaseImpl
             IInstanceConfig config = cluster.newInstanceConfig();
             config.set("auto_bootstrap", true);
             IInvokableInstance newInstance = cluster.bootstrap(config);
-            withProperty("cassandra.join_ring", false, () -> newInstance.startup(cluster));
+            withProperty(JOIN_RING, false, () -> newInstance.startup(cluster));
 
             // wait for the new node to show in existings gossip map, HOST_ID should be there
             InetSocketAddress newNodeAddress = newInstance.broadcastAddress();

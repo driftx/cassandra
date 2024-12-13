@@ -115,7 +115,8 @@ public class InstanceConfig implements IInstanceConfig
                 .set("index_summary_capacity", "50MiB")
                 .set("counter_cache_size", "50MiB")
                 .set("key_cache_size", "50MiB")
-                .set("commitlog_disk_access_mode", "legacy");
+                .set("commitlog_disk_access_mode", "legacy")
+                .set("storage_compatibility_mode", "NONE");
         if (CassandraRelevantProperties.DTEST_JVM_DTESTS_USE_LATEST.getBoolean())
         {
             // TODO: make this load latest_diff.yaml or cassandra_latest.yaml
@@ -160,9 +161,8 @@ public class InstanceConfig implements IInstanceConfig
                 .set("stream_entire_sstables", "true")
 
                 .set("default_secondary_index", "sai")
-                .set("default_secondary_index_enabled", "true")
+                .set("default_secondary_index_enabled", "true");
 
-                .set("storage_compatibility_mode", "NONE");
         }
         this.featureFlags = EnumSet.noneOf(Feature.class);
         this.jmxPort = jmx_port;

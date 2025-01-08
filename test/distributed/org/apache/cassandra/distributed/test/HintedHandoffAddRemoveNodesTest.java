@@ -27,6 +27,7 @@ import org.apache.cassandra.distributed.api.IInvokableInstance;
 import org.apache.cassandra.distributed.api.TokenSupplier;
 import org.apache.cassandra.distributed.shared.NetworkTopology;
 import org.apache.cassandra.distributed.api.ConsistencyLevel;
+import org.apache.cassandra.exceptions.InvalidRequestException;
 import org.apache.cassandra.metrics.HintsServiceMetrics;
 import org.apache.cassandra.metrics.StorageMetrics;
 import org.apache.cassandra.service.StorageService;
@@ -158,6 +159,35 @@ public class HintedHandoffAddRemoveNodesTest extends TestBaseImpl
             await().atMost(30, SECONDS).pollDelay(3, SECONDS).until(() -> count(cluster, "boot_hint_test", 3) >= totalHints);
             verify(cluster, "boot_hint_test", 3, 0, 128, ConsistencyLevel.ONE);
             verify(cluster, "boot_hint_test", 3, 0, 128, ConsistencyLevel.TWO);
+        }
+    }
+
+    @Test
+    public void shouldTransferDuringDisagreement() throws Exception
+    {
+        try (Cluster cluster = init(builder().withNodes(3)
+                                             .withConfig(config -> config.with(NETWORK, GOSSIP))
+                                             .start()))
+        {
+            cluster.setUncaughtExceptionsFilter(t -> t instanceof InvalidRequestException);
+            // Shutdown node 3 so hints can be written against it.
+            cluster.get(3).shutdown().get();
+
+            cluster.get(1).schemaChangeInternal(withKeyspace("CREATE TABLE %s.hints_disagreement_test (key int PRIMARY KEY, value int)"));
+            long hintsBeforeShutdown = countTotalHints(cluster.get(1));
+            assertThat(hintsBeforeShutdown).isEqualTo(0);
+            long hintsDelivered = countHintsDelivered(cluster.get(1));
+            assertThat(hintsDelivered).isEqualTo(0);
+
+            cluster.coordinator(1).execute(withKeyspace("INSERT INTO %s.hints_diagreement_test (key, value) VALUES (?, ?)"), TWO, 0, 0);
+            Awaitility.await().until(() -> countTotalHints(cluster.get(1)) > 0);
+            long hintsAfterShutdown = countTotalHints(cluster.get(1));
+            assertThat(hintsAfterShutdown).isEqualTo(1);
+
+            cluster.get(3).startup();
+            Awaitility.await().until(() -> countHintsDelivered(cluster.get(1)) > 0);
+            long hintsDeliveredWithDisagreement = countHintsDelivered(cluster.get(1));
+            assertThat(hintsDeliveredWithDisagreement).isEqualTo(1);
         }
     }
 

@@ -21,6 +21,8 @@ package org.apache.cassandra.db.commitlog;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -140,23 +142,74 @@ public class CommitLogCQLTest extends CQLTester
     }
 
     // reserve some heap to be able to print diagnostics in case of OOM
-    private static volatile byte[] rescueBuffer = new byte[8 * 1024 * 1024];
-    private static final AtomicBoolean histogramPrinted = new AtomicBoolean();
+    private static volatile byte[] rescueBuffer1 = new byte[32 * 1024 * 1024];
+    private static volatile byte[] rescueBuffer2 = new byte[32 * 1024 * 1024];
+
+    private static final AtomicBoolean diagnosticPrinted = new AtomicBoolean();
 
     private static void printOomDetails(OutOfMemoryError outOfMemoryError)
     {
-        rescueBuffer = null;
+        rescueBuffer1 = null;
         logger.info("OOM happened", outOfMemoryError);
-        if (histogramPrinted.compareAndSet(false, true))
+        if (diagnosticPrinted.compareAndSet(false, true))
+        {
             try
             {
                 String histogram = (String) ManagementFactory.getPlatformMBeanServer().invoke(
-                    new ObjectName("com.sun.management:type=DiagnosticCommand"),
-                    "gcClassHistogram",
-                    new Object[]{ null },
-                    new String[]{ "[Ljava.lang.String;" }
+                new ObjectName("com.sun.management:type=DiagnosticCommand"),
+                "gcClassHistogram",
+                new Object[]{ null },
+                new String[]{ "[Ljava.lang.String;" }
                 );
-                logger.info("{}", histogram);
-            } catch (Exception e) {}
+                logger.info("=== Histogram ===");
+                logger.info(histogram);
+            }
+            catch (Throwable e)
+            {
+                logger.error("Fail to print heap histogram", e);
+            }
+            rescueBuffer2 = null;
+            printThreadDump();
+        }
+    }
+
+    public static void printThreadDump() {
+        logger.info("=== Thread dump ===");
+        final ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+        final ThreadInfo[] threadInfos = threadMXBean.getThreadInfo(threadMXBean.getAllThreadIds(), 300);
+        for (ThreadInfo threadInfo : threadInfos)
+        {
+            if (threadInfo == null)
+            {
+                //* If a thread of the given ID is not alive or does not exist,
+                // * <tt>null</tt> will be set in the corresponding element
+                // * in the returned array.
+                continue;
+            }
+            final StringBuilder dump = new StringBuilder();
+            dump.append('"');
+            dump.append(threadInfo.getThreadName());
+            dump.append("\" ");
+            final Thread.State state = threadInfo.getThreadState();
+            dump.append("\n   java.lang.Thread.State: ");
+            dump.append(state);
+            dump.append(", waiting time: ");
+            dump.append(threadInfo.getWaitedTime());
+
+            if (threadInfo.getLockInfo() != null)
+            {
+                dump.append(", lock: ");
+                dump.append(threadInfo.getLockInfo());
+            }
+
+            final StackTraceElement[] stackTraceElements = threadInfo.getStackTrace();
+            for (final StackTraceElement stackTraceElement : stackTraceElements)
+            {
+                dump.append("\n        at ");
+                dump.append(stackTraceElement);
+            }
+            dump.append("\n\n");
+            logger.info(dump.toString());
+        }
     }
 }

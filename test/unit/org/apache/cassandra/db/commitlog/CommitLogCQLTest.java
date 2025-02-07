@@ -20,14 +20,20 @@ package org.apache.cassandra.db.commitlog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.management.ObjectName;
+
 import org.junit.Assert;
 import org.junit.Test;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.apache.cassandra.cql3.CQLTester;
 import org.apache.cassandra.cql3.QueryProcessor;
@@ -35,6 +41,7 @@ import org.apache.cassandra.db.ColumnFamilyStore;
 
 public class CommitLogCQLTest extends CQLTester
 {
+    private static final Logger logger = LoggerFactory.getLogger(CommitLogCQLTest.class);
     @Test
     public void testTruncateSegmentDiscard() throws Throwable
     {
@@ -92,6 +99,12 @@ public class CommitLogCQLTest extends CQLTester
                             cfs.dumpMemtable();
                         }
                     }
+                    catch (OutOfMemoryError e)
+                    {
+                        printOomDetails(e);
+                        errors.add(e);
+                        shouldStop.set(true);
+                    }
                     catch (Throwable t)
                     {
                         errors.add(t);
@@ -124,5 +137,26 @@ public class CommitLogCQLTest extends CQLTester
             }
             Assert.fail(sb.toString());
         }
+    }
+
+    // reserve some heap to be able to print diagnostics in case of OOM
+    private static volatile byte[] rescueBuffer = new byte[8 * 1024 * 1024];
+    private static final AtomicBoolean histogramPrinted = new AtomicBoolean();
+
+    private static void printOomDetails(OutOfMemoryError outOfMemoryError)
+    {
+        rescueBuffer = null;
+        logger.info("OOM happened", outOfMemoryError);
+        if (histogramPrinted.compareAndSet(false, true))
+            try
+            {
+                String histogram = (String) ManagementFactory.getPlatformMBeanServer().invoke(
+                    new ObjectName("com.sun.management:type=DiagnosticCommand"),
+                    "gcClassHistogram",
+                    new Object[]{ null },
+                    new String[]{ "[Ljava.lang.String;" }
+                );
+                logger.info("{}", histogram);
+            } catch (Exception e) {}
     }
 }

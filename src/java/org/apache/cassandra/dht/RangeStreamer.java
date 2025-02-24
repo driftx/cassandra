@@ -369,7 +369,7 @@ public class RangeStreamer
         EndpointsByReplica fetchMap = calculateRangesToFetchWithPreferredEndpoints(replicas, keyspace, useStrictSource);
 
         for (Map.Entry<Replica, Replica> entry : fetchMap.flattenEntries())
-            logger.info("{}: range {} exists on {} for rf {}", description, entry.getKey(), entry.getValue(), params);
+            logger.debug("{}: range {} exists on {} for rf {}", description, entry.getKey(), entry.getValue(), params);
 
         Multimap<InetAddressAndPort, FetchReplica> workMap;
         //Only use the optimized strategy if we don't care about strict sources, have a replication factor > 1, and no
@@ -615,7 +615,6 @@ public class RangeStreamer
                 assert (e.getKey()).isSelf();
                 assert !source.isSelf();
                 workMap.put(source.endpoint(), new FetchReplica(e.getKey(), source));
-                break;
             }
         }
         logger.debug("Work map {}", workMap);

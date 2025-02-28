@@ -700,7 +700,7 @@ public class RangeStreamer
                 if (RESET_BOOTSTRAP_PROGRESS.getBoolean())
                 {
                     SystemKeyspace.resetAvailableStreamedRangesForKeyspace(keyspace);
-                    Keyspace.truncateBlockingWithoutSnapshot(keyspace);
+                    Keyspace.truncateBlockingWithoutSnapshotIfDataExists(keyspace);
                     remaining = new ArrayList<>(fetchReplicas);
                 }
                 else

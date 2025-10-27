@@ -59,7 +59,7 @@ public class AlterTest extends CQLTester
         {
             createTable("CREATE TABLE %s (a int, b " + type + ", PRIMARY KEY (a));");
             alterTable("ALTER TABLE %s DROP b;");
-            assertInvalidMessage("Cannot re-add previously dropped column 'b' of type blob, incompatible with previous type " + type,
+            assertInvalidMessage("Cannot add a column 'b' of type blob, incompatible with previously dropped column 'b' of type " + type,
                                  "ALTER TABLE %s ADD b blob;");
         }
 
@@ -67,7 +67,7 @@ public class AlterTest extends CQLTester
         {
             createTable("CREATE TABLE %s (a int, b blob, PRIMARY KEY (a));");
             alterTable("ALTER TABLE %s DROP b;");
-            assertInvalidMessage("Cannot re-add previously dropped column 'b' of type " + type + ", incompatible with previous type blob",
+            assertInvalidMessage("Cannot add a column 'b' of type " + type + ", incompatible with previously dropped column 'b' of type blob",
                                  "ALTER TABLE %s ADD b " + type + ';');
         }
     }
@@ -81,7 +81,7 @@ public class AlterTest extends CQLTester
         {
             createTable("CREATE TABLE %s (a int, b " + type + ", PRIMARY KEY (a));");
             alterTable("ALTER TABLE %s DROP b;");
-            assertInvalidMessage("Cannot re-add previously dropped column 'b' of type blob, incompatible with previous type " + type,
+            assertInvalidMessage("Cannot add a column 'b' of type blob, incompatible with previously dropped column 'b' of type " + type,
                                  "ALTER TABLE %s ADD b blob;");
         }
     }

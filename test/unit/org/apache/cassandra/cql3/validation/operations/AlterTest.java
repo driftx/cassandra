@@ -68,7 +68,7 @@ public class AlterTest extends CQLTester
     }
 
     @Test
-    public void testFrozenCollectionsAreNotCompatibleWithBlob()
+    public void testFrozenCollectionsAreNotCompatibleWithBlob() throws Throwable
     {
         String[] collectionTypes = new String[] {"frozen<map<int, int>>", "frozen<set<int>>", "frozen<list<int>>"};
 

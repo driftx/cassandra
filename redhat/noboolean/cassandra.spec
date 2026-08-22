@@ -24,8 +24,6 @@
 # binary executable files in our 'noarch' package
 %define _binaries_in_noarch_packages_terminate_build   0
 
-%define __python /usr/bin/python3
-
 %global username cassandra
 
 # input of ~alphaN, ~betaN, ~rcN package versions need to retain upstream '-alphaN, etc' version for sources
@@ -91,7 +89,15 @@ mkdir -p %{buildroot}/var/lib/%{username}/saved_caches
 mkdir -p %{buildroot}/var/lib/%{username}/hints
 mkdir -p %{buildroot}/var/run/%{username}
 mkdir -p %{buildroot}/var/log/%{username}
-( cd pylib && %{__python} setup.py install --no-compile --root %{buildroot}; )
+
+# install the cqlsh python library in a Python-version independent location;
+# cqlsh.py adds it to sys.path at runtime. Installing via 'setup.py install'
+# would bake the build machine's Python site-packages path into this noarch
+# package, breaking cqlsh on systems with a different Python version
+mkdir -p %{buildroot}/usr/share/%{username}/pylib
+cp -pr pylib/cqlshlib %{buildroot}/usr/share/%{username}/pylib/
+rm -rf %{buildroot}/usr/share/%{username}/pylib/cqlshlib/test
+find %{buildroot}/usr/share/%{username}/pylib -name __pycache__ -type d -exec rm -rf {} +
 
 # patches for data and log paths
 patch -p1 < debian/patches/cassandra_yaml_dirs.diff
@@ -167,8 +173,6 @@ exit 0
 %attr(750,%{username},%{username}) %config(noreplace) /var/lib/%{username}/*
 %attr(750,%{username},%{username}) /var/log/%{username}*
 %attr(750,%{username},%{username}) /var/run/%{username}*
-%{python_sitelib}/cqlshlib/
-%{python_sitelib}/cassandra_pylib*.egg-info
 
 %post
 alternatives --install /%{_sysconfdir}/%{username}/conf %{username} /%{_sysconfdir}/%{username}/default.conf/ 0
@@ -211,6 +215,9 @@ This package contains extra tools for working with Cassandra clusters.
 
 %changelog
 # packaging changes, not software changes
+* Sat Aug 22 2026 Brandon Williams <brandonwilliams@apache.org>
+- Install pylib/cqlshlib under /usr/share/cassandra/pylib instead of
+  'setup.py install' into the build machine's Python site-packages;
 * Thu May 04 2023 Mick Semb Wever <mck@apache.org>
 - 5.0
 - RPM packaging brought in-tree. CASSANDRA-18133

@@ -75,9 +75,16 @@ except ImportError as e:
 
 # cqlsh should run correctly when run out of a Cassandra source tree,
 # out of an unpacked Cassandra tarball, and after a proper package install.
-cqlshlibdir = os.path.join(CASSANDRA_PATH, 'pylib')
-if os.path.isdir(cqlshlibdir):
-    sys.path.insert(0, cqlshlibdir)
+CQLSHLIB_DIRS = [os.path.join(CASSANDRA_PATH, 'pylib')]
+
+if platform.system() == 'Linux':
+    # the in-tree redhat/cassandra.spec places pylib here
+    CQLSHLIB_DIRS.append('/usr/share/cassandra/pylib')
+
+for cqlshlibdir in CQLSHLIB_DIRS:
+    if os.path.isdir(os.path.join(cqlshlibdir, 'cqlshlib')):
+        sys.path.insert(0, cqlshlibdir)
+        break
 
 from cqlshlib.cqlshmain import main
 

@@ -146,10 +146,21 @@ public class HostReplacementTest extends TestBaseImpl
             SimpleQueryResult expectedState = nodeToRemove.coordinator().executeWithResult("SELECT * FROM " + KEYSPACE + ".tbl", ConsistencyLevel.ALL);
 
             // now create a new node to replace the other node
+            // The joining node must fail, but which failure it depends on gossip timing:
+            //  - if the old node's state is fresh enough for the bootstrap token collision
+            //    check, it fails with UnsupportedOperationException "Cannot replace a live node..."
+            //    (StorageService.joinTokenRing)
+            //  - otherwise the failure detector catches the alive old node when processing the
+            //    BOOTSTRAP_REPLACING gossip message, failing with RuntimeException "...trying to
+            //    replace alive node..." (StorageService.handleStateBootreplacing)
+            // Both correctly abort the replacement, so accept either.
             Assertions.assertThatThrownBy(() -> replaceHostAndStart(cluster, nodeToRemove))
                       .as("Startup of instance should have failed as you can not replace a alive node")
-                      .hasMessageContaining("Cannot replace a live node")
-                      .isInstanceOf(UnsupportedOperationException.class);
+                      .satisfiesAnyOf(
+                          t -> Assertions.assertThat(t).isInstanceOf(UnsupportedOperationException.class)
+                                                            .hasMessageContaining("Cannot replace a live node"),
+                          t -> Assertions.assertThat(t).isInstanceOf(RuntimeException.class)
+                                                            .hasMessageContaining("trying to replace alive node"));
 
             // make sure all nodes are healthy
             awaitRingHealthy(seed);
